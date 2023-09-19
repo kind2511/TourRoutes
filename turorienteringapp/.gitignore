@@ -1,6 +1,6 @@
 # Node and npm related
 node_modules/
-package-lock.json
+
 
 # React specific (if you're using React and create-react-app)
 /build/
