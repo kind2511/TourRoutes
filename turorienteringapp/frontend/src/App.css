@@ -1,0 +1,61 @@
+/* Main styling for the App container, aligning the text to the center */
+.App {
+  text-align: center;
+}
+
+/* Styling for the App's logo 
+   - Setting the height relative to the viewport's height
+   - Disabling any pointer events like clicking or hovering
+*/
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+/* Animation for the App's logo
+   - This animation applies only for users who have not expressed a preference 
+     for reduced motion in their browser/OS settings
+   - The logo will spin infinitely every 20 seconds in a linear motion
+*/
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+/* Styling for the App's header section 
+   - Setting the background color
+   - Ensuring a minimum height of 100vh (100% of the viewport height)
+   - Using flexbox to position the content in the center both horizontally and vertically
+   - Setting the font size relative to the viewport's width
+   - Setting the text color to white
+*/
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+/* Styling for the App's links 
+   - Setting the link color
+*/
+.App-link {
+  color: #61dafb;
+}
+
+/* Keyframes for the App's logo spinning animation 
+   - Starts from 0 degrees and rotates to 360 degrees, creating a full spin
+*/
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

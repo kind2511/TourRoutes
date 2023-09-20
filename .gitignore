@@ -1,0 +1,8 @@
+# Ignore Visual Studio Code settings and extensions
+.vscode/
+
+# Ignore history folder
+.history/
+
+# Ignore node_modules directory
+turorienteringapp/frontend/node_modules/
