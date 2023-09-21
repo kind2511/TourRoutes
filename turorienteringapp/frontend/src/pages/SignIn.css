@@ -1,12 +1,19 @@
+
 /* Styling for the background of the sign-in component.
    - Sets up a flexbox-centered green full-height background */
+
    .signin-background {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    background-color: #4CAF50;
+    width: 100vw;       /* cover full viewport width */
+    height: 100vh;      /* cover full viewport height */
+    background-image: url('/D:/previous/group5-prog2052/turorienteringapp/frontend/public/images/background.jpg');
+    background-size: cover;  
+    background-repeat: no-repeat; 
+    background-position: center;  
 }
+
 
 /* Styling for the main sign-in form container.
    - Sets a fixed width, padding, rounded corners, a subtle shadow, and a white background */

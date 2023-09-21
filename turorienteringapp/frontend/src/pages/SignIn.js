@@ -76,5 +76,5 @@ function SignIn() {
     );
 }
 
-// Export the SignIn component for use in other parts of the application
+/* Export the SignIn component for use in other parts of the application */
 export default SignIn;
