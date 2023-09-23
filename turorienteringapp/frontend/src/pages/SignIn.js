@@ -1,51 +1,40 @@
-// Import required React hooks and utilities
 import React, { useState } from "react";
-// Import navigation hook from react-router-dom
 import { useNavigate } from 'react-router-dom';
-// Import the SignIn component's specific styles
 import './SignIn.css';
 
-// Define the SignIn functional component
 function SignIn() {
-    // State variables for storing email, password, and the show password toggle status
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
-    const [showPassword, setShowPassword] = useState(false);
+    // This state is declared but not used yet. Uncomment when ready to use.
+    // const [showPassword, setShowPassword] = useState(false);
 
-    // Hook to programmatically navigate through routes
     const navigate = useNavigate();
 
-    // Function to handle form submission
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Placeholder logic for authentication, currently logs email to the console
-        // TODO: Replace this with proper authentication logic.
         console.log(email);
     }
 
-    // Function to navigate to the register page when the user wants to sign up
     const handleRegisterClick = () => {
         navigate('/register');
     }
 
-    // Return the JSX for the SignIn component
     return (
         <div className="signin-background">
             <div className="signin-container">
-                {/* Company Logo */}
-                <img src="/images/TurRuter.gif" alt="TurRuter Logo" className="logo"/>
                 <h1>Log In</h1>
                 {/* Login form */}
                 <form onSubmit={handleSubmit}>
                     <div className="input-group">
-                        <label htmlFor="email">Email</label>
+                        <label htmlFor="email">Email Address</label>
                         <input 
                             value={email} 
                             onChange={(e) => setEmail(e.target.value)}
                             type="email" 
                             id="email" 
                             name="email" 
-                            placeholder="Please Enter Valid Email"
+                            // Placeholder for email, uncomment if you want to use it.
+                            // placeholder="Please Enter Valid Email"
                         />
                     </div>
                     <div className="input-group">
@@ -54,15 +43,13 @@ function SignIn() {
                             <input 
                                 value={pass} 
                                 onChange={(e) => setPass(e.target.value)}
-                                type={showPassword ? 'text' : 'password'}
+                                type={/*showPassword ? 'text' : */'password'} // Modify this line when you want to implement show/hide password
                                 id="password" 
                                 name="password"
-                                placeholder="********"
+                                // Placeholder for password, uncomment if you want to use it.
+                                // placeholder="********"
                             />
-                            {/* Toggle to show/hide password */}
-                            <span className="toggle-password" onClick={() => setShowPassword(!showPassword)}>
-                                {showPassword ? "Hide" : "Show"}
-                            </span>
+                            {/* Toggle functionality for show/hide password will be implemented here when ready */}
                         </div>
                     </div>
                     <button type="submit">Log In</button>
@@ -76,5 +63,4 @@ function SignIn() {
     );
 }
 
-/* Export the SignIn component for use in other parts of the application */
 export default SignIn;
