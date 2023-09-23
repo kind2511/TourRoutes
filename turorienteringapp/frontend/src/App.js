@@ -14,7 +14,7 @@ function App() {
       
       <Router>
         
-        <NavigationBar /> {/* This will display the navigation bar on every page */}
+        <NavigationBar /> {/*  display the navigation bar on every page */}
         
         <Routes>
           
@@ -35,5 +35,5 @@ function App() {
   );
 }
 
-// Export the App component to be used elsewhere in the project
+/* Export the App component to be used elsewhere in the project*/
 export default App;
