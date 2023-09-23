@@ -1,0 +1,46 @@
+/* components/NavigationBar.css */
+
+.nav-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #282c34;
+}
+
+.nav-logo {
+    font-family: 'Pacifico', cursive; /* Using the Pacifico font */
+    font-size: 32px; /* Adjust size as needed */
+    font-weight: bold;
+    color: #4CAF50; /* Darker shade of green */
+    letter-spacing: 1px;
+    text-transform: capitalize; /* So it's not all uppercase */
+    cursor: pointer;
+    text-decoration: none;  /* Remove underline from the TurRuter logo link */
+}
+
+.nav-links {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    gap: 20px;
+    font-weight: bold;  /* text bold */
+}
+
+/* Styling for the login and register links */
+.nav-links li a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.2s;
+   /* font-family: 'Pacifico', cursive; /* Use the Pacifico font for Login and Register links */
+    color: #4CAF50; /* Green color for the links */
+}
+
+
+.nav-links li a:hover {
+    color: #61dafb;  /* This will be the color when hovered */
+}
+.element-selector {
+    font-family: 'Pacifico', cursive;
+}
+
