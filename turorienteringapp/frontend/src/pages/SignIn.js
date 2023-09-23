@@ -22,7 +22,9 @@ function SignIn() {
     return (
         <div className="signin-background">
             <div className="signin-container">
-                <h1>Log In</h1>
+                {/* Replacing the h1 tag with the styled logo */}
+                <div className="signin-logo">TurRuter</div>
+                
                 {/* Login form */}
                 <form onSubmit={handleSubmit}>
                     <div className="input-group">
@@ -33,8 +35,6 @@ function SignIn() {
                             type="email" 
                             id="email" 
                             name="email" 
-                            // Placeholder for email, uncomment if you want to use it.
-                            // placeholder="Please Enter Valid Email"
                         />
                     </div>
                     <div className="input-group">
@@ -43,15 +43,18 @@ function SignIn() {
                             <input 
                                 value={pass} 
                                 onChange={(e) => setPass(e.target.value)}
-                                type={/*showPassword ? 'text' : */'password'} // Modify this line when you want to implement show/hide password
+                                type={/*showPassword ? 'text' : */'password'}
                                 id="password" 
                                 name="password"
-                                // Placeholder for password, uncomment if you want to use it.
-                                // placeholder="********"
                             />
-                            {/* Toggle functionality for show/hide password will be implemented here when ready */}
                         </div>
                     </div>
+                    <div className="forgot-password">
+                      <span onClick={() => { /* Handle forgot password logic here */ }}>
+                     Forgot your password?
+                      </span>
+                    </div>
+
                     <button type="submit">Log In</button>
                 </form>
                 {/* Link to navigate to the register page */}
