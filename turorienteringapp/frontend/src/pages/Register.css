@@ -25,6 +25,7 @@ Common styles for the main container of both Register and Sign-in pages.
     border-radius: 10px;
     box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
     background-color: #ffffff;
+    margin-top: 160px; /*fix the distance between navigation bar and register container*/
 }
 
 /* 

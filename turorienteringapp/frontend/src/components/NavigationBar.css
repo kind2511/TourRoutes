@@ -2,14 +2,20 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 20px;
+    padding: 1px 20px;
     background-color: #282c34;
+    /*below styling will make sure the navigation bar is top and not changed size while moving between pages  */
+    z-index: 1000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
 }
 
 .logo-menu-container {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap:10px;
 }
 
 .nav-logo {
