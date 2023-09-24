@@ -3,12 +3,14 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    width: 100vw;
+    width: 100%;
     height: 100vh;
-    background-image: url('/D:/previous/group5-prog2052/turorienteringapp/frontend/public/images/background.gif');
+    /*background-image: url('/D:/previous/group5-prog2052/turorienteringapp/frontend/public/images/background.gif');*/
     background-size: cover;  
     background-repeat: no-repeat; 
     background-position: center;  
+    background-color: #4CAF50;
+    justify-content: center; 
 }
 
 /* Styling for the main sign-in form container. */
@@ -18,6 +20,8 @@
     border-radius: 10px;
     box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
     background-color: #ffffff;
+    overflow: hidden;
+    width: auto;
 }
 
 h1 {
@@ -80,7 +84,7 @@ button:hover {
 
 
 /*
- * These for styling  element (forget password)
+ * These for styling  element (forget password) 
  */
 .forgot-password {
     text-align: left; /* To align the text to the left*/
@@ -105,3 +109,8 @@ button:hover {
     text-align: center;
     margin-bottom: 20px; /* Additional margin for spacing */
 }
+
+.container-or-element-class {
+    overflow-x: hidden;
+  }
+  

@@ -60,44 +60,46 @@ function Register() {
   return (
     <div className="register-background">
       <div className="register-container">
-        <img src="/images/TurRuter.gif" alt="TurRuter Logo" className="logo"/>
-        <h2>Register</h2>
+        {/* Replacing the heading with the logo text */}
+        <span className="nav-logo">TurRuter</span>
+        
         <form onSubmit={handleSubmit}>
+          <label htmlFor="name">Name</label>
+          <input 
+            type="text"
+            name="name"
+            id="name"
+            value={formData.name}
+            onChange={handleInputChange}
+          />
+
+          <label htmlFor="email">Email Address</label>
           <input 
             type="email"
             name="email"
-            placeholder="Email"
+            id="email"
             value={formData.email}
             onChange={handleInputChange}
           />
-          <input 
-            type="text"
-            name="firstName"
-            placeholder="First Name"
-            value={formData.firstName}
-            onChange={handleInputChange}
-          />
-          <input 
-            type="text"
-            name="lastName"
-            placeholder="Last Name"
-            value={formData.lastName}
-            onChange={handleInputChange}
-          />
+
+          <label htmlFor="password">Password</label>
           <input 
             type="password"
             name="password"
-            placeholder="Password"
+            id="password"
             value={formData.password}
             onChange={handleInputChange}
           />
+
+          <label htmlFor="confirmPassword">Confirm Password</label>
           <input 
             type="password"
             name="confirmPassword"
-            placeholder="Confirm Password"
+            id="confirmPassword"
             value={formData.confirmPassword}
             onChange={handleInputChange}
           />
+
           <button type="submit">Register</button>
         </form>
         <div className="login-prompt">

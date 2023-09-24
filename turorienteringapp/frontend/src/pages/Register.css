@@ -1,8 +1,5 @@
-/* src/pages/Register.css */
-
 /* 
 Common styles for the background of both the Register and Sign-in pages.
-They set a full viewport height, centered content, and a specific background color.
 */
 .register-background,
 .signin-background {
@@ -11,11 +8,15 @@ They set a full viewport height, centered content, and a specific background col
     align-items: center;
     height: 100vh;
     background-color: #4CAF50;
+    margin-top: -30px; /* here to move the container little bit up */
+    justify-content: center; /* Centers content vertically */
+    
+
+    
 }
 
 /* 
 Common styles for the main container of both Register and Sign-in pages.
-The container has a fixed width, padding, rounded corners, a subtle shadow, and a white background.
 */
 .register-container,
 .signin-container {
@@ -28,21 +29,18 @@ The container has a fixed width, padding, rounded corners, a subtle shadow, and 
 
 /* 
 Specific styles for the heading (h2) inside the Register and Sign-in containers.
-The heading has a margin at the bottom, left-aligned text, a specified color, and font styling.
 */
 .register-container h2,
 .signin-container h2 {
     margin-bottom: 28px;
     text-align: left;
     color: #333;
-    font-weight: 500;
-    font-weight: bold;  /* Overwrites the previous font-weight */
+    font-weight: bold;  /* Bold font-weight for the heading */
     font-size: 30px;
 }
 
 /* 
 Styles for labels inside .input-group. 
-They are displayed as blocks with a margin at the bottom and a color.
 */
 .input-group label {
     display: block;
@@ -52,7 +50,6 @@ They are displayed as blocks with a margin at the bottom and a color.
 
 /* 
 Styles for input fields in both Register and Sign-in containers.
-They have full width, padding, border styling, rounded corners, font size, and a transition effect on border property.
 */
 .register-container input,
 .signin-container input {
@@ -76,19 +73,19 @@ They have a specific border color and no outline.
 
 /* 
 Styles for buttons in both containers.
-Buttons have full width, padding, no border, rounded corners, specific background and text colors, cursor pointer, underline text decoration, and transition effect on the background property.
 */
 .register-container button,
 .signin-container button {
     width: 100%;
     padding: 12px;
-    border: none;
+    border: 1px solid #4CAF50;  /* Green border */
     border-radius: 5px;
     background-color: #4CAF50;
     color: white;
     cursor: pointer;
-    text-decoration: underline;  
+    text-decoration: none;  /* No underline */
     transition: background 0.3s;
+    margin-top: 30px; /*move the button little bit down*/
 }
 
 /* 
@@ -102,7 +99,6 @@ On hover, the background color changes.
 
 /* 
 Common styles for the prompt message in both Register and Sign-in pages. 
-They have a margin at the top and centered text.
 */
 .login-prompt,
 .register-prompt {
@@ -112,7 +108,6 @@ They have a margin at the top and centered text.
 
 /* 
 Styles for clickable links in the prompt message. 
-They have a specific color, cursor pointer, and underline text decoration.
 */
 .login-link,
 .register-link {
@@ -122,18 +117,7 @@ They have a specific color, cursor pointer, and underline text decoration.
 }
 
 /* 
-Styles for the logo. 
-The logo is displayed as a block, has a max width, and is centered with a margin below.
-*/
-.logo {
-    display: block;
-    max-width: 200px;
-    margin: 0 auto 20px;
-}
-
-/* 
 Styles for show-password and toggle-password elements. 
-They are displayed as blocks, have a margin at the top, a specific color, cursor pointer, font size, and underline text decoration.
 */
 .show-password,
 .toggle-password {
@@ -147,9 +131,30 @@ They are displayed as blocks, have a margin at the top, a specific color, cursor
 
 /* 
 Styles for the forgot-password link. 
-It has underline text decoration and a specific color.
 */
 .forgot-password {
     text-decoration: underline;
     color: #45a049;  
+}
+
+/*
+ * Styling for the logo that's shared with the navigation bar.
+ */
+.nav-logo {
+    font-family: 'Pacifico', cursive;
+    font-size: 38px;
+    font-weight: bold;
+    color: #4CAF50;
+    letter-spacing: 1px;
+    text-transform: capitalize;
+    cursor: pointer;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+    margin-bottom: 20px;  /* Added to provide some spacing after the logo */
+}
+
+
+.register-container input + input {
+    margin-top: 20px;
 }
