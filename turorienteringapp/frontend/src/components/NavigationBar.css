@@ -29,7 +29,7 @@
     text-decoration: none;
 }
 
-/*here you can adjust the menu bar in navigation bar*/
+/* Here you can adjust the menu bar in navigation bar */
 .hamburger-menu {
     cursor: pointer;
     font-size: 24px;
@@ -38,10 +38,9 @@
     margin-bottom: 0;
 }
 
-
 .nav-links {
     list-style-type: none;
-    padding: 0;/*no gap/padding the space between up page to down will be default */
+    padding: 0; /*no gap/padding the space between up page to down will be default */
     display: flex;
     gap: 20px; /* The gap between login and register  */
     font-weight: bold;
@@ -49,11 +48,47 @@
 
 .nav-links li a {
     /*color: white;*/
-    text-decoration: none;/*no decoration or underline for TurRuter*/
+    text-decoration: none; /*no decoration or underline for TurRuter*/
     transition: color 0.2s;
     color: #4CAF50;
 }
-/*The color of the links login and register will be changed once move the mouse pointer on it*/
+
+/* The color of the links login and register will be changed once move the mouse pointer on it */
 .nav-links li a:hover {
     color: #61dafb;
+}
+
+/* Styles for the hamburger dropdown menu */
+.hamburger-links {
+    list-style-type: none;
+    padding: 0;
+    position: absolute;
+    top: 60px; /* Adjust based on your nav-bar height */
+    right: 20px; 
+    background-color: #282c34;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    width: 150px; /* Set a fixed width for the dropdown */
+    right: auto;      /* Remove the right positioning */
+    left: 30px;      /* Move it 30px to the right of the hamburger icon */
+    top: 30px;       /* Move it 30px below the hamburger icon */
+
+}
+
+.hamburger-links li {
+    padding: 10px 20px;
+}
+
+.hamburger-links li a {
+    color: #4CAF50;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.hamburger-links li a:hover {
+    color: #61dafb;
+}
+
+.hamburger-container {
+    position: relative;
 }
