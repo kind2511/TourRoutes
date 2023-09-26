@@ -1,0 +1,23 @@
+.home-page {
+    padding: 100px 20px;  /* top-bottom padding of 100px, left-right padding of 20px */
+    text-align: center;   /* centering the text horizontally */
+}
+
+
+
+.home-page p {
+    font-size: 1.2rem;    /* font size of 1.2 times the root font size */
+    color: #4CAF50;
+}
+
+
+.bottom-bar {
+    width: 70%;              /* set the width to 70% of the container */
+    height: 2px;             /* make the bar thinner */
+    background-color: #282c34;
+    position: absolute;
+    bottom: 99px;            /* move the line up and down from the bottom */
+    left: 15%;               /* move it left and right */
+}
+
+
