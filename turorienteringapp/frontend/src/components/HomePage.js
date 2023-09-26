@@ -4,8 +4,17 @@ import './HomePage.css';
 function HomePage() {
     return (
         <div className="home-page">
-            <p>Explore the map and find your route!</p>
+         <a href="/map" className="explore-trails-link">Explore Trails</a>
             <div className="bottom-bar"></div>
+            <div className="footer-section">
+                <a href="/privacy-policy">Privacy Policy</a>
+                •
+                <a href="/terms">Terms</a>
+                •
+                <a href="/cookie-policy">Cookie Policy</a>
+                <br/>
+                © 2023 TurRuter. All rights reserved.
+            </div>
         </div>
     );
 }

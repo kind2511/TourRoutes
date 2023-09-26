@@ -3,13 +3,10 @@
     text-align: center;   /* centering the text horizontally */
 }
 
-
-
 .home-page p {
     font-size: 1.2rem;    /* font size of 1.2 times the root font size */
     color: #4CAF50;
 }
-
 
 .bottom-bar {
     width: 70%;              /* set the width to 70% of the container */
@@ -19,5 +16,52 @@
     bottom: 99px;            /* move the line up and down from the bottom */
     left: 15%;               /* move it left and right */
 }
+
+.footer-section {
+    position: absolute;
+    bottom: 40px;            /* adjust this value to place footer section */
+    left: 50%;               /* centering the footer section */
+    transform: translateX(-50%); /* ensure it remains centered */
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.footer-section a {
+    color: #4CAF50;
+    text-decoration: none;
+    margin: 0 5px;   /* Add space between links */
+    cursor: pointer;
+    transition: opacity 0.3s;
+}
+
+/*
+ * value of the changed color when mouse curser on the clickable footer
+ */
+.footer-section a:hover {
+    color: #61dafb; 
+}
+
+
+.map-link {
+    color: #007BFF;  /* will be fixed later */
+    text-decoration: underline;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+
+.explore-trails-link {
+    color: #4CAF50;  /* Set to green color */
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: 1.8rem;  /* font size*/
+    transition: color 0.3s;
+}
+
+/* adjust the color when put the mouse curser */
+.explore-trails-link:hover {
+    color: #61dafb;
+}
+
 
 
