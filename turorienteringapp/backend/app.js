@@ -12,4 +12,12 @@ app.use(express.json());
 // Mounting the routers
 app.use("/api/v1/users", userRouter);
 
+// Functionallity to handle unhandled routes
+app.all("*", (req, res, next) => {
+  res.status(404).json({
+    status: "fail",
+    message: "Can't find requested url on this server!",
+  });
+});
+
 module.exports = app;
