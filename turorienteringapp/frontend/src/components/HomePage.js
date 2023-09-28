@@ -4,7 +4,7 @@ import './HomePage.css';
 function HomePage() {
     return (
         <div className="home-page">
-         <a href="/map" className="explore-trails-link">Explore Trails</a>
+            <button onClick={() => window.location.href="/map"} className="explore-button">Explore</button>
             <div className="bottom-bar"></div>
             <div className="footer-section">
                 <a href="/privacy-policy">Privacy Policy</a>

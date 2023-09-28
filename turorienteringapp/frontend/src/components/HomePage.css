@@ -41,7 +41,6 @@
     color: #61dafb; 
 }
 
-
 .map-link {
     color: #007BFF;  /* will be fixed later */
     text-decoration: underline;
@@ -49,19 +48,19 @@
     transition: color 0.3s;
 }
 
-
-.explore-trails-link {
-    color: #4CAF50;  /* Set to green color */
-    text-decoration: underline;
+.explore-button {
+    background-color: #45a049; /* Green color */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 1.8rem;
     cursor: pointer;
-    font-size: 1.8rem;  /* font size*/
-    transition: color 0.3s;
+    text-align: center;
+    display: inline-block; /* Make it inline */
+    transition: background-color 0.3s;
 }
 
-/* adjust the color when put the mouse curser */
-.explore-trails-link:hover {
-    color: #61dafb;
+.explore-button:hover {
+    background-color: #61dafb; /* Blue color on hover */
 }
-
-
-
