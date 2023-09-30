@@ -64,3 +64,24 @@
 .explore-button:hover {
     background-color: #61dafb; /* Blue color on hover */
 }
+
+
+/*
+ * styling typewriter effect 
+ *
+ */
+
+.sentence-section {
+    padding: 50px 0;  
+    text-align: left;  /* aligns the text to the left */
+    position: absolute;  /* allows positioning on the screen */
+    top:50%;  /* centers it vertically */
+    left: 1%;  /* moves it to the left side */
+    transform: translateY(-50%);  /* keeps it vertically centered */
+    width: 40%;  /* set a limit to the width */
+}
+
+.sentence-section p {
+    font-size: 40px;
+    color: #059b16;
+}
