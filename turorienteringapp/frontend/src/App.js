@@ -1,12 +1,9 @@
-// src/App.js
-
 import React from 'react';
 // Import necessary components from the React Router library for handling navigation
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-// Import the SignIn, Register pages, HomePage, and NavigationBar
+// Import the SignIn, Register pages, and HomePage
 import SignIn from './pages/SignIn';
 import Register from './pages/Register';
-import NavigationBar from './components/NavigationBar';
 import HomePage from './components/HomePage';  // importing the HomePage component
 
 // Main App function component
@@ -14,7 +11,7 @@ function App() {
     return (
         <div className="App">
             <Router>
-                <NavigationBar /> {/* display the navigation bar on every page */}
+                {/* Removed the NavigationBar component */}
                 <Routes>
                     {/* Route for the HomePage */}
                     <Route path="/" element={<HomePage />} />
@@ -32,5 +29,5 @@ function App() {
     );
 }
 
-/* Export the App component to be used elsewhere in the project*/
+/* Export the App component to be used elsewhere in the project */
 export default App;
