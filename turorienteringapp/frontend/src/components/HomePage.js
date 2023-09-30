@@ -1,58 +1,55 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import './HomePage.css';
 
+/* An array of sentences that show on the left side of the homepage */
 const sentences = [
     "Explore fascinating routes with TurRuter!",
-    "Discover new places and adventures today.",
-    "Join the TurRuter community and share your journeys.",
-    "Trusted by thousands for the best traveling experience."
+    "Join us for an unparalleled adventure!",
+    "Navigate, Discover, Experience!",
+    "Your journey starts here!"
 ];
 
 function HomePage() {
+    /* Using React's useState to manage the current displayed text and the current sentence's index */
     const [currentText, setCurrentText] = useState('');
-    const [action, setAction] = useState('typing');
     const [currentSentenceIndex, setCurrentSentenceIndex] = useState(0);
 
+    /* useEffect hook to manage the sliding effect of the sentences */
     useEffect(() => {
         let timer;
-
-        if (action === 'typing' && currentText !== sentences[currentSentenceIndex]) {
+        if (currentText === sentences[currentSentenceIndex]) {
+            timer = setTimeout(() => {
+                setCurrentSentenceIndex((prevIndex) => (prevIndex + 1) % sentences.length);
+                setCurrentText('');
+            }, 3000);
+        } else {
             timer = setTimeout(() => {
                 setCurrentText(prev => sentences[currentSentenceIndex].substr(0, prev.length + 1));
-            }, 50);  // increased typing speed
-        } else if (action === 'typing' && currentText === sentences[currentSentenceIndex]) {
-            timer = setTimeout(() => {
-                setAction('deleting');
-            }, 1500);  // reduced waiting time to 1.5 seconds
-        } else if (action === 'deleting' && currentText !== '') {
-            timer = setTimeout(() => {
-                setCurrentText(prev => prev.substr(0, prev.length - 1));
-            }, 25);  // increased deleting speed
-        } else if (action === 'deleting' && currentText === '') {
-            setCurrentSentenceIndex((prev) => (prev + 1) % sentences.length);
-            setAction('typing');
+            }, 50);
         }
 
+        /* Clearing the timer to avoid any potential memory leaks */
         return () => clearTimeout(timer);
+    }, [currentText, currentSentenceIndex]);
 
-    }, [action, currentText, currentSentenceIndex]);
-
+    /* Rendering the HomePage component */
     return (
         <div className="home-page">
-            <div className="sentence-section">
-                <p>{currentText}</p>
+            <div className="left">
+                <div className="sentence-section">
+                    <p>{currentText}</p>
+                </div>
             </div>
-            
-            <button onClick={() => window.location.href="/map"} className="explore-button">Explore</button>
-            <div className="bottom-bar"></div>
-            <div className="footer-section">
-                <a href="/privacy-policy">Privacy Policy</a>
-                •
-                <a href="/terms">Terms</a>
-                •
-                <a href="/cookie-policy">Cookie Policy</a>
-                <br/>
-                © 2023 TurRuter. All rights reserved.
+            <div className="right">
+                {/* TurRuter logo displayed above the buttons */}
+                <Link to="/" className="nav-logo">TurRuter</Link>
+
+                {/* Buttons section */}
+                <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+                    <button onClick={() => window.location.href="/login"}>Login</button>
+                    <button onClick={() => window.location.href="/register"}>Register</button>
+                </div>
             </div>
         </div>
     );

@@ -1,84 +1,72 @@
+/* Base styling for the HomePage component */
+
+/* flex- home page will be two parts */
 .home-page {
-    padding: 100px 20px;  /* top-bottom padding of 100px, left-right padding of 20px */
-    text-align: center;   /* centering the text horizontally */
+    display: flex;
+    height: 100vh;
 }
 
+/* Style for the left side of  home page */
+.home-page .left {
+    width: 50%;
+    background-color: lightgreen;
+    padding: 100px 20px;
+    text-align: left;
+    position: relative;
+}
+
+/* Style for the right side of the home page */
+.home-page .right {
+    width: 50%;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Vertically centers the content in this div */
+}
+
+/* Paragraph styling for the sliding sentences */
 .home-page p {
-    font-size: 1.2rem;    /* font size of 1.2 times the root font size */
+    font-size: 1.2rem;
     color: #4CAF50;
 }
 
-.bottom-bar {
-    width: 70%;              /* set the width to 70% of the container */
-    height: 2px;             /* make the bar thinner */
-    background-color: #282c34;
-    position: absolute;
-    bottom: 99px;            /* move the line up and down from the bottom */
-    left: 15%;               /* move it left and right */
+/* Styling for the logo (TurRuter) above the buttons */
+.nav-logo {
+    font-size: 2.9rem; /* Increase the logo's font size */
+    margin-bottom: 10px; /* Add some space below the logo */
+    color: #4CAF50; /* Green color to match the theme */
+    text-decoration: none; /* No underlines for the logo text */
 }
 
-.footer-section {
-    position: absolute;
-    bottom: 40px;            /* adjust this value to place footer section */
-    left: 50%;               /* centering the footer section */
-    transform: translateX(-50%); /* ensure it remains centered */
-    font-size: 1rem;
-    font-weight: bold;
-}
-
-.footer-section a {
-    color: #4CAF50;
-    text-decoration: none;
-    margin: 0 5px;   /* Add space between links */
-    cursor: pointer;
-    transition: opacity 0.3s;
-}
-
-/*
- * value of the changed color when mouse curser on the clickable footer
- */
-.footer-section a:hover {
-    color: #61dafb; 
-}
-
-.map-link {
-    color: #007BFF;  /* will be fixed later */
-    text-decoration: underline;
-    cursor: pointer;
-    transition: color 0.3s;
-}
-
-.explore-button {
-    background-color: #45a049; /* Green color */
-    padding: 10px 20px;
+/* Styling for the buttons on the right side */
+.home-page .right button {
+    margin: 10px 20px;
+    padding: 15px 30px;
+    font-size: 1.5rem;
     border: none;
-    border-radius: 5px;
-    color: white;
-    font-size: 1.8rem;
     cursor: pointer;
+    background-color: #45a049;
+    color: white;
+    width: 150px;
     text-align: center;
-    display: inline-block; /* Make it inline */
     transition: background-color 0.3s;
 }
 
-.explore-button:hover {
-    background-color: #61dafb; /* Blue color on hover */
+/* Hover effect for the buttons  */
+.home-page .right button:hover {
+    background-color: #61dafb;
+    color: #333;
 }
 
-
-/*
- * styling typewriter effect 
- *
- */
-
+/* Styl3 for the sentence section on the left side */
 .sentence-section {
-    padding: 50px 0;  
-    text-align: left;  /* aligns the text to the left */
-    position: absolute;  /* allows positioning on the screen */
-    top:50%;  /* centers it vertically */
-    left: 1%;  /* moves it to the left side */
-    transform: translateY(-50%);  /* keeps it vertically centered */
-    width: 40%;  /* set a limit to the width */
+    padding: 50px 0;
+    position: absolute;
+    top: 50%;
+    left: 5%;
+    transform: translateY(-50%);
+    width: 90%;
 }
 
 .sentence-section p {
