@@ -1,12 +1,17 @@
 const User = require("../models/usersModel");
 const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
+const bcrypt = require("bcryptjs/dist/bcrypt");
+
+// Generates an access token
+function generateAccessToken(id) {
+  return jwt.sign({ id: id }, process.env.TOKEN_SECRET, { expiresIn: "1200s" });
+}
 
 // We call the create method on the model itself
 // The create method returns a promise so we use async await.
 // We save the result of this promise in the newUser variable which will be the newley created document.
 // We pass real data into the create method through the req.body (data that comes with the post request)
-
 exports.signup = async (req, res) => {
   try {
     const user = await User.create({
@@ -18,9 +23,7 @@ exports.signup = async (req, res) => {
     });
 
     // creating a jwt token to automatically log in user once they have signed up
-    const token = jwt.sign({ id: user._id }, process.env.TOKEN_SECRET, {
-      expiresIn: "1200s",
-    });
+    const token = generateAccessToken(user._id);
 
     res.status(201).json({
       status: "sucsess",
@@ -37,9 +40,50 @@ exports.signup = async (req, res) => {
   }
 };
 
+// Logs the user in based on given password and email by signing a json webtoken and sending it back to the client
 exports.login = async (req, res) => {
   try {
-  } catch (err) {}
+    const { email, password } = req.body;
+
+    // Check for both email and password
+    if (!email || !password) {
+      return res.status(400).json({
+        status: "fail",
+        message: "Email or password not provided",
+      });
+    }
+
+    // Try to find user
+    const user = await User.findOne({ email }).select("+password");
+
+    // If user does not exist
+    if (!user) {
+      return res.status(400).json({
+        status: "fail",
+        message: "Could not find user",
+      });
+    }
+
+    // Compare password stored in db with entered password
+    if (await bcrypt.compare(password, user.password)) {
+      const token = generateAccessToken(user._id);
+      return res.status(200).json({
+        status: "success",
+        message: "Successfully logged in",
+        token,
+      });
+    } else {
+      return res.status(401).json({
+        status: "fail",
+        message: "Unsuccessful login",
+      });
+    }
+  } catch (err) {
+    res.status(400).json({
+      status: "fail",
+      message: err,
+    });
+  }
 };
 
 // When we don't pass anything into the find method it will return every document in its collection

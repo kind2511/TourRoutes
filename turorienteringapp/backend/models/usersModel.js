@@ -20,6 +20,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     minlength: 8,
     required: [true, "Enter your password"],
+    select: false,
   },
   confirmPassword: {
     type: String,
@@ -52,6 +53,8 @@ userSchema.pre("save", async function (next) {
 
   next();
 });
+
+
 
 const User = mongoose.model("User", userSchema);
 
