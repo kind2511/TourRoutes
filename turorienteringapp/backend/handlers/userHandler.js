@@ -1,4 +1,46 @@
 const User = require("../models/usersModel");
+const jwt = require("jsonwebtoken");
+const dotenv = require("dotenv");
+
+// We call the create method on the model itself
+// The create method returns a promise so we use async await.
+// We save the result of this promise in the newUser variable which will be the newley created document.
+// We pass real data into the create method through the req.body (data that comes with the post request)
+
+exports.signup = async (req, res) => {
+  try {
+    const user = await User.create({
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      email: req.body.email,
+      password: req.body.password,
+      confirmPassword: req.body.confirmPassword,
+    });
+
+    // creating a jwt token to automatically log in user once they have signed up
+    const token = jwt.sign({ id: user._id }, process.env.TOKEN_SECRET, {
+      expiresIn: "1200s",
+    });
+
+    res.status(201).json({
+      status: "sucsess",
+      token, // sends token to client
+      data: {
+        user: user,
+      },
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: "fail",
+      message: err,
+    });
+  }
+};
+
+exports.login = async (req, res) => {
+  try {
+  } catch (err) {}
+};
 
 // When we don't pass anything into the find method it will return every document in its collection
 // The find method returns a query
@@ -30,29 +72,6 @@ exports.getUser = async (req, res) => {
       status: "success",
       data: {
         user: user,
-      },
-    });
-  } catch (err) {
-    res.status(400).json({
-      status: "fail",
-      message: err,
-    });
-  }
-};
-
-// We call the create method on the model itself
-// The create method returns a promise so we use async await.
-// We save the result of this promise in the newUser variable which will be the newley created document.
-// We pass real data into the create method through the req.body (data that comes with the post request)
-
-exports.newUser = async (req, res) => {
-  try {
-    const newUser = await User.create(req.body);
-
-    res.status(201).json({
-      status: "sucsess",
-      data: {
-        user: newUser,
       },
     });
   } catch (err) {
