@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import './Register.css';
 
 function Register() {
-  // Local state to store form data
   const [formData, setFormData] = useState({
     email: '',
     firstName: '',
@@ -12,37 +11,51 @@ function Register() {
     confirmPassword: ''
   });
 
-  // Hook from 'react-router-dom' to programmatically navigate between routes
   const navigate = useNavigate();
 
-   // Handler to update state when input fields change
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setFormData(prevState => ({ ...prevState, [name]: value }));
   }
 
-  // Handler to process form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validate if the entered password and confirmPassword are the same
     if (formData.password !== formData.confirmPassword) {
       console.log("Passwords don't match!");
       return;
     }
     
-    // Debugging: log the form data
-    console.log(formData);
-  }// Handler to navigate to the login page
+    // Added API call to backend for registration
+    try {
+        const response = await fetch('http://localhost:8000/api/v1/users/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        });
+
+        const data = await response.json();
+
+        if (data.status === 'success') {
+            // Handle successful registration, e.g., redirect to dashboard or login
+            navigate('/dashboard');
+        } else {
+            console.error(data.message);
+        }
+    } catch (error) {
+        console.error('Error during registration:', error);
+    }
+  }
+
   const handleLoginClick = () => {
     navigate('/login');
   }
- 
-  // Render the registration form
+
   return (
     <div className="register-background">
       <div className="register-container">
-        {/* Replacing the heading with the logo text */}
         <span className="nav-logo">TurRuter</span>
         
         <form onSubmit={handleSubmit}>

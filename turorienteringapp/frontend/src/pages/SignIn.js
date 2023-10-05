@@ -10,9 +10,30 @@ function SignIn() {
 
     const navigate = useNavigate();
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(email);
+
+        // Added API call to backend
+        try {
+            const response = await fetch('http://localhost:8000/api/v1/users/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email, password: pass })
+            });
+
+            const data = await response.json();
+
+            if (data.status === 'success') {
+                // Handle successful login, e.g., redirect to dashboard or store token
+                navigate('/dashboard');
+            } else {
+                console.error(data.message);
+            }
+        } catch (error) {
+            console.error('Error during login:', error);
+        }
     }
 
     const handleRegisterClick = () => {
@@ -22,10 +43,7 @@ function SignIn() {
     return (
         <div className="signin-background">
             <div className="signin-container">
-                {/* Replacing the h1 tag with the styled logo */}
                 <div className="signin-logo">TurRuter</div>
-                
-                {/* Login form */}
                 <form onSubmit={handleSubmit}>
                     <div className="input-group">
                         <label htmlFor="email">Email Address</label>
@@ -43,7 +61,7 @@ function SignIn() {
                             <input 
                                 value={pass} 
                                 onChange={(e) => setPass(e.target.value)}
-                                type={/*showPassword ? 'text' : */'password'}
+                                type='password'
                                 id="password" 
                                 name="password"
                             />
@@ -54,10 +72,8 @@ function SignIn() {
                      Forgot your password?
                       </span>
                     </div>
-
                     <button type="submit">Log In</button>
                 </form>
-                {/* Link to navigate to the register page */}
                 <div className="register-prompt">
                     Don't have an account? <span className="register-link" onClick={handleRegisterClick}>Register here.</span>
                 </div>
