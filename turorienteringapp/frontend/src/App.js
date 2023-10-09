@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import SignIn from './pages/SignIn';
 import Register from './pages/Register';
 import HomePage from './components/HomePage';  // importing the HomePage component
+import Dashboard from './components/Dashboard';
 
 // Main App function component
 function App() {
@@ -21,6 +22,9 @@ function App() {
                     
                     {/* Route for the registration page */}
                     <Route path="/register" element={<Register />} />
+
+                    {/*Route for the Dashboard_ Router will render the dashboard */}
+                    <Route path="Dashboard" element={<Dashboard/>} />
                     
                     {/* Add other routes here as needed */}
                 </Routes>
