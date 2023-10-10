@@ -1,1 +1,34 @@
-/* the design will be added later*/
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px; 
+    max-width: 800px;  
+    margin: 0 auto;  
+    position: relative;  /* position the logo relative to the container */
+}
+
+.title {
+    font-size: 2rem;
+    margin-bottom: 30px;  
+    text-align: center;
+    text-shadow: #2aeb0c;
+    font-weight: bold; /* Bold font */
+}
+
+.segment {
+    margin-bottom: 20px; /*create space outside the element segment, space between texts*/
+    border-bottom: 1px solid #2aeb0c;  
+    padding-bottom: 20px;  /* create space inside the element segment, space beteen texts*/ 
+}
+
+.aboutus-logo {
+    font-family: 'Pacifico', cursive; 
+    font-size: 38px;
+    font-weight: bold;
+    color: #4CAF50;
+    text-align: center;
+    position: absolute; /* Absolute positioning within the container */
+    bottom: 1px; /* move logo up-down */
+    right: -200px; /* move the logo to right */
+}
