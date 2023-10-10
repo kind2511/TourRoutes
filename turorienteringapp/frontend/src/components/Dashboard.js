@@ -4,17 +4,21 @@ import './Dashboard.css';
 
 const Dashboard = () => {
     const navigate = useNavigate();
-{/* Log out and redirect to login page after */}
+
+    {/* Log out and redirect to login page after */}
     const handleLogout = () => {
         navigate('/login'); 
     }
 
+    const handleAboutUs = () => { /* Navigate to About Us page */
+        navigate('/about');
+    }
 
     return (
         <div className="dashboard-container">
             <div className="navigation-options">
                 <span className="option-item" onClick={() => { /* Handle profile click */ }}>My Profile</span>
-                <span className="option-item" onClick={() => { /* Handle about us click */ }}>About Us</span>
+                <span className="option-item" onClick={handleAboutUs}>About Us</span>
                 <span className="option-item" onClick={() => { /* Handle routes click */ }}>Routes</span>
                 <span className="option-item" onClick={handleLogout}>Logout</span>
             </div>
