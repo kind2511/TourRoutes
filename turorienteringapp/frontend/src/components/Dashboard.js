@@ -9,6 +9,7 @@ const Dashboard = () => {
         navigate('/login'); 
     }
 
+
     return (
         <div className="dashboard-container">
             <div className="navigation-options">
@@ -17,6 +18,7 @@ const Dashboard = () => {
                 <span className="option-item" onClick={() => { /* Handle routes click */ }}>Routes</span>
                 <span className="option-item" onClick={handleLogout}>Logout</span>
             </div>
+            <div className="map-placeholder"></div> {/* New map container */}
         </div>
     );
 }

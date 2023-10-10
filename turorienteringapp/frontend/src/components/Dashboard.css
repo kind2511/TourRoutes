@@ -11,6 +11,7 @@
     gap: 15px; /* Adds distance between each item */
 }
 
+
 .option-item {
     cursor: pointer;
     color: rgb(18, 18, 18);
@@ -18,7 +19,19 @@
     font-style: bold;
 }
 
-
 .option-item:hover {
-    background-color: #6ed9fa; /*mouse curser set color*/
+    background-color: #6ed9fa;
+}
+
+/* Map container styles */
+.map-placeholder {
+    background-color: #e8dfdf;
+    border-radius: 4px;
+    width: 400px; 
+    height: 500px; 
+    position: absolute; /* Positioning it absolutely to the dashboard container */
+    right: 20px; /* Pushing it to the right */
+    transform: translateY(-50%); /* vertical centering */
+    margin-top: 370px; /*distance between top and map container*/
+    box-shadow: 0 2px 4px  rgba(207, 241, 202, 0.911);
 }
