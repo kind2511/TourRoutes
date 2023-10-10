@@ -1,6 +1,18 @@
 .dashboard-container {
-    padding: 20px;
+    padding: 10px;
     background-color: #f7f7f7;
     border-radius: 4px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px  rgba(0, 0, 0, 0.1);
+    position: relative; /* position */
+}
+
+/* Dashboard.css */
+.logout-button {
+    position: absolute;
+    right: 10px;    /* button place in most right */
+    top: 40px;      /* distance from top */
+}
+
+.logout-button:hover {
+    background-color: rgb(18, 203, 239);/* hover color for log out button*/
 }

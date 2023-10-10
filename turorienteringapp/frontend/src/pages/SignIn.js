@@ -3,17 +3,18 @@ import { useNavigate } from 'react-router-dom';
 import './SignIn.css';
 
 function SignIn() {
-    const [email, setEmail] = useState('');
-    const [pass, setPass] = useState('');
+    const [email, setEmail] = useState('');  // State to handle email input
+    const [pass, setPass] = useState('');   // State to handle password input
+    
     // This state is declared but not used yet. Uncomment when ready to use.
     // const [showPassword, setShowPassword] = useState(false);
 
-    const navigate = useNavigate();
+    const navigate = useNavigate(); // Hook to programmatically navigate to different routes
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Added API call to backend
+        // API call to backend for user login
         try {
             const response = await fetch('http://localhost:8000/api/v1/users/login', {
                 method: 'POST',
@@ -26,16 +27,17 @@ function SignIn() {
             const data = await response.json();
 
             if (data.status === 'success') {
-                // Handle successful login, e.g., redirect to dashboard or store token
+                // On successful login, redirect the user to the dashboard
                 navigate('/dashboard');
             } else {
-                console.error(data.message);
+                console.error(data.message);  // Log any error messages from the backend
             }
         } catch (error) {
             console.error('Error during login:', error);
         }
     }
 
+    // Function to handle the click on the "Register here" link
     const handleRegisterClick = () => {
         navigate('/register');
     }
@@ -68,9 +70,9 @@ function SignIn() {
                         </div>
                     </div>
                     <div className="forgot-password">
-                      <span onClick={() => { /* Handle forgot password logic here */ }}>
-                     Forgot your password?
-                      </span>
+                        <span onClick={() => { /* Handle forgot password logic here */ }}>
+                            Forgot your password?
+                        </span>
                     </div>
                     <button type="submit">Log In</button>
                 </form>
