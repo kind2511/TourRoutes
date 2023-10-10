@@ -2,17 +2,20 @@
     padding: 10px;
     background-color: #f7f7f7;
     border-radius: 4px;
-    box-shadow: 0 2px 4px  rgba(0, 0, 0, 0.1);
-    position: relative; /* position */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative; /* position container */
 }
 
-/* Dashboard.css */
-.logout-button {
+.logout-text {
     position: absolute;
-    right: 10px;    /* button place in most right */
-    top: 40px;      /* distance from top */
+    right: 14px;    /* Placing the text in the most right */
+    top: 40px;      /* Distance from the top */
+    cursor: pointer; /* Change mouse cursor on hover to indicate it's clickable */
+    color: rgb(14, 14, 15);    /* Make the text blue to indicate it's clickable */
+    text-decoration: none; /* No Underline to show it's clickable */
+    font-size: 16px;
 }
 
-.logout-button:hover {
-    background-color: rgb(18, 203, 239);/* hover color for log out button*/
+.logout-text:hover {
+    color: rgb(18, 203, 239); /* Hover color for logout text */
 }
