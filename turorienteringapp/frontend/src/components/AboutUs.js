@@ -1,7 +1,7 @@
 import React from 'react';
 import './AboutUs.css';
 
-/* function to create segments*/
+/* function to create segments*/ 
 function AboutUs() {
     const text = {
         welcome: `About Us`,

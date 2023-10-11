@@ -6,7 +6,8 @@ import SignIn from './pages/SignIn';
 import Register from './pages/Register';
 import HomePage from './components/HomePage';
 import Dashboard from './components/Dashboard';
-import AboutUs from './components/AboutUs';  // <-- Imported the AboutUs component
+import AboutUs from './components/AboutUs';  
+import UserProfile from './components/UserProfile';  
 
 // Main App function component
 function App() {
@@ -24,6 +25,7 @@ function App() {
                     <Route path="/dashboard" element={<Dashboard/>} />
                     {/* Route for the About Us page */}
                     <Route path="/about" element={<AboutUs />} />  
+                    <Route path="/profile" element={<UserProfile />} />
                 </Routes>
             </Router>
         </div>

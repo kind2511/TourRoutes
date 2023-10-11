@@ -3,55 +3,56 @@ import { useNavigate } from 'react-router-dom';
 import './SignIn.css';
 
 function SignIn() {
-    const [email, setEmail] = useState('');  // State to handle email input
-    const [pass, setPass] = useState('');   // State to handle password input
-    
-    // This state is declared but not used yet. Uncomment when ready to use.
-    // const [showPassword, setShowPassword] = useState(false);
+    /* Initializing state for email and password */
+    const [email, setEmail] = useState('');
+    const [pass, setPass] = useState('');
 
-    const navigate = useNavigate(); // Hook to programmatically navigate to different routes
+    /* Using the useNavigate hook from react-router-dom to programmatically navigate */
+    const navigate = useNavigate();
 
+    /* This function handles the form submission for sign in */
     const handleSubmit = async (e) => {
-        e.preventDefault();
-
-        // API call to backend for user login
+        e.preventDefault(); // Prevents default form behavior
+        
         try {
+            /* Sending a POST request to the backend to login */
             const response = await fetch('http://localhost:8000/api/v1/users/login', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, password: pass })
             });
 
+            /* Parsing the response from JSON to a JavaScript object */
             const data = await response.json();
 
             if (data.status === 'success') {
-                // On successful login, redirect the user to the dashboard
-                navigate('/dashboard');
+                navigate('/dashboard');  // Navigating to dashboard if login was successful
             } else {
-                console.error(data.message);  // Log any error messages from the backend
+                console.error(data.message);
             }
         } catch (error) {
             console.error('Error during login:', error);
         }
     }
 
-    // Function to handle the click on the "Register here" link
+    /* This function handles the click event for the register link */
     const handleRegisterClick = () => {
-        navigate('/register');
+        navigate('/register');  // Navigating to the register page
     }
 
     return (
         <div className="signin-background">
             <div className="signin-container">
+                {/* Displaying the logo or brand name */}
                 <div className="signin-logo">TurRuter</div>
+
+                {/* Form for user to input email and password */}
                 <form onSubmit={handleSubmit}>
                     <div className="input-group">
                         <label htmlFor="email">Email Address</label>
                         <input 
                             value={email} 
-                            onChange={(e) => setEmail(e.target.value)}
+                            onChange={(e) => setEmail(e.target.value)} /* Updating the email state on change */
                             type="email" 
                             id="email" 
                             name="email" 
@@ -62,22 +63,27 @@ function SignIn() {
                         <div className="password-input-container">
                             <input 
                                 value={pass} 
-                                onChange={(e) => setPass(e.target.value)}
+                                onChange={(e) => setPass(e.target.value)} /* Updating the password state on change */
                                 type='password'
                                 id="password" 
                                 name="password"
                             />
                         </div>
                     </div>
+                    {/* Link for the user in case they forgot their password */}
                     <div className="forgot-password">
                         <span onClick={() => { /* Handle forgot password logic here */ }}>
                             Forgot your password?
                         </span>
                     </div>
+                    {/* Submit button to log in */}
                     <button type="submit">Log In</button>
                 </form>
+
+                {/* Providing an option to navigate to registration if user does not have an account */}
                 <div className="register-prompt">
-                    Don't have an account? <span className="register-link" onClick={handleRegisterClick}>Register here.</span>
+                    Don't have an account? 
+                    <span className="register-link" onClick={handleRegisterClick}>Register here.</span>
                 </div>
             </div>
         </div>
