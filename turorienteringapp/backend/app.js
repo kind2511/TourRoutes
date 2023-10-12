@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors"); // Import the CORS package
+const cookieParser = require("cookie-parser");
 const userRouter = require("./routes/userRoutes");
 
 const app = express();
@@ -7,7 +8,8 @@ const app = express();
 // Use CORS middleware to handle CORS
 app.use(cors());
 
-// Middleware (Middle of request and response)
+// Put jwt token in users cookie
+app.use(cookieParser());
 
 // This populates the body(req.body) with data that you send to it.
 app.use(express.json());

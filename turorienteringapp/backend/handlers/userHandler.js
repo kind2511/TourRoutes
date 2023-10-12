@@ -3,9 +3,12 @@ const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
 const bcrypt = require("bcryptjs/dist/bcrypt");
 
+// jwt token expires in 2 days (the token will be vallid for 3 days)
+const maxAge = 3 * 24 * 60 * 60 * 1000;
+
 // Generates an access token
 function generateAccessToken(id) {
-  return jwt.sign({ id: id }, process.env.TOKEN_SECRET, { expiresIn: "1200s" });
+  return jwt.sign({ id: id }, process.env.TOKEN_SECRET, { expiresIn: maxAge });
 }
 
 // We call the create method on the model itself
@@ -22,12 +25,8 @@ exports.signup = async (req, res) => {
       confirmPassword: req.body.confirmPassword,
     });
 
-    // creating a jwt token to automatically log in user once they have signed up
-    const token = generateAccessToken(user._id);
-
     res.status(201).json({
-      status: "sucsess",
-      token, // sends token to client
+      status: "success",
       data: {
         user: user,
       },
@@ -66,11 +65,17 @@ exports.login = async (req, res) => {
 
     // Compare password stored in db with entered password
     if (await bcrypt.compare(password, user.password)) {
+      // creates a jwt token
       const token = generateAccessToken(user._id);
+      // creates a cookie for the token
+      res.cookie("jwt", token, {
+        httpOnly: true,
+        maxAge: maxAge,
+      });
+
       return res.status(200).json({
         status: "success",
         message: "Successfully logged in",
-        token,
       });
     } else {
       return res.status(401).json({
