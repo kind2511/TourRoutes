@@ -70,7 +70,7 @@ exports.login = async (req, res) => {
       return res.status(200).json({
         status: "success",
         message: "Successfully logged in",
-        token,
+        token:token  /*--->  'token' is the user's JWT for authentication.*/
       });
     } else {
       return res.status(401).json({
