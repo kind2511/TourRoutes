@@ -1,0 +1,63 @@
+/*  background of the user profile component. */
+.user-profile-background {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/*  user profile form container. */
+.user-profile-container {
+    width: 500px;
+    padding: 60px 60px 60px 40px; 
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px rgba(19, 182, 38, 0.937);
+    background-color: #d5d2d2;
+    margin-top: 50px; 
+}
+
+/*  User profile desing  */
+h2 {
+    margin-bottom: 28px;
+    text-align: center;
+    color: #333;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.edit-dropdown {
+    position: relative;
+    display: inline-block;
+    margin-left: 15px;
+}
+
+.edit-dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: #f9f9f9;
+    min-width: 100px;
+    box-shadow: 0px 0px 15px rgba(51, 240, 4, 0.1);
+    z-index: 1;
+    cursor: pointer;
+}
+
+/* style of the type on the edit button */
+.edit-dropdown-content a {
+    color: rgb(33, 30, 30);
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* hover of the edit button*/
+.edit-dropdown-content a:hover {
+    background-color: #0cedf1
+}
+
+/* drop down edit word when set the mouse curser*/
+.edit-dropdown:hover .edit-dropdown-content {
+    display: block;
+}
+
+
