@@ -9,6 +9,7 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiY2hyaXNhMjUxMSIsImEiOiJjbGtkcjRhNnkwa3JhM2t1O
 const Dashboard = () => {
     const mapContainerRef = useRef(null);
     const navigate = useNavigate();
+    const mapRef = useRef(null); // Reference to the Mapbox GL map instance
 
     const [activeReviewIndex, setActiveReviewIndex] = useState(0);
     const reviews = [
@@ -34,11 +35,25 @@ const Dashboard = () => {
             zoom: 9
         });
 
+        // Store the map instance in the ref
+        mapRef.current = map;
+
+        // Add a click event listener to create markers
+        map.on('click', handleMapClick);
+
         return () => {
             map.remove();
             clearInterval(interval);
         };
     }, []);
+
+    const handleMapClick = (e) => {
+        const { lng, lat } = e.lngLat;
+        // Create a marker at the clicked coordinates
+        new mapboxgl.Marker()
+            .setLngLat([lng, lat])
+            .addTo(mapRef.current);
+    }
 
     const handleProfile = () => {
         navigate('/profile');
@@ -46,12 +61,12 @@ const Dashboard = () => {
 
     const handleLogout = () => {
         localStorage.removeItem('token');
-        navigate('/login'); 
+        navigate('/login');
     }
 
     const handleAboutUs = () => {
         navigate('/about');
-    }
+    };
 
     return (
         <div className="dashboard-container">
