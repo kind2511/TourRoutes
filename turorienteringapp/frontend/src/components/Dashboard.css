@@ -1,37 +1,56 @@
 .dashboard-container {
-    padding: 20px; /* space of the container */
+    padding: 20px;
     background-color: #e8dfdf;
-    border-radius: 2px; /* border shape  */
-    box-shadow: 0 2px 4px  rgba(39, 234, 9, 0.911);
-    position: relative; /* position */
+    border-radius: 2px;
+    box-shadow: 0 2px 4px rgba(39, 234, 9, 0.911);
+    position: relative;
 }
 
 .navigation-options {
-    display: flex;/* how to show items*/
-    gap: 15px; /* Adds distance between each item */
+    display: flex;
+    gap: 15px;
 }
-
 
 .option-item {
     cursor: pointer;
     color: rgb(18, 18, 18);
     font-size: 18px;
-    font-style: bold;
+    
 }
 
 .option-item:hover {
     background-color: #6ed9fa;
 }
 
-/* Map container styles */
 .map-placeholder {
     background-color: #e8dfdf;
     border-radius: 4px;
-    width: 400px; 
-    height: 500px; 
-    position: absolute; /* Positioning it absolutely to the dashboard container */
-    right: 20px; /* Pushing it to the right */
-    transform: translateY(-50%); /* vertical centering */
-    margin-top: 370px; /*distance between top and map container*/
-    box-shadow: 0 2px 4px  rgba(39, 234, 9, 0.911);
+    width: 400px;
+    height: 500px;
+    position: absolute;
+    right: 20px;
+    transform: translateY(-50%);
+    margin-top: 370px;
+    box-shadow: 0 2px 4px rgba(39, 234, 9, 0.911);
+}
+
+/* Review Panel Styles */
+.review-panel {
+    position: absolute;
+    bottom: -670px;
+    left: 5px;
+    background-color: #e8dfdf;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    width: 300px;  /* or adjust to the desired width */
+    z-index: 10; /* ensure it's above other elements */
+    box-shadow: 0 2px 4px rgba(39, 234, 9, 0.911);
+    font-weight: bold;
+}
+
+
+.review-content {
+    font-size: 16px;
+    font-weight: bold;
 }
