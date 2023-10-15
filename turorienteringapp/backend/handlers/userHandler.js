@@ -13,7 +13,7 @@ function generateAccessToken(id) {
 
 // We call the create method on the model itself
 // The create method returns a promise so we use async await.
-// We save the result of this promise in the newUser variable which will be the newley created document.
+// We save the result of this promise in the newUser variable which will be the newly created document.
 // We pass real data into the create method through the req.body (data that comes with the post request)
 exports.signup = async (req, res) => {
   try {
@@ -27,6 +27,7 @@ exports.signup = async (req, res) => {
 
     res.status(201).json({
       status: "success",
+      token, // sends token to client
       data: {
         user: user,
       },
@@ -39,7 +40,7 @@ exports.signup = async (req, res) => {
   }
 };
 
-// Logs the user in based on given password and email by signing a json webtoken and sending it back to the client
+// Logs the user in based on given password and email by signing a json web token and sending it back to the client
 exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -76,9 +77,8 @@ exports.login = async (req, res) => {
       return res.status(200).json({
         status: "success",
         message: "Successfully logged in",
-        token: token
-    });
-    
+        token  /*--->  'token' is the user's JWT for authentication.*/
+      });
     } else {
       return res.status(401).json({
         status: "fail",
@@ -114,7 +114,7 @@ exports.getUsers = async (req, res) => {
   }
 };
 
-// req.params.id gets us access to the id, beacuse that's what we called it in the userRoutes.js file
+// req.params.id gets us access to the id, because that's what we called it in the userRoutes.js file
 exports.getUser = async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
@@ -134,8 +134,8 @@ exports.getUser = async (req, res) => {
 };
 
 // req.body because that is where the data that we want to change resides
-// we pass in an option containg new: true. This means that it is the newley created document that will be returned
-// runValidators: true beacuse we want our schema validators to still apply, for instance if we pass in an integer for firstName
+// we pass in an option containing new: true. This means that it is the newly created document that will be returned
+// runValidators: true because we want our schema validators to still apply, for instance if we pass in an integer for firstName
 exports.updateUser = async (req, res) => {
   try {
     const user = await User.findByIdAndUpdate(req.params.id, req.body, {

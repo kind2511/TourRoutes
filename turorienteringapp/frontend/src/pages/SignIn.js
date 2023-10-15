@@ -3,9 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import './SignIn.css';
 
 function SignIn() {
-    /* Initializing state for email and password */
+    /* Initializing state for email, password, and error message */
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
+    const [error, setError] = useState(''); /*---> State to hold the error message*/
 
     /* Using the useNavigate hook from react-router-dom to programmatically navigate */
     const navigate = useNavigate();
@@ -27,11 +28,15 @@ function SignIn() {
             const data = await response.json();
 
             if (data.status === 'success') {
+                /* Store the JWT token in local storage */
+                localStorage.setItem('token', data.token);
                 navigate('/dashboard');  // Navigating to dashboard if login was successful
             } else {
+                setError(data.message); // Displaying error to the user
                 console.error(data.message);
             }
         } catch (error) {
+            setError('Error during login.'); // Displaying error to the user
             console.error('Error during login:', error);
         }
     }
@@ -49,6 +54,7 @@ function SignIn() {
 
                 {/* Form for user to input email and password */}
                 <form onSubmit={handleSubmit}>
+                 {error && <div className="error-message">{error}</div>} {/* Displaying error message if there's any */}
                     <div className="input-group">
                         <label htmlFor="email">Email Address</label>
                         <input 

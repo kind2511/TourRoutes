@@ -117,3 +117,11 @@ button:hover {
     overflow-x: hidden;
   }
   
+  /* style for the error message while sining in
+   */
+  .error-message {
+    color: red;
+    margin-bottom: 15px;  
+    font-size: 14px;  
+    font-weight: bold;    
+}
