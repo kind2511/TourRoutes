@@ -9,6 +9,9 @@ router.route("/register").post(userHandler.signup);  // <-- Changed this from '/
 // Log in user route
 router.route("/login").post(userHandler.login);
 
+// Email verification route
+router.route("/verify-email/:token").get(userHandler.verifyEmail);  // -----> Added this for email verification
+
 // Routes without parameters
 router.route("/").get(userHandler.getUsers);
 

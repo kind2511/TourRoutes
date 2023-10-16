@@ -2,11 +2,33 @@ const User = require("../models/usersModel");
 const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
 const bcrypt = require("bcryptjs/dist/bcrypt");
+const crypto = require('crypto');  // ---------> For generating email verification tokens
+const sendEmail = require('../utils/sendEmail');
 
-// Generates an access token
+
+/*-------->
+ * Function: generateAccessToken
+ * Description: This function generates a JWT (JSON Web Token) for user authentication.
+ * Parameters:
+ *    - id: The unique identifier (usually user ID) that will be embedded inside the token.
+ * Returns:
+ *    - A JWT containing the user's ID and expiring in 1200 seconds (20 minutes).
+ */
 function generateAccessToken(id) {
   return jwt.sign({ id: id }, process.env.TOKEN_SECRET, { expiresIn: "1200s" });
 }
+
+/*-------->
+ * Function: generateVerificationToken
+ * Description: This function creates a unique token for email verification purposes.
+ * Parameters: None
+ * Returns:
+ *    - A 32-byte hexadecimal string token, which can be used to verify the authenticity of a user's email address.
+ */
+function generateVerificationToken() {
+  return crypto.randomBytes(32).toString('hex');
+}
+
 
 // We call the create method on the model itself
 // The create method returns a promise so we use async await.
@@ -20,11 +42,23 @@ exports.signup = async (req, res) => {
       email: req.body.email,
       password: req.body.password,
       confirmPassword: req.body.confirmPassword,
+      emailVerificationToken: generateVerificationToken(),  // ---------> Adding a verification token for the user
+      emailVerified: false  // --------->  whether the email is verified
+    });
+    /* ---------------------------------------------------->*/
+    // to do Send email with the verification link to the user
+
+    const verificationLink = `http://localhost:3000/verify-email/${user.emailVerificationToken}`;
+    await sendEmail({
+      email: user.email,
+      subject: 'Verify your email address',
+      message: `Thank you for registering! Please verify your email by clicking on the following link: ${verificationLink}`
     });
 
+    /*------------------------------------------------------------>*/
+    
     // creating a jwt token to automatically log in user once they have signed up
     const token = generateAccessToken(user._id);
-
     res.status(201).json({
       status: "success",
       token, // sends token to client
@@ -157,6 +191,38 @@ exports.deleteUser = async (req, res) => {
 
     res.status(204).json({
       status: "success",
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: "fail",
+      message: err,
+    });
+  }
+};
+
+
+
+
+/*---------> Added New: handler to verify the user's email based on the token they provide */
+exports.verifyEmail = async (req, res) => {
+  try {
+    const { token } = req.params;
+
+    const user = await User.findOne({ emailVerificationToken: token });
+    if (!user) {
+      return res.status(400).json({
+        status: "fail",
+        message: "Invalid verification token",
+      });
+    }
+
+    user.emailVerified = true;
+    user.emailVerificationToken = undefined; // Clear the verification token
+    await user.save();
+
+    res.status(200).json({
+      status: "success",
+      message: "Email successfully verified!",
     });
   } catch (err) {
     res.status(400).json({
