@@ -77,14 +77,9 @@ exports.login = async (req, res) => {
       return res.status(200).json({
         status: "success",
         message: "Successfully logged in",
-<<<<<<< HEAD
         //token: token
     });
     
-=======
-        token  /*--->  'token' is the user's JWT for authentication.*/
-      });
->>>>>>> 45142950e8e4fdf76653d59fa906722e4e2f9212
     } else {
       return res.status(401).json({
         status: "fail",
