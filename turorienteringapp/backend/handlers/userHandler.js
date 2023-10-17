@@ -4,27 +4,20 @@ const dotenv = require("dotenv");
 const bcrypt = require("bcryptjs/dist/bcrypt");
 const crypto = require('crypto');  // ---------> For generating email verification tokens
 const sendEmail = require('../utils/sendEmail');
+/*----------------------------------------------------------*/
 
+// jwt token expires in 2 days (the token will be valid for 3 days)
+const maxAge = 3 * 24 * 60 * 60 * 1000;
 
-/*-------->
- * Function: generateAccessToken
- * Description: This function generates a JWT (JSON Web Token) for user authentication.
- * Parameters:
- *    - id: The unique identifier (usually user ID) that will be embedded inside the token.
- * Returns:
- *    - A JWT containing the user's ID and expiring in 1200 seconds (20 minutes).
- */
+/*Function to generate access token */
 function generateAccessToken(id) {
-  return jwt.sign({ id: id }, process.env.TOKEN_SECRET, { expiresIn: "1200s" });
+  return jwt.sign({ id: id }, "secret_for_integrasjonrosjektet_2023", { expiresIn: maxAge });
 }
 
 /*-------->
  * Function: generateVerificationToken
- * Description: This function creates a unique token for email verification purposes.
- * Parameters: None
- * Returns:
- *    - A 32-byte hexadecimal string token, which can be used to verify the authenticity of a user's email address.
- */
+  */
+ 
 function generateVerificationToken() {
   return crypto.randomBytes(32).toString('hex');
 }
@@ -42,12 +35,11 @@ exports.signup = async (req, res) => {
       email: req.body.email,
       password: req.body.password,
       confirmPassword: req.body.confirmPassword,
-      emailVerificationToken: generateVerificationToken(),  // ---------> Adding a verification token for the user
-      emailVerified: false  // --------->  whether the email is verified
+      emailVerificationToken: generateVerificationToken(),  // Adding a verification token for the user
+      emailVerified: false  // Specifies whether the email is verified
     });
-    /* ---------------------------------------------------->*/
-    // to do Send email with the verification link to the user
 
+    // Send email with the verification link to the user
     const verificationLink = `http://localhost:3000/verify-email/${user.emailVerificationToken}`;
     await sendEmail({
       email: user.email,
@@ -55,10 +47,9 @@ exports.signup = async (req, res) => {
       message: `Thank you for registering! Please verify your email by clicking on the following link: ${verificationLink}`
     });
 
-    /*------------------------------------------------------------>*/
-    
-    // creating a jwt token to automatically log in user once they have signed up
+    // Creating a jwt token to automatically log in user once they have signed up
     const token = generateAccessToken(user._id);
+
     res.status(201).json({
       status: "success",
       token, // sends token to client
@@ -71,8 +62,11 @@ exports.signup = async (req, res) => {
       status: "fail",
       message: err,
     });
+    console.log(err);
   }
 };
+
+/*---------------login handler---------------> */
 
 // Logs the user in based on given password and email by signing a json web token and sending it back to the client
 exports.login = async (req, res) => {
@@ -87,7 +81,7 @@ exports.login = async (req, res) => {
       });
     }
 
-    // Try to find user
+    // Try to find user by email
     const user = await User.findOne({ email }).select("+password");
 
     // If user does not exist
@@ -100,19 +94,22 @@ exports.login = async (req, res) => {
 
     // Compare password stored in db with entered password
     if (await bcrypt.compare(password, user.password)) {
+      // If passwords match, generate an access token for the user
       const token = generateAccessToken(user._id);
       return res.status(200).json({
         status: "success",
         message: "Successfully logged in",
-        token  /*--->  'token' is the user's JWT for authentication.*/
+        token  // 'token' is the user's JWT for authentication.
       });
     } else {
+      // If passwords do not match
       return res.status(401).json({
         status: "fail",
         message: "Unsuccessful login",
       });
     }
   } catch (err) {
+    // If there's an error in the process, send an error response
     res.status(400).json({
       status: "fail",
       message: err,
@@ -120,6 +117,8 @@ exports.login = async (req, res) => {
   }
 };
 
+
+/*-------------------------------------------------------------------*/
 // When we don't pass anything into the find method it will return every document in its collection
 // The find method returns a query
 // The find method will return an array of all the documents
