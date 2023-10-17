@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors"); // Import the CORS package
 const cookieParser = require("cookie-parser");
 const userRouter = require("./routes/userRoutes");
+const markerRouter = require("./routes/markerRoutes");
 
 const app = express();
 
@@ -17,6 +18,7 @@ app.use(express.json());
 // Routes
 // Mounting the routers
 app.use("/api/v1/users", userRouter);
+app.use("/api/v1/markers", markerRouter);
 
 // Functionallity to handle unhandled routes
 app.all("*", (req, res, next) => {
@@ -27,3 +29,4 @@ app.all("*", (req, res, next) => {
 });
 
 module.exports = app;
+
