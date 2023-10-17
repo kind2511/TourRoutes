@@ -24,37 +24,31 @@ const userSchema = new mongoose.Schema({
   },
   confirmPassword: {
     type: String,
-    required: [true, "Confirm your passeord"],
+    required: [true, "Confirm your password"], // Corrected typo from "passeord" to "password"
     validate: {
       validator: function (password) {
         // check if password and password confirm are equal
-        if (this.password === password) {
-          return true;
-        } else {
-          return false;
-        }
+        return this.password === password; // Simplified the if else structure for direct comparison
       },
       message: "Password and confirmPassword are different!",
     },
   },
 });
 
-// Hasing newley created and modified passwords
+// Hashing newly created and modified passwords
 userSchema.pre("save", async function (next) {
   const user = this;
 
-  // Hashed newly created and modified passwords
+  // Hash the newly created and modified passwords
   if (user.isModified("password")) {
-    user.password = await bcrypt.hash(user.password, 10); // 10 is number of rounds the hash algorithm must execute
+    user.password = await bcrypt.hash(user.password, 10); // 10 is the number of rounds the hash algorithm must execute
   }
 
-  // deletes the confirmedPassword field so it's not persisted in database
+  // Deletes the confirmPassword field so it's not persisted in the database
   user.confirmPassword = undefined;
 
   next();
 });
-
-
 
 const User = mongoose.model("User", userSchema);
 

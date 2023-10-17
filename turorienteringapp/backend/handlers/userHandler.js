@@ -1,7 +1,7 @@
 const User = require("../models/usersModel");
 const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
-const bcrypt = require("bcryptjs/dist/bcrypt");
+const bcrypt = require("bcryptjs");
 const crypto = require('crypto');  // ---------> For generating email verification tokens
 const sendEmail = require('../utils/sendEmail');
 /*----------------------------------------------------------*/
