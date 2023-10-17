@@ -8,7 +8,7 @@ import HomePage from './components/HomePage';
 import Dashboard from './components/Dashboard';
 import AboutUs from './components/AboutUs';  
 import UserProfile from './components/UserProfile';  
-import EmailVerification from './components/EmailVerification';  // ---------> For handling email verification
+import EmailVerification from './components/EmailVerification';  
 
 // Main App function component
 function App() {
@@ -29,7 +29,7 @@ function App() {
                     {/* Route for the User Profile page */}
                     <Route path="/profile" element={<UserProfile />} />
                     {/* Route for Email Verification */}
-                    <Route path="/verify-email/:token" element={<EmailVerification />} /> {/*// ---------> New route for email verification */}  
+                    <Route path="/verify-email/:token" element={<EmailVerification />} /> 
                 </Routes>
             </Router>
         </div>
