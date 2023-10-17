@@ -6,5 +6,5 @@ const router = express.Router();
 // Saves new markers to DB from frontend
 router.route("/newMarkers").post(markerHandler.newMarkers);
 
-// Exports userRoutes into the main application
+// Exports markerRoutes into the main application
 module.exports = router;
