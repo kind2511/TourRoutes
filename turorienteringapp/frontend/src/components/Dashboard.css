@@ -4,6 +4,8 @@
     border-radius: 2px;
     box-shadow: 0 2px 4px rgba(39, 234, 9, 0.911);
     position: relative;
+    height: 20px; /*this for the height of the top container */
+    
 }
 
 .navigation-options {
@@ -15,7 +17,6 @@
     cursor: pointer;
     color: rgb(18, 18, 18);
     font-size: 18px;
-    
 }
 
 .option-item:hover {
@@ -34,23 +35,91 @@
     box-shadow: 0 2px 4px rgba(39, 234, 9, 0.911);
 }
 
-/* Review Panel Styles */
+/*
+ * This for the functions of the app sentences styling
+ */
 .review-panel {
     position: absolute;
-    bottom: -670px;
+    bottom: -660px; /* decrease to go bottom */
     left: 5px;
     background-color: #e8dfdf;
     padding: 10px;
     border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-    width: 300px;  /* or adjust to the desired width */
-    z-index: 10; /* ensure it's above other elements */
+    width: 300px;
+    z-index: 10;
     box-shadow: 0 2px 4px rgba(39, 234, 9, 0.911);
     font-weight: bold;
 }
 
+.edit-dropdown {
+    position: relative;
+    display: inline-block;
+    margin-left: 200px;
+}
 
-.review-content {
-    font-size: 16px;
+.edit-dropdown-content {
+    display: none;
+    position: absolute;
+    right: 100;
+    background-color: #f9f9f9;
+    min-width: 100px;
+    box-shadow: 0px 0px 15px rgba(51, 240, 4, 0.1);
+    z-index: 1;
+    cursor: pointer;
+}
+
+.edit-dropdown-content a {
+    color: rgb(33, 30, 30);
+    padding: 12px 16px; /* reduced padding from 120px to 12px */
+    text-decoration: none;
+    display: block;
+}
+
+.edit-dropdown-content a:hover {
+    background-color: #0cedf1;
+}
+
+.edit-dropdown:hover .edit-dropdown-content {
+    display: block;
+}
+
+/*
+ * pop window shows reviews 
+ */
+
+.popup-review-panel {
+    position: relative;;
+    bottom: -540px;  
+    left: -100px;  
+    background-color: #e8dfdf;
+    padding: 10px;
+    border-radius: 5px;
+    width: 300px;
+    box-shadow: 0 2px 4px rgba(39, 234, 9, 0.911);
     font-weight: bold;
+    transition: left 1s; /* Animation effect for sliding in */
+    z-index: 1000;
+    overflow: auto; /* in case the content is too much, allow scrolling */
+    transform: translate(26%, 40%); /* offsets for perfect centering */
+ 
+  
+    
+}
+
+/*
+ * for animation
+ *
+ */
+
+ @keyframes slideIn {
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(100000);
+    }
+}
+
+.popup-review-panel.slide-in {
+    animation: slideIn 1s forwards;
 }

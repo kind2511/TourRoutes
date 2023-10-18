@@ -17,3 +17,20 @@
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
   }
   
+
+  .emailConfirmationModal button {
+    background-color: #4CAF50;   /* Green background color */
+    color: white;                /* White text color */
+    padding: 10px 10px;            /* to organize the word close in button*/
+    border: none;                  /* Remove the default border */
+    border-radius: 6px;            /* Rounded corners */
+    cursor: pointer;              /* Hand cursor on hover */
+    margin-top: 20px;              /* Some space between the text and the button */
+    transition: background 0.9s;  /* Smooth transition effect */
+    box-shadow: 0px 0px 15px rgba(51, 240, 4, 0.1);
+}
+
+/* Style for button on hover */
+.emailConfirmationModal button:hover {
+    background-color: #6ed9fa;; 
+}

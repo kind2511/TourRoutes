@@ -1,15 +1,27 @@
 const User = require("../models/usersModel");
 const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
-const bcrypt = require("bcryptjs/dist/bcrypt");
+const bcrypt = require("bcryptjs");
+const crypto = require('crypto');  // ---------> For generating email verification tokens
+const sendEmail = require('../utils/sendEmail');
+/*----------------------------------------------------------*/
 
-// jwt token expires in 2 days (the token will be vallid for 3 days)
+// jwt token expires in 2 days (the token will be valid for 3 days)
 const maxAge = 3 * 24 * 60 * 60 * 1000;
 
-// Generates an access token
+/*Function to generate access token */
 function generateAccessToken(id) {
-  return jwt.sign({ id: id }, process.env.TOKEN_SECRET, { expiresIn: maxAge });
+  return jwt.sign({ id: id }, "secret_for_integrasjonrosjektet_2023", { expiresIn: maxAge });
 }
+
+/*-------->
+ * Function: generateVerificationToken
+  */
+ 
+function generateVerificationToken() {
+  return crypto.randomBytes(32).toString('hex');
+}
+
 
 // We call the create method on the model itself
 // The create method returns a promise so we use async await.
@@ -23,7 +35,20 @@ exports.signup = async (req, res) => {
       email: req.body.email,
       password: req.body.password,
       confirmPassword: req.body.confirmPassword,
+      emailVerificationToken: generateVerificationToken(),  // Adding a verification token for the user
+      emailVerified: false  // Specifies whether the email is verified
     });
+
+    // Send email with the verification link to the user
+    const verificationLink = `http://localhost:3000/verify-email/${user.emailVerificationToken}`;
+    await sendEmail({
+      email: user.email,
+      subject: 'Verify your email address',
+      message: `Thank you for registering! Please verify your email by clicking on the following link: ${verificationLink}`
+    });
+
+    // Creating a jwt token to automatically log in user once they have signed up
+    const token = generateAccessToken(user._id);
 
     res.status(201).json({
       status: "success",
@@ -37,8 +62,11 @@ exports.signup = async (req, res) => {
       status: "fail",
       message: err,
     });
+    console.log(err);
   }
 };
+
+/*---------------login handler---------------> */
 
 // Logs the user in based on given password and email by signing a json web token and sending it back to the client
 exports.login = async (req, res) => {
@@ -53,7 +81,7 @@ exports.login = async (req, res) => {
       });
     }
 
-    // Try to find user
+    // Try to find user by email
     const user = await User.findOne({ email }).select("+password");
 
     // If user does not exist
@@ -66,7 +94,7 @@ exports.login = async (req, res) => {
 
     // Compare password stored in db with entered password
     if (await bcrypt.compare(password, user.password)) {
-      // creates a jwt token
+      // If passwords match, generate an access token for the user
       const token = generateAccessToken(user._id);
       // creates a cookie for the token
       res.cookie("jwt", token, {
@@ -77,16 +105,17 @@ exports.login = async (req, res) => {
       return res.status(200).json({
         status: "success",
         message: "Successfully logged in",
-        //token: token
-    });
-    
+        token  // 'token' is the user's JWT for authentication.
+      });
     } else {
+      // If passwords do not match
       return res.status(401).json({
         status: "fail",
         message: "Unsuccessful login",
       });
     }
   } catch (err) {
+    // If there's an error in the process, send an error response
     res.status(400).json({
       status: "fail",
       message: err,
@@ -94,6 +123,8 @@ exports.login = async (req, res) => {
   }
 };
 
+
+/*-------------------------------------------------------------------*/
 // When we don't pass anything into the find method it will return every document in its collection
 // The find method returns a query
 // The find method will return an array of all the documents
@@ -165,6 +196,38 @@ exports.deleteUser = async (req, res) => {
 
     res.status(204).json({
       status: "success",
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: "fail",
+      message: err,
+    });
+  }
+};
+
+
+
+
+/*---------> Added New: handler to verify the user's email based on the token they provide */
+exports.verifyEmail = async (req, res) => {
+  try {
+    const { token } = req.params;
+
+    const user = await User.findOne({ emailVerificationToken: token });
+    if (!user) {
+      return res.status(400).json({
+        status: "fail",
+        message: "Invalid verification token",
+      });
+    }
+
+    user.emailVerified = true;
+    user.emailVerificationToken = undefined; // Clear the verification token
+    await user.save();
+
+    res.status(200).json({
+      status: "success",
+      message: "Email successfully verified!",
     });
   } catch (err) {
     res.status(400).json({

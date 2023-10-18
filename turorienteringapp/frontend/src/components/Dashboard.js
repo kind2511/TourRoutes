@@ -12,6 +12,9 @@ const Dashboard = () => {
     const mapRef = useRef(null); // Reference to the Mapbox GL map instance
 
     const [activeReviewIndex, setActiveReviewIndex] = useState(0);
+    const [activePopupReviewIndex, setActivePopupReviewIndex] = useState(0);
+    const [showSlide, setShowSlide] = useState(false);  // State for slide-in animation
+
     const reviews = [
         "Discover the quickest routes for your daily hikes",
         "Navigate to the shortest roads for your school or workplace commute",
@@ -23,10 +26,23 @@ const Dashboard = () => {
         "Personalize your map view to suit your preferences"
     ];
 
+    const popupReviews = [
+        "Great route! Saved me 10 minutes.",
+        "The trail was scenic and easy to follow.",
+        "Needs better indications at junctions.",
+        // ... ...... etc
+    ];
+
     useEffect(() => {
-        const interval = setInterval(() => {
+        const reviewInterval = setInterval(() => {
             setActiveReviewIndex((prevIndex) => (prevIndex + 1) % reviews.length);
-        }, 3000); // Changes review every 3 seconds
+        }, 3000);
+
+        const popupReviewInterval = setInterval(() => {
+            setActivePopupReviewIndex((prevIndex) => (prevIndex + 1) % popupReviews.length);
+            setShowSlide(true);  // Start the slide animation
+            setTimeout(() => setShowSlide(false), 4900);  // End the slide animation just before the next cycle
+        }, 5000);
 
         const map = new mapboxgl.Map({
             container: mapContainerRef.current,
@@ -43,7 +59,8 @@ const Dashboard = () => {
 
         return () => {
             map.remove();
-            clearInterval(interval);
+            clearInterval(reviewInterval);
+            clearInterval(popupReviewInterval);
         };
     }, []);
 
@@ -73,12 +90,20 @@ const Dashboard = () => {
             <div className="navigation-options">
                 <span className="option-item" onClick={handleProfile}>My Profile</span>
                 <span className="option-item" onClick={handleAboutUs}>About Us</span>
-                <span className="option-item" onClick={() => { /* Future implementation for routes navigation */ }}>Routes</span>
+                <div className="edit-dropdown">
+                    <span className="option-item">Routes</span>
+                    <div className="edit-dropdown-content">
+                        <a href="#" onClick={() => { }}>New Route</a>
+                        <a href="#" onClick={() => { }}>My Routes </a>
+                        <a href="#" onClick={() => { }}>All Routes</a>
+                    </div>
+                </div>
                 <span className="option-item" onClick={handleLogout}>Logout</span>
             </div>
             <div className="map-placeholder" ref={mapContainerRef}></div>
-
-            {/* Review display at the bottom left */}
+            <div className={`popup-review-panel ${showSlide ? 'slide-in' : ''}`}>
+                {popupReviews[activePopupReviewIndex]}
+            </div>
             <div className="review-panel">
                 {reviews[activeReviewIndex]}
             </div>
