@@ -1,7 +1,6 @@
+// Importing necessary libraries and components
 import React from 'react';
-// Import necessary components from the React Router library for handling navigation
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-// Import the SignIn, Register pages, HomePage, Dashboard, and AboutUs components
 import SignIn from './pages/SignIn';
 import Register from './pages/Register';
 import HomePage from './components/HomePage';
@@ -11,27 +10,36 @@ import UserProfile from './components/UserProfile';
 import EmailVerification from './components/EmailVerification';  
 import NewRoute from './components/NewRoute';
 
-
-// Main App function component
+// Main App component
 function App() {
     return (
         <div className="App">
+            {/* Initializing the router */}
             <Router>
+                {/* Setting up the routes for navigation */}
                 <Routes>
-                    {/* Route for the HomePage */}
+                    {/* Home Page */}
                     <Route path="/" element={<HomePage />} />
-                    {/* Route for the login page */}
+                    
+                    {/* Login Page */}
                     <Route path="/login" element={<SignIn />} />
-                    {/* Route for the registration page */}
+                    
+                    {/* Registration Page */}
                     <Route path="/register" element={<Register />} />
-                    {/* Route for the Dashboard */}
-                    <Route path="/dashboard" element={<Dashboard/>} />
-                    {/* Route for the About Us page */}
-                    <Route path="/about" element={<AboutUs />} />  
-                    {/* Route for the User Profile page */}
+                    
+                    {/* User Dashboard */}
+                    <Route path="/dashboard" element={<Dashboard />} />
+                    
+                    {/* About Us Page */}
+                    <Route path="/about" element={<AboutUs />} />
+                    
+                    {/* User Profile Page */}
                     <Route path="/profile" element={<UserProfile />} />
-                    {/* Route for Email Verification */}
-                    <Route path="/verify-email/:token" element={<EmailVerification />} /> 
+                    
+                    {/* Email Verification, token needed for email verification links */}
+                    <Route path="/verify-email/:token" element={<EmailVerification />} />
+                    
+                    {/* Page to create a new route */}
                     <Route path="/new-route" element={<NewRoute />} />
                 </Routes>
             </Router>
@@ -39,5 +47,5 @@ function App() {
     );
 }
 
-/*Export the App component to be used elsewhere in the project*/
+// Exporting the App component so it can be used in other parts of the application
 export default App;

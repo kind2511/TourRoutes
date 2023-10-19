@@ -94,16 +94,11 @@ const Dashboard = () => {
         localStorage.removeItem('token');
         navigate('/login');
     }
-
-    const handleAboutUs = () => {
-        navigate('/about');
-    };
-
+   
     return (
         <div className="dashboard-container">
             <div className="navigation-options">
                 <span className="option-item" onClick={handleProfile}>My Profile</span>
-                <span className="option-item" onClick={handleAboutUs}>About Us</span>
                 <div className="edit-dropdown">
                     <span className="option-item">Routes</span>
                     <div className="edit-dropdown-content">
