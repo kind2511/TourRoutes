@@ -1,28 +1,38 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, Route, useNavigate } from 'react-router-dom';
 import './Dashboard.css';
 import mapboxgl from 'mapbox-gl';
 
-// Our access tokens
-mapboxgl.accessToken = 'pk.eyJ1IjoiY2hyaXNhMjUxMSIsImEiOiJjbGtkcjRhNnkwa3JhM2t1ODFtbHppd2JmIn0.9DC6eUXzdFclnzb_3LCOtg';
+// AuthRoute Component
+const AuthRoute = ({ component: Component, ...rest }) => {
+    const token = localStorage.getItem('token');
+    return (
+        <Route
+            {...rest}
+            render={(props) =>
+                token ? <Component {...props} /> : <Navigate to="/login" />
+            }
+        />
+    );
+};
 
-/*
- * Initializes a reference for the map container's DOM element using useRef.
- * Utilizes React Router's useNavigate for programmatic navigation.
- * Sets up a reference to hold the Mapbox GL map instance with useRef.
- * Declares state using useState for tracking the active review index.
- * Declares state with useState to keep track of the active index for popup reviews.
- * Handles the slide-in animation state.
- * Establishes a state for managing
- */
+// Our access tokens
+mapboxgl.accessToken = 'Ypk.eyJ1IjoiY2hyaXNhMjUxMSIsImEiOiJjbGtkcjRhNnkwa3JhM2t1ODFtbHppd2JmIn0.9DC6eUXzdFclnzb_3LCOtg';
+
 const Dashboard = () => {
-    const mapContainerRef = useRef(null);// where should be rendred 
     const navigate = useNavigate();
-    const mapRef = useRef(null); // Reference to the Mapbox GL map instance_where to store
+
+    // Check if the token exists; if not, navigate to the login page immediately
+    if (!localStorage.getItem('token')) {
+        navigate('/login');
+        return null;
+    }
+    const mapContainerRef = useRef(null);
+    const mapRef = useRef(null);
 
     const [activeReviewIndex, setActiveReviewIndex] = useState(0);
     const [activePopupReviewIndex, setActivePopupReviewIndex] = useState(0);
-    const [showSlide, setShowSlide] = useState(false);  // State for slide-in animation
+    const [showSlide, setShowSlide] = useState(false);
 
     const reviews = [
         "Discover the quickest routes for your daily hikes",
@@ -41,7 +51,6 @@ const Dashboard = () => {
         "Needs better indications at junctions.",
         // ... ...... etc
     ];
-
 
     /*
      * Cycles through reviews every 3 seconds.
@@ -89,12 +98,12 @@ const Dashboard = () => {
     const handleProfile = () => {
         navigate('/profile');
     }
-
     const handleLogout = () => {
         localStorage.removeItem('token');
-        navigate('/login');
-    }
-   
+        navigate('/login', { replace: true }); // This will replace the current entry in the history stack.
+    };
+    
+
     return (
         <div className="dashboard-container">
             <div className="navigation-options">
@@ -103,8 +112,8 @@ const Dashboard = () => {
                     <span className="option-item">Routes</span>
                     <div className="edit-dropdown-content">
                         <a href="#" onClick={() => navigate('/new-route')}>New Route</a>
-                        <a href="#" onClick={() => {/* navigate to My Routes */}}>My Routes</a>
-                        <a href="#" onClick={() => {/* navigate to All Routes */}}>All Routes</a>
+                        <a href="#" onClick={() => navigate('/my-routes')}>My Routes</a>
+                        <a href="#" onClick={() => navigate('/all-routes')}>All Routes</a>
                     </div>
                 </div>
                 <span className="option-item" onClick={handleLogout}>Logout</span>
@@ -118,7 +127,8 @@ const Dashboard = () => {
             </div>
         </div>
     );
-    
+
 }
 
 export default Dashboard;
+export { AuthRoute };
