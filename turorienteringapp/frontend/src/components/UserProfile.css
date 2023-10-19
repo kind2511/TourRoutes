@@ -9,7 +9,7 @@
 /*  user profile form container. */
 .user-profile-container {
     width: 500px;
-    padding: 60px 60px 60px 40px; 
+    padding: 60px 60px 60px 40px; /* top right bottom left   */
     border-radius: 10px;
     box-shadow: 0px 0px 15px rgba(19, 182, 38, 0.937);
     background-color: #d5d2d2;
@@ -44,7 +44,7 @@ h2 {
 
 /* style of the type on the edit button */
 .edit-dropdown-content a {
-    color: rgb(33, 30, 30);
+    color: rgb(24, 23, 23);
     padding: 12px 16px;
     text-decoration: none;
     display: block;

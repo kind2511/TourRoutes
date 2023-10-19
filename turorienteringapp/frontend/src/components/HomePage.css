@@ -3,7 +3,7 @@
 /* flex- home page will be two parts */
 .home-page {
     display: flex;
-    height: 100vh;
+    height: 100vh; /*full height*/
 }
 
 /* Style for the left side of  home page */
@@ -41,8 +41,8 @@
 
 /* Styling for the buttons on the right side */
 .home-page .right button {
-    margin: 10px 20px;
-    padding: 15px 30px;
+    margin: 10px 20px; /* 20 for space between button og 10 for space with log*/
+    padding: 15px 30px; /* 15 for height, 30 for wide   */
     font-size: 1.5rem;
     border: none;
     cursor: pointer;

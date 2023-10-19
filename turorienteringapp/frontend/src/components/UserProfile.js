@@ -77,6 +77,7 @@ const UserProfile = () => {
         <div className="user-profile-background">
             <div className="user-profile-container">
                 <h2>User Profile</h2>
+                {/*Bold Text */}
                 <p><strong>First Name:</strong> {renderEditableField("firstName", userData.firstName)}</p>
                 <p><strong>Last Name:</strong> {renderEditableField("lastName", userData.lastName)}</p>
                 <p><strong>Email:</strong> {renderEditableField("email", userData.email)}</p>

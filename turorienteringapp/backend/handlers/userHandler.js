@@ -1,58 +1,34 @@
 const User = require("../models/usersModel");
 const jwt = require("jsonwebtoken");
-const dotenv = require("dotenv");
 const bcrypt = require("bcryptjs");
-const crypto = require('crypto');  // ---------> For generating email verification tokens
-const sendEmail = require('../utils/sendEmail');
-/*----------------------------------------------------------*/
 
-// jwt token expires in 2 days (the token will be valid for 3 days)
+// jwt token expires in 3 days
 const maxAge = 3 * 24 * 60 * 60 * 1000;
 
-/*Function to generate access token */
+// Function to generate access token
 function generateAccessToken(id) {
-  return jwt.sign({ id: id }, "secret_for_integrasjonrosjektet_2023", { expiresIn: maxAge });
+  return jwt.sign({ id: id }, process.env.TOKEN_SECRET, { expiresIn: maxAge });
 }
 
-/*-------->
- * Function: generateVerificationToken
-  */
- 
-function generateVerificationToken() {
-  return crypto.randomBytes(32).toString('hex');
-}
-
-
-// We call the create method on the model itself
-// The create method returns a promise so we use async await.
-// We save the result of this promise in the newUser variable which will be the newly created document.
-// We pass real data into the create method through the req.body (data that comes with the post request)
+// Handler to sign up a user
 exports.signup = async (req, res) => {
   try {
+    // Create a new user with the data provided in the request body
     const user = await User.create({
       firstName: req.body.firstName,
       lastName: req.body.lastName,
       email: req.body.email,
       password: req.body.password,
       confirmPassword: req.body.confirmPassword,
-      emailVerificationToken: generateVerificationToken(),  // Adding a verification token for the user
-      emailVerified: false  // Specifies whether the email is verified
     });
 
-    // Send email with the verification link to the user
-    const verificationLink = `http://localhost:3000/verify-email/${user.emailVerificationToken}`;
-    await sendEmail({
-      email: user.email,
-      subject: 'Verify your email address',
-      message: `Thank you for registering! Please verify your email by clicking on the following link: ${verificationLink}`
-    });
-
-    // Creating a jwt token to automatically log in user once they have signed up
+    // Create a JWT token for the newly registered user
     const token = generateAccessToken(user._id);
 
+    // Send a success response with the token
     res.status(201).json({
       status: "success",
-      token, // sends token to client
+      token,
       data: {
         user: user,
       },
@@ -66,14 +42,13 @@ exports.signup = async (req, res) => {
   }
 };
 
-/*---------------login handler---------------> */
-
-// Logs the user in based on given password and email by signing a json web token and sending it back to the client
+// Handler to log in a user
 exports.login = async (req, res) => {
   try {
+    // Extract email and password from request body
     const { email, password } = req.body;
 
-    // Check for both email and password
+    // Check if both email and password are provided
     if (!email || !password) {
       return res.status(400).json({
         status: "fail",
@@ -81,10 +56,10 @@ exports.login = async (req, res) => {
       });
     }
 
-    // Try to find user by email
+    // Find the user with the given email
     const user = await User.findOne({ email }).select("+password");
 
-    // If user does not exist
+    // If user is not found, send an error response
     if (!user) {
       return res.status(400).json({
         status: "fail",
@@ -92,23 +67,19 @@ exports.login = async (req, res) => {
       });
     }
 
-    // Compare password stored in db with entered password
+    // If the user is found, compare the entered password with the stored one
     if (await bcrypt.compare(password, user.password)) {
-      // If passwords match, generate an access token for the user
+      // If passwords match, generate a JWT token
       const token = generateAccessToken(user._id);
-      // creates a cookie for the token
-      res.cookie("jwt", token, {
-        httpOnly: true,
-        maxAge: maxAge,
-      });
 
+      // Send a success response with the token
       return res.status(200).json({
         status: "success",
         message: "Successfully logged in",
-        token  // 'token' is the user's JWT for authentication.
+        token
       });
     } else {
-      // If passwords do not match
+      // If passwords don't match, send an error response
       return res.status(401).json({
         status: "fail",
         message: "Unsuccessful login",
@@ -124,14 +95,13 @@ exports.login = async (req, res) => {
 };
 
 
-/*-------------------------------------------------------------------*/
-// When we don't pass anything into the find method it will return every document in its collection
-// The find method returns a query
-// The find method will return an array of all the documents
+// Handler to get a list of all users
 exports.getUsers = async (req, res) => {
   try {
+    // Fetch all users from the database
     const users = await User.find();
 
+    // Send a success response with the list of users
     res.status(200).json({
       status: "success",
       data: {
@@ -139,6 +109,7 @@ exports.getUsers = async (req, res) => {
       },
     });
   } catch (err) {
+    // If there's an error in fetching users, send an error response
     res.status(400).json({
       status: "fail",
       message: err,
@@ -146,11 +117,13 @@ exports.getUsers = async (req, res) => {
   }
 };
 
-// req.params.id gets us access to the id, because that's what we called it in the userRoutes.js file
+// Handler to get details of a specific user based on user ID
 exports.getUser = async (req, res) => {
   try {
+    // Fetch user details based on user ID from the request parameters
     const user = await User.findById(req.params.id);
 
+    // Send a success response with the user details
     res.status(200).json({
       status: "success",
       data: {
@@ -158,6 +131,7 @@ exports.getUser = async (req, res) => {
       },
     });
   } catch (err) {
+    // If there's an error in fetching the user, send an error response
     res.status(400).json({
       status: "fail",
       message: err,
@@ -165,16 +139,16 @@ exports.getUser = async (req, res) => {
   }
 };
 
-// req.body because that is where the data that we want to change resides
-// we pass in an option containing new: true. This means that it is the newly created document that will be returned
-// runValidators: true because we want our schema validators to still apply, for instance if we pass in an integer for firstName
+/// Handler to update details of a specific user based on user ID
 exports.updateUser = async (req, res) => {
   try {
+    // Update user details based on user ID and data from request body
     const user = await User.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
       runValidators: true,
     });
 
+    // Send a success response with the updated user details
     res.status(200).json({
       status: "success",
       data: {
@@ -182,6 +156,7 @@ exports.updateUser = async (req, res) => {
       },
     });
   } catch (err) {
+    // If there's an error in updating the user, send an error response
     res.status(400).json({
       status: "fail",
       message: err,
@@ -189,47 +164,19 @@ exports.updateUser = async (req, res) => {
   }
 };
 
-// We do not store the result of the query in a variable because we do not send it back to the client
+// Handler to delete a user based on user ID
 exports.deleteUser = async (req, res) => {
   try {
+    // Delete the user based on the provided user ID from request parameters
     await User.findByIdAndDelete(req.params.id);
 
-    res.status(204).json({
-      status: "success",
-    });
-  } catch (err) {
-    res.status(400).json({
-      status: "fail",
-      message: err,
-    });
-  }
-};
-
-
-
-
-/*---------> Added New: handler to verify the user's email based on the token they provide */
-exports.verifyEmail = async (req, res) => {
-  try {
-    const { token } = req.params;
-
-    const user = await User.findOne({ emailVerificationToken: token });
-    if (!user) {
-      return res.status(400).json({
-        status: "fail",
-        message: "Invalid verification token",
-      });
-    }
-
-    user.emailVerified = true;
-    user.emailVerificationToken = undefined; // Clear the verification token
-    await user.save();
-
+    // Send a success response indicating the user has been deleted
     res.status(200).json({
       status: "success",
-      message: "Email successfully verified!",
+      message: "User has been deleted successfully",
     });
   } catch (err) {
+    // If there's an error in deleting the user, send an error response
     res.status(400).json({
       status: "fail",
       message: err,

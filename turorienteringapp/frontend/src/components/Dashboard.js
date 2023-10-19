@@ -6,10 +6,19 @@ import mapboxgl from 'mapbox-gl';
 // Our access tokens
 mapboxgl.accessToken = 'pk.eyJ1IjoiY2hyaXNhMjUxMSIsImEiOiJjbGtkcjRhNnkwa3JhM2t1ODFtbHppd2JmIn0.9DC6eUXzdFclnzb_3LCOtg';
 
+/*
+ * Initializes a reference for the map container's DOM element using useRef.
+ * Utilizes React Router's useNavigate for programmatic navigation.
+ * Sets up a reference to hold the Mapbox GL map instance with useRef.
+ * Declares state using useState for tracking the active review index.
+ * Declares state with useState to keep track of the active index for popup reviews.
+ * Handles the slide-in animation state.
+ * Establishes a state for managing
+ */
 const Dashboard = () => {
-    const mapContainerRef = useRef(null);
+    const mapContainerRef = useRef(null);// where should be rendred 
     const navigate = useNavigate();
-    const mapRef = useRef(null); // Reference to the Mapbox GL map instance
+    const mapRef = useRef(null); // Reference to the Mapbox GL map instance_where to store
 
     const [activeReviewIndex, setActiveReviewIndex] = useState(0);
     const [activePopupReviewIndex, setActivePopupReviewIndex] = useState(0);
@@ -32,7 +41,12 @@ const Dashboard = () => {
         "Needs better indications at junctions.",
         // ... ...... etc
     ];
+ 
 
+    /*
+     * Cycles through reviews every 3 seconds.
+     * Cycles through popup reviews every 5 seconds with slide animation.
+     */
     useEffect(() => {
         const reviewInterval = setInterval(() => {
             setActiveReviewIndex((prevIndex) => (prevIndex + 1) % reviews.length);
