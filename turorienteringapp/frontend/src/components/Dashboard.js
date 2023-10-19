@@ -41,7 +41,7 @@ const Dashboard = () => {
         "Needs better indications at junctions.",
         // ... ...... etc
     ];
- 
+
 
     /*
      * Cycles through reviews every 3 seconds.
@@ -60,7 +60,7 @@ const Dashboard = () => {
 
         const map = new mapboxgl.Map({
             container: mapContainerRef.current,
-            style: 'mapbox://styles/mapbox/streets-v11',
+            style: 'mapbox://styles/mapbox/satellite-streets-v11',
             center: [10.797379, 60.794533],
             zoom: 9
         });
@@ -107,9 +107,9 @@ const Dashboard = () => {
                 <div className="edit-dropdown">
                     <span className="option-item">Routes</span>
                     <div className="edit-dropdown-content">
-                        <a href="#" onClick={() => { }}>New Route</a>
-                        <a href="#" onClick={() => { }}>My Routes </a>
-                        <a href="#" onClick={() => { }}>All Routes</a>
+                        <a href="#" onClick={() => navigate('/new-route')}>New Route</a>
+                        <a href="#" onClick={() => {/* navigate to My Routes */}}>My Routes</a>
+                        <a href="#" onClick={() => {/* navigate to All Routes */}}>All Routes</a>
                     </div>
                 </div>
                 <span className="option-item" onClick={handleLogout}>Logout</span>
@@ -123,6 +123,7 @@ const Dashboard = () => {
             </div>
         </div>
     );
+    
 }
 
 export default Dashboard;

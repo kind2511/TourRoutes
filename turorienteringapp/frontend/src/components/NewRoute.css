@@ -1,0 +1,41 @@
+/* NewRoute.css */
+
+/* Base styles for buttons */
+button {
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+}
+
+/* Base color for buttons */
+button {
+    background-color: #4CAF50; /* Green */
+}
+
+/* Hover effect */
+button:hover {
+    background-color: #6ed9fa; /* Blue */
+    color: black;
+}
+
+/* Button positioning */
+.saveButton {
+    position: 'absolute';
+    top: '10px';
+    left: '10px';
+ 
+}
+
+.cancelButton {
+    position: 'absolute';
+    top: '10px';
+    left: '160px'; /* ensure space between the buttons */
+   
+}

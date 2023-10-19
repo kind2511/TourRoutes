@@ -9,6 +9,8 @@ import Dashboard from './components/Dashboard';
 import AboutUs from './components/AboutUs';  
 import UserProfile from './components/UserProfile';  
 import EmailVerification from './components/EmailVerification';  
+import NewRoute from './components/NewRoute';
+
 
 // Main App function component
 function App() {
@@ -30,6 +32,7 @@ function App() {
                     <Route path="/profile" element={<UserProfile />} />
                     {/* Route for Email Verification */}
                     <Route path="/verify-email/:token" element={<EmailVerification />} /> 
+                    <Route path="/new-route" element={<NewRoute />} />
                 </Routes>
             </Router>
         </div>
