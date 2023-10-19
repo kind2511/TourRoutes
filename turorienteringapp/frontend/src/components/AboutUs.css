@@ -31,4 +31,5 @@
     position: absolute; /* Absolute positioning within the container */
     bottom: 1px; /* move logo up-down */
     right: -200px; /* move the logo to right */
+    cursor: pointer; /*When hover on the logo change to hand*/
 }

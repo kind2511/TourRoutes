@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';  // Importing the useNavigate hook
 import './AboutUs.css';
 
 /* function to create segments*/ 
@@ -13,6 +14,14 @@ function AboutUs() {
         sustainable: `With growing concerns about the environment, TurRuter provides eco-friendly route options. This feature supports users in making sustainable travel choices.`,
         conclusion: `TurRuter is not just a navigation tool; it's a comprehensive platform aiming to enhance the overall travel experience. Our commitment is to ensure convenience, reliability, and innovation in every journey you undertake.`
     };
+    
+    //Navigate Function
+    const navigate = useNavigate();
+
+    // Function to handle the logo click
+    const handleLogoClick = () => {
+        navigate('/');  // Navigates to the homepage
+    };
 
     return (
         <div className="container">
@@ -24,7 +33,7 @@ function AboutUs() {
             <div className="segment">{text.voice}</div>
             <div className="segment">{text.sustainable}</div>
             <div className="conclusion">{text.conclusion}</div>
-            <div className="aboutus-logo">TurRuter</div>
+            <div className="aboutus-logo" onClick={handleLogoClick}>TurRuter</div>
         </div>
     );
 }
