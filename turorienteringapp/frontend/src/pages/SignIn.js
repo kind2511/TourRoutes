@@ -46,15 +46,21 @@ function SignIn() {
         navigate('/register');  // Navigating to the register page
     }
 
+      /* This function navigates the user to the homepage when the logo is clicked */
+      const handleLogoClick = () => {
+        navigate('/');  // Navigating to the homepage
+    }
+
+
     return (
         <div className="signin-background">
             <div className="signin-container">
-                {/* Displaying the logo or brand name */}
-                <div className="signin-logo">TurRuter</div>
+                {/* Making the logo clickable to navigate to the homepage */}
+                <div className="signin-logo" onClick={handleLogoClick}>TurRuter</div>
 
                 {/* Form for user to input email and password */}
                 <form onSubmit={handleSubmit}>
-                 {error && <div className="error-message">{error}</div>} {/* Displaying error message if there's any */}
+                    {error && <div className="error-message">{error}</div>} {/* Displaying error message if there's any */}
                     <div className="input-group">
                         <label htmlFor="email">Email Address</label>
                         <input 
