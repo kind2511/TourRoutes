@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-// Creating a schma for markers on the maps for the routes
+// Creating a schma for tour routes represented as linestringd on the maps for the routes
 const tourRouteSchema = new mongoose.Schema({
   name: String,
   type: {
