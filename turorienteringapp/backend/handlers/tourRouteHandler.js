@@ -15,13 +15,13 @@ exports.newTourRoute = async (req, res) => {
     newTourRoute.save();
     res.status(201).json({
       status: "success",
-      message: "New Route successfully created",
+      message: "New TourRoute successfully created and stored in DB",
       newTourRoute,
     });
   } catch (err) {
     res.status(500).json({
       status: "fail",
-      message: "Was not able to store new Tourroute in DB",
+      message: "Was not able to store new TourRoute in DB",
     });
   }
 };
