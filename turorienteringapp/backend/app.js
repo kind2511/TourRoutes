@@ -20,6 +20,7 @@ app.use("/api/v1/users", userRouter);
 app.use("/api/v1/markers", markerRouter);
 app.use("/api/v1/tourRoutes", tourRouteRouter);
 
+// For all undefined routes
 app.all("*", (req, res, next) => {
   res.status(404).json({
     status: "fail",
