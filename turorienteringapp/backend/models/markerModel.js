@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 // Creating a schma for markers on the maps for the routes
 const markerSchema = new mongoose.Schema({
-  location: {
+  marker: {
     type: {
       type: String,
       enum: ["Point"],

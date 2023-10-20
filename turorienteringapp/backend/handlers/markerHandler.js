@@ -8,7 +8,7 @@ exports.newMarkers = async (req, res) => {
     // Creates an array of new marker documents to be stored in the DB
     const newMarkers = markersArray.map((marker) => {
       return new Marker({
-        location: {
+        marker: {
           type: "Point",
         },
         coordinates: marker.coordinates,

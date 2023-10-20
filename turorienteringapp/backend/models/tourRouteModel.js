@@ -1,7 +1,8 @@
 const mongoose = require("mongoose");
 
 // Creating a schma for markers on the maps for the routes
-const linestringSchema = new mongoose.Schema({
+const tourRouteSchema = new mongoose.Schema({
+  name: String,
   type: {
     type: String,
     enum: ["Linestring"],
@@ -13,6 +14,6 @@ const linestringSchema = new mongoose.Schema({
   },
 });
 
-const Linestring = mongoose.model("Marker", linestringSchema);
+const TourRoute = mongoose.model("TourRoute", tourRouteSchema);
 
-module.exports = Linestring;
+module.exports = TourRoute;
