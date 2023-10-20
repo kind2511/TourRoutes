@@ -10,8 +10,8 @@ exports.newMarkers = async (req, res) => {
       return new Marker({
         marker: {
           type: "Point",
+          coordinates: marker.coordinates,
         },
-        coordinates: marker.coordinates,
       });
     });
 
