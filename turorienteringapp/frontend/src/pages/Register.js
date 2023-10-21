@@ -28,7 +28,15 @@ function Register() {
   // Handle form submission and user registration
   const handleSubmit = async (e) => {
     e.preventDefault();
+   
+    //----------------------->
 
+    if(formData.password.length <8) {
+      setErrorMessage("Password must be at least 8 charaters long!")
+      return;
+    }
+
+    //------------------------------>
     if (formData.password !== formData.confirmPassword) {
       setErrorMessage("Passwords don't match!");
       return;
