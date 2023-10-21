@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import './Register.css';
 
 function Register() {
-  
+
   // State for form fields
   const [formData, setFormData] = useState({
     email: '',
@@ -12,6 +12,9 @@ function Register() {
     password: '',
     confirmPassword: ''
   });
+
+  // State for error messages
+  const [errorMessage, setErrorMessage] = useState("");
 
   // React Router hook to programmatically navigate
   const navigate = useNavigate();
@@ -25,28 +28,32 @@ function Register() {
   // Handle form submission and user registration
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (formData.password !== formData.confirmPassword) {
-      console.log("Passwords don't match!");
+      setErrorMessage("Passwords don't match!");
       return;
     }
 
     try {
-        const response = await fetch('http://localhost:8000/api/v1/users/register', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(formData)
-        });
+      setErrorMessage(""); // Clear any previous errors
 
-        const data = await response.json();
+      const response = await fetch('http://localhost:8000/api/v1/users/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
 
-        if (data.status === 'success') {
-            navigate('/dashboard');
-        } else {
-            console.error(data.message);
-        }
+      const data = await response.json();
+
+      if (data.status === 'success') {
+        navigate('/dashboard');
+      } else {
+        console.error(data.message);
+        setErrorMessage(data.message); // Display the error message from the response
+      }
     } catch (error) {
-        console.error('Error during registration:', error);
+      console.error('Error during registration:', error);
+      setErrorMessage('Error during registration. Please try again later.');
     }
   }
 
@@ -60,7 +67,9 @@ function Register() {
       <div className="register-container">
         {/* Navigate to homepage when the TurRuter logo is clicked */}
         <span className="nav-logo" onClick={() => navigate('/')}>TurRuter</span>
-        
+
+        {errorMessage && <p className="error-message">{errorMessage}</p>} {/* Display error message if it exists */}
+
         <form onSubmit={handleSubmit}>
           <label htmlFor="firstName">First Name</label>
           <input type="text" name="firstName" id="firstName" value={formData.firstName} onChange={handleInputChange} required />
@@ -87,5 +96,4 @@ function Register() {
     </div>
   );
 }
-
 export default Register;
