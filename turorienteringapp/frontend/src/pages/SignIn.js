@@ -6,7 +6,7 @@ function SignIn() {
     /* Initializing state for email, password, and error message */
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
-    const [error, setError] = useState(''); /*---> State to hold the error message*/
+    const [error, setError] = useState(''); // State to hold the error message
 
     /* Using the useNavigate hook from react-router-dom to programmatically navigate */
     const navigate = useNavigate();
@@ -14,7 +14,7 @@ function SignIn() {
     /* This function handles the form submission for sign in */
     const handleSubmit = async (e) => {
         e.preventDefault(); // Prevents default form behavior
-        
+
         try {
             /* Sending a POST request to the backend to login */
             const response = await fetch('http://localhost:8000/api/v1/users/login', {
@@ -46,11 +46,10 @@ function SignIn() {
         navigate('/register');  // Navigating to the register page
     }
 
-      /* This function navigates the user to the homepage when the logo is clicked */
-      const handleLogoClick = () => {
+    /* This function navigates the user to the homepage when the logo is clicked */
+    const handleLogoClick = () => {
         navigate('/');  // Navigating to the homepage
     }
-
 
     return (
         <div className="signin-background">
@@ -63,22 +62,22 @@ function SignIn() {
                     {error && <div className="error-message">{error}</div>} {/* Displaying error message if there's any */}
                     <div className="input-group">
                         <label htmlFor="email">Email Address</label>
-                        <input 
-                            value={email} 
+                        <input
+                            value={email}
                             onChange={(e) => setEmail(e.target.value)} /* Updating the email state on change */
-                            type="email" 
-                            id="email" 
-                            name="email" 
+                            type="email"
+                            id="email"
+                            name="email"
                         />
                     </div>
                     <div className="input-group">
                         <label htmlFor="password">Password</label>
                         <div className="password-input-container">
-                            <input 
-                                value={pass} 
+                            <input
+                                value={pass}
                                 onChange={(e) => setPass(e.target.value)} /* Updating the password state on change */
                                 type='password'
-                                id="password" 
+                                id="password"
                                 name="password"
                             />
                         </div>
@@ -95,7 +94,7 @@ function SignIn() {
 
                 {/* Providing an option to navigate to registration if user does not have an account */}
                 <div className="register-prompt">
-                    Don't have an account? 
+                    Don't have an account?
                     <span className="register-link" onClick={handleRegisterClick}>Register here.</span>
                 </div>
             </div>

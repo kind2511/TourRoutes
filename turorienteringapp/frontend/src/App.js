@@ -7,7 +7,6 @@ import HomePage from './components/HomePage';
 import Dashboard from './components/Dashboard';
 import AboutUs from './components/AboutUs';  
 import UserProfile from './components/UserProfile';  
-import EmailVerification from './components/EmailVerification';  
 import NewRoute from './components/NewRoute';
 
 // Main App component
@@ -35,10 +34,7 @@ function App() {
                     
                     {/* User Profile Page */}
                     <Route path="/profile" element={<UserProfile />} />
-                    
-                    {/* Email Verification, token needed for email verification links */}
-                    <Route path="/verify-email/:token" element={<EmailVerification />} />
-                    
+                                       
                     {/* Page to create a new route */}
                     <Route path="/new-route" element={<NewRoute />} />
                 </Routes>

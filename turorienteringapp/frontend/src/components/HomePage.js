@@ -30,6 +30,7 @@ const HomePage = () => {
             }, 50);
         }
 
+        // Cleanup function to clear any running timer on unmount
         return () => {
             clearTimeout(currentTimer);
         };
@@ -51,7 +52,7 @@ const HomePage = () => {
                     <button onClick={() => (window.location.href = "/register")}>Register</button>
                 </div>
                 <div className="footer-about">
-                <Link to="/about">About Us</Link>
+                    <Link to="/about">About Us</Link>
                 </div>
             </div>
         </div>

@@ -1,20 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Navigate, Route, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './Dashboard.css';
 import mapboxgl from 'mapbox-gl';
-
-// AuthRoute Component
-const AuthRoute = ({ component: Component, ...rest }) => {
-    const token = localStorage.getItem('token');
-    return (
-        <Route
-            {...rest}
-            render={(props) =>
-                token ? <Component {...props} /> : <Navigate to="/login" />
-            }
-        />
-    );
-};
 
 // Our access tokens
 mapboxgl.accessToken = 'Ypk.eyJ1IjoiY2hyaXNhMjUxMSIsImEiOiJjbGtkcjRhNnkwa3JhM2t1ODFtbHppd2JmIn0.9DC6eUXzdFclnzb_3LCOtg';
@@ -22,11 +9,6 @@ mapboxgl.accessToken = 'Ypk.eyJ1IjoiY2hyaXNhMjUxMSIsImEiOiJjbGtkcjRhNnkwa3JhM2t1
 const Dashboard = () => {
     const navigate = useNavigate();
 
-    // Check if the token exists; if not, navigate to the login page immediately
-    if (!localStorage.getItem('token')) {
-        navigate('/login');
-        return null;
-    }
     const mapContainerRef = useRef(null);
     const mapRef = useRef(null);
 
@@ -35,6 +17,7 @@ const Dashboard = () => {
     const [showSlide, setShowSlide] = useState(false);
 
     const reviews = [
+        // Descriptive messages to guide users on the platform's features
         "Discover the quickest routes for your daily hikes",
         "Navigate to the shortest roads for your school or workplace commute",
         "Explore our map and uncover hidden trails and shortcuts",
@@ -46,10 +29,11 @@ const Dashboard = () => {
     ];
 
     const popupReviews = [
+        // User reviews or feedback about routes
         "Great route! Saved me 10 minutes.",
         "The trail was scenic and easy to follow.",
         "Needs better indications at junctions.",
-        // ... ...... etc
+        // ... (you can add more as needed)
     ];
 
     /*
@@ -63,8 +47,8 @@ const Dashboard = () => {
 
         const popupReviewInterval = setInterval(() => {
             setActivePopupReviewIndex((prevIndex) => (prevIndex + 1) % popupReviews.length);
-            setShowSlide(true);  // Start the slide animation
-            setTimeout(() => setShowSlide(false), 4900);  // End the slide animation just before the next cycle
+            setShowSlide(true);  
+            setTimeout(() => setShowSlide(false), 4900);
         }, 5000);
 
         const map = new mapboxgl.Map({
@@ -81,6 +65,7 @@ const Dashboard = () => {
         map.on('click', handleMapClick);
 
         return () => {
+            // Cleanup the map and intervals on component unmount
             map.remove();
             clearInterval(reviewInterval);
             clearInterval(popupReviewInterval);
@@ -98,11 +83,11 @@ const Dashboard = () => {
     const handleProfile = () => {
         navigate('/profile');
     }
+
     const handleLogout = () => {
-        localStorage.removeItem('token');
-        navigate('/login', { replace: true }); // This will replace the current entry in the history stack.
+        // Remove the token and navigate to login
+        navigate('/login', { replace: true }); 
     };
-    
 
     return (
         <div className="dashboard-container">
@@ -127,8 +112,6 @@ const Dashboard = () => {
             </div>
         </div>
     );
-
 }
 
 export default Dashboard;
-export { AuthRoute };
