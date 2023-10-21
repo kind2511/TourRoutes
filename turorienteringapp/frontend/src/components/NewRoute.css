@@ -4,22 +4,20 @@
 button {
     border: none;
     color: white;
-    padding: 1px 9px; /* Reduced the horizontal padding */
+    padding: 1px 9px 1px 3px; /* Reduced the horizontal padding */
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
     cursor: pointer;
     border-radius: 8px;
-    transition: background-color 0.3s;
+    transition: background 0.3s;
     white-space: nowrap;
     margin-bottom: -15px;
+    background-color: #4CAF50; /* Green */
+    width: 100%; /*green color width*/    
 }
 
-/* Base color for buttons */
-button {
-    background-color: #4CAF50; /* Green */
-}
 
 /* Hover effect */
 button:hover {
