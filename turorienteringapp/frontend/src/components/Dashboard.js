@@ -8,15 +8,13 @@ mapboxgl.accessToken = 'Ypk.eyJ1IjoiY2hyaXNhMjUxMSIsImEiOiJjbGtkcjRhNnkwa3JhM2t1
 
 const Dashboard = () => {
     const navigate = useNavigate();
-
     const mapContainerRef = useRef(null);
     const mapRef = useRef(null);
-
     const [activeReviewIndex, setActiveReviewIndex] = useState(0);
     const [activePopupReviewIndex, setActivePopupReviewIndex] = useState(0);
     const [showSlide, setShowSlide] = useState(false);
-
-    const reviews = [
+    
+        const reviews = [
         // Descriptive messages to guide users on the platform's features
         "Discover the quickest routes for your daily hikes",
         "Navigate to the shortest roads for your school or workplace commute",
@@ -89,9 +87,14 @@ const Dashboard = () => {
         navigate('/login', { replace: true }); 
     };
 
+    const handleLogoClick = () => {
+        navigate('/dashboard');
+    }
+
     return (
         <div className="dashboard-container">
             <div className="navigation-options">
+            <div className="dashboard-logo" onClick={handleLogoClick}>TurRuter</div>
                 <span className="option-item" onClick={handleProfile}>My Profile</span>
                 <div className="edit-dropdown">
                     <span className="option-item">Routes</span>

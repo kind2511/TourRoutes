@@ -4,7 +4,7 @@
 button {
     border: none;
     color: white;
-    padding: 10px 20px;
+    padding: 1px 9px; /* Reduced the horizontal padding */
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -12,6 +12,8 @@ button {
     cursor: pointer;
     border-radius: 8px;
     transition: background-color 0.3s;
+    white-space: nowrap;
+    margin-bottom: -15px;
 }
 
 /* Base color for buttons */
@@ -38,4 +40,23 @@ button:hover {
     top: '10px';
     left: '160px'; /* ensure space between the buttons */
    
+}
+
+
+.newrute-logo{
+
+    font-family: 'Pacifico', cursive;
+    font-size: 38px;
+    font-weight: bold;
+    color: #4CAF50;
+    letter-spacing: 1px;
+    text-transform: capitalize;
+    cursor: pointer;
+     margin-top: 10px;
+     margin-left: -10px;  
+     text-align: center;
+}
+
+.newrute-logo:hover{
+    cursor: pointer;
 }

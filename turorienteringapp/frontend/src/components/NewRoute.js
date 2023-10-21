@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import mapboxgl from 'mapbox-gl';
 import './NewRoute.css';
 
@@ -11,6 +12,7 @@ const NewRoute = () => {
     const [points, setPoints] = useState([]);
     const [isCreatingRoute, setIsCreatingRoute] = useState(false);
     const [markers, setMarkers] = useState([]);
+    const navigate = useNavigate();  // Navigation function
 
     // Initialization of the map
     useEffect(() => {
@@ -169,43 +171,53 @@ const NewRoute = () => {
 
         alert('Route creation cancelled!');
     };
-
+    const handleLogoClick = () => {
+        navigate('/dashboard');
+    }
 /*----------------------------------------------------------------------------------> */
-
-    /* Render the elements  */
-    return (
-        <div style={{ position: 'relative' }}>
-            <div ref={mapContainerRef} style={{ width: '100vw', height: '100vh' }}>
-                {isCreatingRoute ? (
-                    <>
-                        
-                        <button 
-                            className="saveButton"
-                            onClick={handleSaveRoute} 
-                            style={{ position: 'absolute', top: '10px', left: '10px', zIndex: 1 }}
-                        >
-                            Save Route
-                        </button>
-                        <button 
-                            className="cancelButton"
-                            onClick={handleCancelRoute} 
-                            style={{ position: 'absolute', top: '50px', left: '10px', zIndex: 1 }}
-                        >
-                            Cancel
-                        </button>
-                        
-                    </>
-                ) : (
+ /* Render the elements */
+ return (
+    <div style={{ position: 'relative' }}>
+        <div ref={mapContainerRef} style={{ width: '100vw', height: '100vh' }}>
+            
+            {isCreatingRoute ? (
+                <>
+                    <button 
+                        className="saveButton"
+                        onClick={handleSaveRoute} 
+                        style={{ position: 'absolute', top: '10px', left: '10px', zIndex: 1 }}
+                    >
+                        Save Route
+                    </button>
+                    <button 
+                        className="cancelButton"
+                        onClick={handleCancelRoute} 
+                        style={{ position: 'absolute', top: '50px', left: '10px', zIndex: 1 }}
+                    >
+                        Cancel
+                    </button>
+                </>
+            ) : (
+                <div style={{ display: 'flex', position: 'absolute', top: '10px', left: '10px', zIndex: 2 }}>
+                    {/* Logo addition */}
+                    <div 
+                        className="newrute-logo" 
+                        onClick={handleLogoClick} 
+                        style={{ marginRight: '10px', cursor: 'pointer' }}
+                    >
+                        TurRuter
+                    </div>
+                    
                     <button
                         onClick={() => setIsCreatingRoute(true)}
-                        style={{ position: 'absolute', top: '10px', left: '10px', zIndex: 1 }}
                     >
                         Start a Route
                     </button>
-                )}
-            </div>
+                </div>
+            )}
         </div>
-    );
+    </div>
+);
 }
 
 export default NewRoute;
