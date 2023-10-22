@@ -42,33 +42,41 @@ const Dashboard = () => {
         const reviewInterval = setInterval(() => {
             setActiveReviewIndex((prevIndex) => (prevIndex + 1) % reviews.length);
         }, 3000);
-
+    
         const popupReviewInterval = setInterval(() => {
             setActivePopupReviewIndex((prevIndex) => (prevIndex + 1) % popupReviews.length);
             setShowSlide(true);  
             setTimeout(() => setShowSlide(false), 4900);
         }, 5000);
-
+    
         const map = new mapboxgl.Map({
             container: mapContainerRef.current,
             style: 'mapbox://styles/mapbox/satellite-streets-v11',
             center: [10.797379, 60.794533],
             zoom: 9
         });
-
-        // Store the map instance in the ref
+    
         mapRef.current = map;
-
-        // Add a click event listener to create markers
+    
         map.on('click', handleMapClick);
-
+    
+        // ---------------> Block back arrow navigation:
+        window.history.pushState(null, null, window.location.href);
+        const handlePopState = () => {
+            window.history.forward();
+        }
+        window.addEventListener('popstate', handlePopState);
+    
         return () => {
-            // Cleanup the map and intervals on component unmount
             map.remove();
             clearInterval(reviewInterval);
             clearInterval(popupReviewInterval);
+    
+            // ---------------> Cleanup: Remove the popstate event listener
+            window.removeEventListener('popstate', handlePopState);
         };
     }, []);
+    
 
     const handleMapClick = (e) => {
         const { lng, lat } = e.lngLat;
