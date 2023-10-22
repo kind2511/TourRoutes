@@ -95,7 +95,7 @@ exports.login = async (req, res) => {
 };
 
 
-// Handler to get a list of all users
+// Handler to get all users
 exports.getUsers = async (req, res) => {
   try {
     // Fetch all users from the database
