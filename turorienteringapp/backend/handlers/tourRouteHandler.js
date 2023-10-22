@@ -48,3 +48,25 @@ exports.getAllTourRoutes = async (req, res) => {
     });
   }
 };
+
+// Handler to get details of a specific tour route based on ID of the tour route
+exports.getTourRoute = async (req, res) => {
+  try {
+    // Fetch tour routes details based on its ID from the request parameters
+    const tourRoute = await TourRoute.findById(req.params.id);
+
+    // Send a success response with the tour Route details
+    res.status(200).json({
+      status: "success",
+      data: {
+        tourRoute: tourRoute,
+      },
+    });
+  } catch (err) {
+    // If there's an error in fetching the tour route, send an error response
+    res.status(400).json({
+      status: "fail",
+      message: err,
+    });
+  }
+};
