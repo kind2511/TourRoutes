@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import './SignIn.css';
 
@@ -10,6 +10,23 @@ function SignIn() {
 
     /* Using the useNavigate hook from react-router-dom to programmatically navigate */
     const navigate = useNavigate();
+
+    useEffect(() => {
+        /* Block back arrow on the login page after logout */
+        function blockBackNavigation() {
+            window.history.pushState(null, "", window.location.href);
+            window.onpopstate = function() {
+                window.history.pushState(null, "", window.location.href);
+            };
+        }
+
+        blockBackNavigation();
+
+        return () => {
+            window.onpopstate = null; // Clean up to avoid any potential interference with other components or behavior
+        };
+
+    }, []); // Empty dependency array to run this useEffect only once
 
     /* This function handles the form submission for sign in */
     const handleSubmit = async (e) => {
