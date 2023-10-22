@@ -76,7 +76,8 @@ exports.login = async (req, res) => {
       return res.status(200).json({
         status: "success",
         message: "Successfully logged in",
-        token
+        token,
+        userID: user._id,
       });
     } else {
       // If passwords don't match, send an error response
@@ -93,7 +94,6 @@ exports.login = async (req, res) => {
     });
   }
 };
-
 
 // Handler to get all users
 exports.getUsers = async (req, res) => {
