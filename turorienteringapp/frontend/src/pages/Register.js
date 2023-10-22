@@ -19,19 +19,29 @@ function Register() {
   // React Router hook to programmatically navigate
   const navigate = useNavigate();
 
+
   // Update form data state on input change
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setFormData(prevState => ({ ...prevState, [name]: value }));
+
+    // Check password length for the password field on-the-fly
+    if (name === "password") {
+      if (value.length < 8) {
+        setErrorMessage("Password must be at least 8 characters long!");
+      } else {
+        setErrorMessage("");  // Clear the error message 
+      }
+    }
   }
 
   // Handle form submission and user registration
   const handleSubmit = async (e) => {
     e.preventDefault();
-   
+
     //----------------------->
 
-    if(formData.password.length <8) {
+    if (formData.password.length < 8) {
       setErrorMessage("Password must be at least 8 charaters long!")
       return;
     }
