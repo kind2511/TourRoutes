@@ -1,10 +1,8 @@
-/* NewRoute.css */
-
 /* Base styles for buttons */
 button {
     border: none;
     color: white;
-    padding: 1px 9px 1px 3px; /* Reduced the horizontal padding */
+    padding: 1px 9px 1px 3px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -14,35 +12,35 @@ button {
     transition: background 0.3s;
     white-space: nowrap;
     margin-bottom: -15px;
-    background-color: #4CAF50; /* Green */
-    width: 100%; /*green color width*/    
+    background-color: #4CAF50;
+    width: 100%;   
+     
 }
 
-
-/* Hover effect */
 button:hover {
-    background-color: #6ed9fa; /* Blue */
+    background-color: #6ed9fa;
     color: black;
 }
 
-/* Button positioning */
 .saveButton {
-    position: 'absolute';
-    top: '10px';
-    left: '10px';
- 
+    position: absolute;
+    top: 9px;
+    left: 660px;
+    text-align: center;
+    width: 10%;
+    border-radius: 8px;
+    padding: 10px;   
 }
 
 .cancelButton {
-    position: 'absolute';
-    top: '10px';
-    left: '160px'; /* ensure space between the buttons */
-   
+    position: absolute;
+    top: 60px;
+    left: 660px;
+    width: 10%;
+    padding: 10px ;   
 }
 
-
-.newrute-logo{
-
+.newrute-logo {
     font-family: 'Pacifico', cursive;
     font-size: 38px;
     font-weight: bold;
@@ -50,11 +48,28 @@ button:hover {
     letter-spacing: 1px;
     text-transform: capitalize;
     cursor: pointer;
-     margin-top: 10px;
-     margin-left: -10px;  
-     text-align: center;
+    margin-top: 10px;
+    margin-left: -10px;  
+    text-align: center;
 }
 
-.newrute-logo:hover{
+.newrute-logo:hover {
     cursor: pointer;
+}
+
+.relativeContainer {
+    position: relative;
+}
+
+.mapContainer {
+    width: 100vw;
+    height: 100vh;
+}
+
+.controlContainer {
+    display: flex;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 2;
 }

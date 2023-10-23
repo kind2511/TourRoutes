@@ -177,33 +177,29 @@ const NewRoute = () => {
 /*----------------------------------------------------------------------------------> */
  /* Render the elements */
  return (
-    <div style={{ position: 'relative' }}>
-        <div ref={mapContainerRef} style={{ width: '100vw', height: '100vh' }}>
+    <div className="relativeContainer">
+        <div ref={mapContainerRef} className="mapContainer">
             
             {isCreatingRoute ? (
                 <>
                     <button 
                         className="saveButton"
-                        onClick={handleSaveRoute} 
-                        style={{ position: 'absolute', top: '10px', left: '10px', zIndex: 1 }}
+                        onClick={handleSaveRoute}
                     >
                         Save Route
                     </button>
                     <button 
                         className="cancelButton"
-                        onClick={handleCancelRoute} 
-                        style={{ position: 'absolute', top: '50px', left: '10px', zIndex: 1 }}
+                        onClick={handleCancelRoute}
                     >
                         Cancel
                     </button>
                 </>
             ) : (
-                <div style={{ display: 'flex', position: 'absolute', top: '10px', left: '10px', zIndex: 2 }}>
-                    {/* Logo addition */}
+                <div className="controlContainer">
                     <div 
                         className="newrute-logo" 
-                        onClick={handleLogoClick} 
-                        style={{ marginRight: '10px', cursor: 'pointer' }}
+                        onClick={handleLogoClick}
                     >
                         TurRuter
                     </div>
