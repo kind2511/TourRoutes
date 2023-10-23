@@ -11,10 +11,14 @@ router.route("/login").post(userHandler.login);
 // Route to get all users
 router.route("/").get(userHandler.getUsers);
 
+// Route to get info about current loged in user
+router.route("/profile/:id").get(userHandler.getUser);
+
 // Routes to handle operations based on user id
-router.route("/:id")
-    .get(userHandler.getUser)
-    .patch(userHandler.updateUser)
-    .delete(userHandler.deleteUser);
+router
+  .route("/:id")
+  .get(userHandler.getUser)
+  .patch(userHandler.updateUser)
+  .delete(userHandler.deleteUser);
 
 module.exports = router;
