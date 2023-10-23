@@ -10,7 +10,10 @@ router.route("/newTourRoute").post(tourRouteHandler.newTourRoute);
 router.route("/").get(tourRouteHandler.getAllTourRoutes);
 
 // Route to handle operations based on tour route id
-router.route("/:id").get(tourRouteHandler.getTourRoute);
+router
+  .route("/:id")
+  .get(tourRouteHandler.getTourRoute)
+  .delete(tourRouteHandler.deleteTourRoute);
 
 // Exports markerRoutes into the main application
 module.exports = router;
