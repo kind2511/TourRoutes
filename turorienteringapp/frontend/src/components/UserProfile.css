@@ -61,3 +61,16 @@ h2 {
 }
 
 
+.userprofile-logo{
+    font-family: 'Pacifico', cursive;
+    font-size: 38px;
+    font-weight: bold;
+    color: #4CAF50;
+    letter-spacing: 1px;
+    text-transform: capitalize;
+    cursor: pointer;
+     margin-top: -5px;
+     margin-left: -10px;  
+     text-align: center;
+
+}

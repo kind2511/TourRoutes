@@ -160,3 +160,14 @@ Styles for the forgot-password link.
     margin-top: 20px;
 }
 
+/*
+ * Style for error message 
+ */
+
+ .error-message {
+    color: red;
+    font-weight: bold;
+    margin-top: 15px;
+    text-align: left;
+    
+}

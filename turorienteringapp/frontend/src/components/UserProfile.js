@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './UserProfile.css';
 
 const UserProfile = () => {
@@ -12,6 +13,8 @@ const UserProfile = () => {
         email: false 
     });
 
+    const navigate = useNavigate();  // Navigation function
+
     /*backend-----> :)*/
     useEffect(() => {
         /* 
@@ -19,6 +22,10 @@ const UserProfile = () => {
            Use an API call to get the data and then update the userData state.
         */
     }, []);
+
+    const handleLogoClick = () => {
+        navigate('/dashboard');
+    };
 
     /**
      * Update a user's profile data and reset the edit mode for the field.
@@ -76,7 +83,11 @@ const UserProfile = () => {
     return (
         <div className="user-profile-background">
             <div className="user-profile-container">
-                <h2>User Profile</h2>
+                {/* Replaced "User Profile" heading with the TurRuter logo */}
+                <div className="userprofile-logo" onClick={handleLogoClick}>
+                    TurRuter
+                </div>
+                
                 {/*Bold Text */}
                 <p><strong>First Name:</strong> {renderEditableField("firstName", userData.firstName)}</p>
                 <p><strong>Last Name:</strong> {renderEditableField("lastName", userData.lastName)}</p>

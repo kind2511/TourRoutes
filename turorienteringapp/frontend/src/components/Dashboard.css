@@ -123,3 +123,20 @@
 .popup-review-panel.slide-in {
     animation: slideIn 1s forwards;
 }
+
+/*
+ * Style for logo
+ */
+
+ .dashboard-logo {
+    font-family: 'Pacifico', cursive;
+    font-size: 20px;
+    font-weight: bold;
+    color: #4CAF50;
+    letter-spacing: 1px;
+    text-transform: capitalize;
+    cursor: pointer;
+     margin-top: -5px;
+     margin-left: -14px;  
+    
+}

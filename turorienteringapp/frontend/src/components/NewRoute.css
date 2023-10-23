@@ -1,0 +1,75 @@
+/* Base styles for buttons */
+button {
+    border: none;
+    color: white;
+    padding: 1px 9px 1px 3px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background 0.3s;
+    white-space: nowrap;
+    margin-bottom: -15px;
+    background-color: #4CAF50;
+    width: 100%;   
+     
+}
+
+button:hover {
+    background-color: #6ed9fa;
+    color: black;
+}
+
+.saveButton {
+    position: absolute;
+    top: 9px;
+    left: 660px;
+    text-align: center;
+    width: 10%;
+    border-radius: 8px;
+    padding: 10px;   
+}
+
+.cancelButton {
+    position: absolute;
+    top: 60px;
+    left: 660px;
+    width: 10%;
+    padding: 10px ;   
+}
+
+.newrute-logo {
+    font-family: 'Pacifico', cursive;
+    font-size: 38px;
+    font-weight: bold;
+    color: #4CAF50;
+    letter-spacing: 1px;
+    text-transform: capitalize;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-left: -10px;  
+    text-align: center;
+}
+
+.newrute-logo:hover {
+    cursor: pointer;
+}
+
+.relativeContainer {
+    position: relative;
+}
+
+.mapContainer {
+    width: 100vw;
+    height: 100vh;
+}
+
+.controlContainer {
+    display: flex;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 2;
+}

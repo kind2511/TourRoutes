@@ -4,27 +4,18 @@ import './Dashboard.css';
 import mapboxgl from 'mapbox-gl';
 
 // Our access tokens
-mapboxgl.accessToken = 'pk.eyJ1IjoiY2hyaXNhMjUxMSIsImEiOiJjbGtkcjRhNnkwa3JhM2t1ODFtbHppd2JmIn0.9DC6eUXzdFclnzb_3LCOtg';
+mapboxgl.accessToken = 'Ypk.eyJ1IjoiY2hyaXNhMjUxMSIsImEiOiJjbGtkcjRhNnkwa3JhM2t1ODFtbHppd2JmIn0.9DC6eUXzdFclnzb_3LCOtg';
 
-/*
- * Initializes a reference for the map container's DOM element using useRef.
- * Utilizes React Router's useNavigate for programmatic navigation.
- * Sets up a reference to hold the Mapbox GL map instance with useRef.
- * Declares state using useState for tracking the active review index.
- * Declares state with useState to keep track of the active index for popup reviews.
- * Handles the slide-in animation state.
- * Establishes a state for managing
- */
 const Dashboard = () => {
-    const mapContainerRef = useRef(null);// where should be rendred 
     const navigate = useNavigate();
-    const mapRef = useRef(null); // Reference to the Mapbox GL map instance_where to store
-
+    const mapContainerRef = useRef(null);
+    const mapRef = useRef(null);
     const [activeReviewIndex, setActiveReviewIndex] = useState(0);
     const [activePopupReviewIndex, setActivePopupReviewIndex] = useState(0);
-    const [showSlide, setShowSlide] = useState(false);  // State for slide-in animation
-
-    const reviews = [
+    const [showSlide, setShowSlide] = useState(false);
+    
+        const reviews = [
+        // Descriptive messages to guide users on the platform's features
         "Discover the quickest routes for your daily hikes",
         "Navigate to the shortest roads for your school or workplace commute",
         "Explore our map and uncover hidden trails and shortcuts",
@@ -36,12 +27,12 @@ const Dashboard = () => {
     ];
 
     const popupReviews = [
+        // User reviews or feedback about routes
         "Great route! Saved me 10 minutes.",
         "The trail was scenic and easy to follow.",
         "Needs better indications at junctions.",
-        // ... ...... etc
+        // ... (you can add more as needed)
     ];
- 
 
     /*
      * Cycles through reviews every 3 seconds.
@@ -51,32 +42,41 @@ const Dashboard = () => {
         const reviewInterval = setInterval(() => {
             setActiveReviewIndex((prevIndex) => (prevIndex + 1) % reviews.length);
         }, 3000);
-
+    
         const popupReviewInterval = setInterval(() => {
             setActivePopupReviewIndex((prevIndex) => (prevIndex + 1) % popupReviews.length);
-            setShowSlide(true);  // Start the slide animation
-            setTimeout(() => setShowSlide(false), 4900);  // End the slide animation just before the next cycle
+            setShowSlide(true);  
+            setTimeout(() => setShowSlide(false), 4900);
         }, 5000);
-
+    
         const map = new mapboxgl.Map({
             container: mapContainerRef.current,
-            style: 'mapbox://styles/mapbox/streets-v11',
+            style: 'mapbox://styles/mapbox/satellite-streets-v11',
             center: [10.797379, 60.794533],
             zoom: 9
         });
-
-        // Store the map instance in the ref
+    
         mapRef.current = map;
-
-        // Add a click event listener to create markers
+    
         map.on('click', handleMapClick);
-
+    
+        // ---------------> Block back arrow navigation:
+        window.history.pushState(null, null, window.location.href);
+        const handlePopState = () => {
+            window.history.forward();
+        }
+        window.addEventListener('popstate', handlePopState);
+    
         return () => {
             map.remove();
             clearInterval(reviewInterval);
             clearInterval(popupReviewInterval);
+    
+            // ---------------> Cleanup: Remove the popstate event listener
+            window.removeEventListener('popstate', handlePopState);
         };
     }, []);
+    
 
     const handleMapClick = (e) => {
         const { lng, lat } = e.lngLat;
@@ -91,25 +91,25 @@ const Dashboard = () => {
     }
 
     const handleLogout = () => {
-        localStorage.removeItem('token');
-        navigate('/login');
-    }
-
-    const handleAboutUs = () => {
-        navigate('/about');
+        // Remove the token and navigate to login
+        navigate('/login', { replace: true }); 
     };
+
+    const handleLogoClick = () => {
+        navigate('/dashboard');
+    }
 
     return (
         <div className="dashboard-container">
             <div className="navigation-options">
+            <div className="dashboard-logo" onClick={handleLogoClick}>TurRuter</div>
                 <span className="option-item" onClick={handleProfile}>My Profile</span>
-                <span className="option-item" onClick={handleAboutUs}>About Us</span>
                 <div className="edit-dropdown">
                     <span className="option-item">Routes</span>
                     <div className="edit-dropdown-content">
-                        <a href="#" onClick={() => { }}>New Route</a>
-                        <a href="#" onClick={() => { }}>My Routes </a>
-                        <a href="#" onClick={() => { }}>All Routes</a>
+                        <a href="#" onClick={() => navigate('/new-route')}>New Route</a>
+                        <a href="#" onClick={() => navigate('/my-routes')}>My Routes</a>
+                        <a href="#" onClick={() => navigate('/all-routes')}>All Routes</a>
                     </div>
                 </div>
                 <span className="option-item" onClick={handleLogout}>Logout</span>
