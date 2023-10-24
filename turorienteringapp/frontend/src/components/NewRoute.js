@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import mapboxgl from 'mapbox-gl';
+import axios from 'axios'; // Used to make HTTP requests
 import './NewRoute.css';
 
-mapboxgl.accessToken = 'pk.eyJ1IjoiY2hyaXNhMjUxMSIsImEiOiJjbGtkcjRhNnkwa3JhM2t1ODFtbHppd2JmIn0.9DC6eUXzdFclnzb_3LCOtg'; 
+mapboxgl.accessToken = 'pk.eyJ1IjoiY2hyaXNhMjUxMSIsImEiOiJjbGtkcjRhNnkwa3JhM2t1ODFtbHppd2JmIn0.9DC6eUXzdFclnzb_3LCOtg';
 
 //New Rute function
 const NewRoute = () => {
@@ -122,39 +123,73 @@ const NewRoute = () => {
             mapRef.current.off('contextmenu', handleRightClick); // Cleanup right-click listener
         };
     }, [isCreatingRoute, points, markers]);
+
+    //------------------------------------------------------------------->
     
-    //functoin for save the route 
-    const handleSaveRoute = () => {
+    /* Function to handle saving a new route */
+    const handleSaveRoute = async () => {
+        // Check if there are at least 2 points to form a route
         if (points.length < 2) {
             alert('Please select at least two points to form a route.');
             return;
         }
 
+        // Prompt the user to enter a name for the route
         const name = prompt("Enter a name for this route:", "Route 1");
+
+        // Check if a route name was provided
         if (!name) {
             alert('Please enter a route name.');
             return;
         }
 
+        // Format the points data as an array of arrays of numbers
+        const coordinates = points.map(point => [point.lng, point.lat]);
+
+        // Send a POST request to the backend to save the route
+        try {
+            const response = await axios.post('http://localhost:8000/api/v1/tourRoutes/newTourRoute', { name, coordinates })
+
+            // Check the response status from the backend
+            if (response.data && response.data.status === "success") {
+                alert('Route successfully saved to the backend!');
+            } else {
+                alert('There was an issue saving the route to the backend.');
+            }
+        } catch (error) {
+            // Handle any errors that occur during the request
+            alert('An error occurred while saving the route: ' + error.message);
+            return;
+        }
+
+        // Store the route locally
         const existingRoutes = JSON.parse(localStorage.getItem('routes') || '[]');
         existingRoutes.push({ name, points });
         localStorage.setItem('routes', JSON.stringify(existingRoutes));
 
+        // Reset points and markers
         setPoints([]);
         setIsCreatingRoute(false);
 
+        // Remove the route from the map
         if (mapRef.current.getLayer('route')) {
             mapRef.current.removeLayer('route');
             mapRef.current.removeSource('route');
         }
 
-        // Clearing markers after saving the route
+        // Remove markers
         markers.forEach(marker => marker.remove());
         setMarkers([]);
 
-        alert('Route saved!');
+        // Display a success message
+        alert('Route saved locally!');
     };
-        
+
+
+
+
+    //------------------------------------------------------------------->
+
     //Functoin cancel button
     const handleCancelRoute = () => {
         setPoints([]);
@@ -174,46 +209,46 @@ const NewRoute = () => {
     const handleLogoClick = () => {
         navigate('/dashboard');
     }
-/*----------------------------------------------------------------------------------> */
- /* Render the elements */
- return (
-    <div className="relativeContainer">
-        <div ref={mapContainerRef} className="mapContainer">
-            
-            {isCreatingRoute ? (
-                <>
-                    <button 
-                        className="saveButton"
-                        onClick={handleSaveRoute}
-                    >
-                        Save Route
-                    </button>
-                    <button 
-                        className="cancelButton"
-                        onClick={handleCancelRoute}
-                    >
-                        Cancel
-                    </button>
-                </>
-            ) : (
-                <div className="controlContainer">
-                    <div 
-                        className="newrute-logo" 
-                        onClick={handleLogoClick}
-                    >
-                        TurRuter
+    /*----------------------------------------------------------------------------------> */
+    /* Render the elements */
+    return (
+        <div className="relativeContainer">
+            <div ref={mapContainerRef} className="mapContainer">
+
+                {isCreatingRoute ? (
+                    <>
+                        <button
+                            className="saveButton"
+                            onClick={handleSaveRoute}
+                        >
+                            Save Route
+                        </button>
+                        <button
+                            className="cancelButton"
+                            onClick={handleCancelRoute}
+                        >
+                            Cancel
+                        </button>
+                    </>
+                ) : (
+                    <div className="controlContainer">
+                        <div
+                            className="newrute-logo"
+                            onClick={handleLogoClick}
+                        >
+                            TurRuter
+                        </div>
+
+                        <button
+                            onClick={() => setIsCreatingRoute(true)}
+                        >
+                            Start a Route
+                        </button>
                     </div>
-                    
-                    <button
-                        onClick={() => setIsCreatingRoute(true)}
-                    >
-                        Start a Route
-                    </button>
-                </div>
-            )}
+                )}
+            </div>
         </div>
-    </div>
-);
+    );
 }
 
 export default NewRoute;
