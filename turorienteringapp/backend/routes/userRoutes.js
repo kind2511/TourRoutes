@@ -21,4 +21,10 @@ router
   .patch(userHandler.updateUser)
   .delete(userHandler.deleteUser);
 
+// Route to handle forgot password
+router.route("/forgotPassword").post(userHandler.forgotPassword);
+
+//Route to handle reset password
+router.route("/resetPassword/:token").patch(userHandler.resetPassword);
+
 module.exports = router;
