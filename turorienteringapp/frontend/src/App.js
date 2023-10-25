@@ -8,6 +8,7 @@ import Dashboard from './components/Dashboard';
 import AboutUs from './components/AboutUs';  
 import UserProfile from './components/UserProfile';  
 import NewRoute from './components/NewRoute';
+import MyRoutes from './components/MyRoutes';
 
 // Main App component
 function App() {
@@ -37,6 +38,9 @@ function App() {
                                        
                     {/* Page to create a new route */}
                     <Route path="/new-route" element={<NewRoute />} />
+
+                    {/* Route to view user's saved routes */}
+                    <Route path="/my-routes" element={<MyRoutes />} />
                 </Routes>
             </Router>
         </div>
