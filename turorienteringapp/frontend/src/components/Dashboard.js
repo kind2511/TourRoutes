@@ -58,6 +58,11 @@ const Dashboard = () => {
     
         mapRef.current = map;
     
+        // Ensuring the map fits its container once loaded
+        map.on('load', () => {
+            map.resize();
+        });
+    
         map.on('click', handleMapClick);
     
         // ---------------> Block back arrow navigation:
@@ -76,6 +81,7 @@ const Dashboard = () => {
             window.removeEventListener('popstate', handlePopState);
         };
     }, []);
+    
     
 
     const handleMapClick = (e) => {
@@ -102,7 +108,7 @@ const Dashboard = () => {
     return (
         <div className="dashboard-container">
             <div className="navigation-options">
-            <div className="dashboard-logo" onClick={handleLogoClick}>TurRuter</div>
+                <div className="dashboard-logo" onClick={handleLogoClick}>TurRuter</div>
                 <span className="option-item" onClick={handleProfile}>My Profile</span>
                 <div className="edit-dropdown">
                     <span className="option-item">Routes</span>
@@ -114,7 +120,10 @@ const Dashboard = () => {
                 </div>
                 <span className="option-item" onClick={handleLogout}>Logout</span>
             </div>
-            <div className="map-placeholder" ref={mapContainerRef}></div>
+    
+            {/* Map container */}
+            <div className="map-container" ref={mapContainerRef}></div>
+    
             <div className={`popup-review-panel ${showSlide ? 'slide-in' : ''}`}>
                 {popupReviews[activePopupReviewIndex]}
             </div>
@@ -123,6 +132,7 @@ const Dashboard = () => {
             </div>
         </div>
     );
+    
 }
 
 export default Dashboard;
