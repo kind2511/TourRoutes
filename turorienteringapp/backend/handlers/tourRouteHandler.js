@@ -70,3 +70,24 @@ exports.getTourRoute = async (req, res) => {
     });
   }
 };
+
+// Handler to delete a tour route based in tour route ID
+exports.deleteTourRoute = async (req, res) => {
+  try {
+    // Delete the tour route based on their user ID
+    await TourRoute.findByIdAndDelete(req.params.id);
+
+    // Send a success response indicating the tour route has been deleted
+    res.status(200).json({
+      status: "success",
+      message: "Tour route has been deleted successfully",
+    });
+  } catch (err) {
+    // If there's an error in deleting the user, send an error response
+    res.status(400).json({
+      status: "fail",
+      message: err,
+    });
+  }
+};
+

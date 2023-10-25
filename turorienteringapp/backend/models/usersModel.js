@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
+const crypto = require("crypto");
 
 //Creating simple userSchema
 const userSchema = new mongoose.Schema({
@@ -33,6 +34,8 @@ const userSchema = new mongoose.Schema({
       message: "Password and confirmPassword are different!",
     },
   },
+  passwordResetToken: String,
+  passwordResetExpires: Date,
 });
 
 // Hashing newly created and modified passwords
@@ -49,6 +52,25 @@ userSchema.pre("save", async function (next) {
 
   next();
 });
+
+// Generates a reset token for reseting password
+userSchema.methods.createPasswordResetToken = function () {
+  // Creates the reset token
+  const resetToken = crypto.randomBytes(32).toString("hex");
+
+  // Hash the token
+  this.passwordResetToken = crypto
+    .createHash("sha256")
+    .update(resetToken)
+    .digest("hex");
+
+  console.log({ resetToken }, this.passwordResetToken);
+
+  // Valid for 10 minutes -- more than 10 beacuse dates are wrong on computer
+  this.passwordResetExpires = Date.now() + 10 * 60 * 60 * 1000;
+
+  return resetToken;
+};
 
 const User = mongoose.model("User", userSchema);
 
