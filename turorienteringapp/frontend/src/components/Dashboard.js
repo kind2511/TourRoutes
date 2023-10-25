@@ -63,9 +63,7 @@ const Dashboard = () => {
             map.resize();
         });
     
-        map.on('click', handleMapClick);
-    
-        // ---------------> Block back arrow navigation:
+        // Block back arrow navigation:
         window.history.pushState(null, null, window.location.href);
         const handlePopState = () => {
             window.history.forward();
@@ -77,10 +75,11 @@ const Dashboard = () => {
             clearInterval(reviewInterval);
             clearInterval(popupReviewInterval);
     
-            // ---------------> Cleanup: Remove the popstate event listener
+            // Cleanup: Remove the popstate event listener
             window.removeEventListener('popstate', handlePopState);
         };
     }, []);
+    
     
     
 
