@@ -16,15 +16,13 @@ const MyRoutes = () => {
     const fetchRoutes = async () => {
         try {
             const response = await axios.get('http://localhost:8000/api/v1/tourRoutes/');
-            const backendRoutes = response.data.data.tourRoutes || []; //  handle potential null/undefined values
-            console.log("Fetched routes:", backendRoutes);
+            const backendRoutes = response.data.data.tourRoutes || [];
             setRoutes(backendRoutes);
         } catch (err) {
-            console.error("Error fetching routes:", err);
             setError("There was a problem fetching the routes. Please try again.");
         }
     };
-
+    
     useEffect(() => {
         fetchRoutes();
     }, []);
@@ -72,21 +70,30 @@ const MyRoutes = () => {
                     });
                 }
 
-                route.coordinates.forEach((coord) => {
-                    new mapboxgl.Marker()
-                        .setLngLat(coord)
-                        .addTo(map);
+                // Create styled popup for start and end of route
+                const startCoord = route.coordinates[0];
+                const endCoord = route.coordinates[route.coordinates.length - 1];
+                
+                [startCoord, endCoord].forEach((coord) => {
+                    new mapboxgl.Popup({
+                        closeOnClick: false,
+                        closeButton: false,
+                        className: 'route-name-popup' // Custom class for styling
+                    })
+                    .setLngLat(coord)
+                    .setHTML(`<div class="route-name-container">${route.name}</div>`)
+                    .addTo(map);
                 });
             });
         });
 
-        // Clean up on component unmount
         return () => map.remove();
+
     }, [routes]);
 
     return (
         <div className="relativeContainer">
-            {error && <div className="errorNotification">{error}</div>}
+            {error && <div className="errorNotification">{error}</div>} {/* Displaying errors */}
             <div className="mapContainer" ref={mapContainerRef}></div>
         </div>
     );
