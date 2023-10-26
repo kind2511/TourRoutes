@@ -163,9 +163,9 @@ const NewRoute = () => {
         }
 
         // Store the route locally
-        const existingRoutes = JSON.parse(localStorage.getItem('routes') || '[]');
-        existingRoutes.push({ name, points });
-        localStorage.setItem('routes', JSON.stringify(existingRoutes));
+        // const existingRoutes = JSON.parse(localStorage.getItem('routes') || '[]');
+        // existingRoutes.push({ name, points });
+        // localStorage.setItem('routes', JSON.stringify(existingRoutes));
 
         // Reset points and markers
         setPoints([]);
