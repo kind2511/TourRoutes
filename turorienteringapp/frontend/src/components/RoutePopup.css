@@ -1,0 +1,40 @@
+.route-popup-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid black;
+    background-color: white;
+}
+
+.route-name {
+    font-weight: bold;
+}
+
+.dropdown-button {
+    margin-top: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+.route-details {
+    margin-top: 10px;
+}
+
+
+
+.write-comment-section {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+}
+
+.write-comment-section textarea {
+    width: 100%;
+    height: 60px;
+    padding: 5px;
+    margin-bottom: 5px;
+    resize: vertical;   
+}

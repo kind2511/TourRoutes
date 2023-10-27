@@ -2,7 +2,9 @@ import React, { useEffect, useState, useRef } from 'react';
 import mapboxgl from 'mapbox-gl';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import ReactDOMServer from 'react-dom/server';
 import './MyRoutes.css';
+import RoutePopup from './RoutePopup';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiY2hyaXNhMjUxMSIsImEiOiJjbGtkcjRhNnkwa3JhM2t1ODFtbHppd2JmIn0.9DC6eUXzdFclnzb_3LCOtg';
 
@@ -77,13 +79,15 @@ const MyRoutes = () => {
                 const endCoord = route.coordinates[route.coordinates.length - 1];
 
                 [startCoord, endCoord].forEach((coord) => {
+                    const popupContent = ReactDOMServer.renderToString(<RoutePopup route={route} />);
+
                     new mapboxgl.Popup({
                         closeOnClick: false,
                         closeButton: false,
-                        className: 'route-name-popup' // Custom class for styling
+                        className: 'route-name-popup'
                     })
                         .setLngLat(coord)
-                        .setHTML(`<div class="route-name-container">${route.name}</div>`)
+                        .setHTML(popupContent)
                         .addTo(map);
                 });
             });
