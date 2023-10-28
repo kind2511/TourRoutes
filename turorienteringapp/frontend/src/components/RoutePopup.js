@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
 import './RoutePopup.css'; 
 
-const RoutePopup = ({ route }) => {
-    const [isOpen, setIsOpen] = useState(false);  // State to handle dropdown
-    const [comment, setComment] = useState('');  // State to handle user's comment
+const RoutePopup = ({ route, distance }) => {
+    const [isOpen, setIsOpen] = useState(false);
+    const [comment, setComment] = useState('');
 
     const handleCommentSubmit = () => {
         if (comment) {
-            // Handle comment submission logic here, e.g., save to database, etc.
             alert('Comment submitted: ' + comment);
-            setComment('');  // Clear the comment input after submitting
+            setComment('');
         } else {
             alert('Please write a comment before submitting.');
         }
@@ -18,6 +17,7 @@ const RoutePopup = ({ route }) => {
     return (
         <div className="route-popup-container">
             <div className="route-name">{route.name}</div>
+            <div className="route-distance">{distance} km</div>
             <button className="dropdown-button" onClick={() => setIsOpen(!isOpen)}>
                 {isOpen ? '▲' : '▼'}
             </button>

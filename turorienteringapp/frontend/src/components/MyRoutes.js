@@ -3,20 +3,23 @@ import mapboxgl from 'mapbox-gl';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import ReactDOMServer from 'react-dom/server';
+import { length } from '@turf/turf';  // Import specific function from Turf for calculating distance
 import './MyRoutes.css';
 import RoutePopup from './RoutePopup';
 
+// Set the Mapbox access token
 mapboxgl.accessToken = 'pk.eyJ1IjoiY2hyaXNhMjUxMSIsImEiOiJjbGtkcjRhNnkwa3JhM2t1ODFtbHppd2JmIn0.9DC6eUXzdFclnzb_3LCOtg';
 
-// Color for routes
+// Define a list of colors for routes
 const colors = ['#F00', '#0F0', '#00F', '#FF0', '#0FF', '#F0F', '#888', '#123456', '#654321', '#ABCDEF'];
 
 const MyRoutes = () => {
     const navigate = useNavigate();
     const mapContainerRef = useRef(null);
     const [routes, setRoutes] = useState([]);
-    const [error, setError] = useState(null); // For displaying errors
+    const [error, setError] = useState(null);
 
+    // Fetch routes from the backend
     const fetchRoutes = async () => {
         try {
             const response = await axios.get('http://localhost:8000/api/v1/tourRoutes/');
@@ -27,10 +30,12 @@ const MyRoutes = () => {
         }
     };
 
+    // Fetch routes on component mount
     useEffect(() => {
         fetchRoutes();
     }, []);
 
+    // Initialize the map and plot routes
     useEffect(() => {
         const map = new mapboxgl.Map({
             container: mapContainerRef.current,
@@ -39,6 +44,7 @@ const MyRoutes = () => {
             zoom: 9
         });
 
+        // Plot each route on the map once it's loaded
         map.on('load', () => {
             routes.forEach((route, index) => {
                 if (!route.coordinates || route.coordinates.length === 0) {
@@ -74,13 +80,13 @@ const MyRoutes = () => {
                     });
                 }
 
-                // Create styled popup for start and end of route
+                // Calculate distance for the route
+                const distance = length({ type: 'Feature', geometry: { type: 'LineString', coordinates: route.coordinates } }, { units: 'kilometers' });
+                const popupContent = ReactDOMServer.renderToString(<RoutePopup route={route} distance={distance.toFixed(2)} />);
+
                 const startCoord = route.coordinates[0];
                 const endCoord = route.coordinates[route.coordinates.length - 1];
-
                 [startCoord, endCoord].forEach((coord) => {
-                    const popupContent = ReactDOMServer.renderToString(<RoutePopup route={route} />);
-
                     new mapboxgl.Popup({
                         closeOnClick: false,
                         closeButton: false,
@@ -93,10 +99,11 @@ const MyRoutes = () => {
             });
         });
 
+        // Clean up map instance on component unmount
         return () => map.remove();
-
     }, [routes]);
 
+    // Navigate to dashboard on logo click
     const handleLogoClick = () => {
         navigate('/dashboard');
     }
@@ -104,9 +111,7 @@ const MyRoutes = () => {
     return (
         <div className="relativeContainer">
             {error && <div className="errorNotification">{error}</div>}
-
             <div className="mapContainer" ref={mapContainerRef}>
-                {/* TurRuter logo positioned above the map */}
                 <div className="myroutes-logo" onClick={handleLogoClick}>TurRuter</div>
             </div>
         </div>
