@@ -103,6 +103,9 @@ const Dashboard = () => {
     const handleLogoClick = () => {
         navigate('/dashboard');
     }
+    const handleFindPath = () => {
+        navigate('/find-path');
+    }
 
     return (
         <div className="dashboard-container">
@@ -114,7 +117,7 @@ const Dashboard = () => {
                     <div className="edit-dropdown-content">
                         <a href="#" onClick={() => navigate('/new-route')}>New Route</a>
                         <a href="#" onClick={() => navigate('/my-routes')}>My Routes</a>
-                        <a href="#" onClick={() => navigate('/all-routes')}>All Routes</a>
+                        <a href="#" onClick={handleFindPath}>Find Path</a> {/* Newly added */}
                     </div>
                 </div>
                 <span className="option-item" onClick={handleLogout}>Logout</span>

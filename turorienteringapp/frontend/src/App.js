@@ -9,6 +9,7 @@ import AboutUs from './components/AboutUs';
 import UserProfile from './components/UserProfile';  
 import NewRoute from './components/NewRoute';
 import MyRoutes from './components/MyRoutes';
+import FindPath from './components/FindPath';
 
 // Main App component
 function App() {
@@ -41,6 +42,9 @@ function App() {
 
                     {/* Route to view user's saved routes */}
                     <Route path="/my-routes" element={<MyRoutes />} />
+
+                    <Route path="/find-path" element={<FindPath />} />
+
                 </Routes>
             </Router>
         </div>
