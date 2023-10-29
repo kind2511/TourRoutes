@@ -12,8 +12,8 @@
 .findPath-logo {
     font-family: 'Pacifico', cursive;
     position: absolute;
-    margin-top: 10px;
-    margin-left: -10px;  
+    top: 10px;
+    left: 10px;
     padding: 10px;
     color: #4CAF50;
     border-radius: 5px;
@@ -34,6 +34,10 @@
     gap: 10px;
     z-index: 100;
     width: 300px;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 .pathInput {
@@ -41,12 +45,12 @@
     font-size: 16px;
     border-radius: 5px;
     border: 1px solid #ddd;
-    width: 100%;   
-    box-sizing: border-box;   
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .findPathButton {
-    padding: 10px 0;   
+    padding: 10px 0;
     font-size: 16px;
     cursor: pointer;
     background-color: #4CAF50;
@@ -54,9 +58,9 @@
     border: none;
     border-radius: 5px;
     transition: background-color 0.3s;
-    width: 100%;   
+    width: 100%;
 }
 
 .findPathButton:hover {
-    background-color: #6ed9fa;   
+    background-color: #6ed9fa;
 }
