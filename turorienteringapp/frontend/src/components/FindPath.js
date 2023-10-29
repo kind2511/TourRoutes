@@ -29,14 +29,20 @@ const FindPath = () => {
         navigate('/dashboard');
     }
 
+    const handleFindPathClick = () => {
+        // Logic to handle path finding will be placed here :)
+    }
+
     return (
         <div className="fullMapContainer">
             <div ref={mapContainerRef} className="fullMap">
-                <div
-                    className="findPath-logo"
-                    onClick={handleLogoClick}
-                >
+                <div className="findPath-logo" onClick={handleLogoClick}>
                     TurRuter
+                </div>
+                <div className="pathInputContainer">
+                    <input type="text" placeholder="Start from" className="pathInput" />
+                    <input type="text" placeholder="End with" className="pathInput" />
+                    <button onClick={handleFindPathClick} className="findPathButton">Find Path</button>
                 </div>
             </div>
         </div>
