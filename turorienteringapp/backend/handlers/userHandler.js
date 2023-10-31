@@ -1,4 +1,5 @@
 const crypto = require("crypto");
+//const util = require("util");
 const User = require("../models/usersModel");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
@@ -50,20 +51,20 @@ exports.login = async (req, res) => {
     // Extract email and password from request body
     const { email, password } = req.body;
 
-    // Check if both email and password are provided
+    // Check if both email and password are provided by user
     if (!email || !password) {
-      return res.status(400).json({
+      return res.status(404).json({
         status: "fail",
         message: "Email or password not provided",
       });
     }
 
-    // Find the user with the given email
+    // Find the user in the DB based on the email and password provided by the user
     const user = await User.findOne({ email }).select("+password");
 
     // If user is not found, send an error response
     if (!user) {
-      return res.status(400).json({
+      return res.status(404).json({
         status: "fail",
         message: "Could not find user",
       });
@@ -79,7 +80,6 @@ exports.login = async (req, res) => {
         status: "success",
         message: "Successfully logged in",
         token,
-        userID: user._id,
       });
     } else {
       // If passwords don't match, send an error response
@@ -141,7 +141,7 @@ exports.getUser = async (req, res) => {
   }
 };
 
-/// Handler to update details of a specific user based on user ID
+/// Handler to update details of a specific user based on user ID (For Admin)
 exports.updateUser = async (req, res) => {
   try {
     // Update user details based on user ID and data from request body
@@ -166,7 +166,7 @@ exports.updateUser = async (req, res) => {
   }
 };
 
-// Handler to delete a user based on user ID
+// Handler to delete a user based on user ID (For Admin)
 exports.deleteUser = async (req, res) => {
   try {
     // Delete the user based on the provided user ID from request parameters
@@ -179,6 +179,105 @@ exports.deleteUser = async (req, res) => {
     });
   } catch (err) {
     // If there's an error in deleting the user, send an error response
+    res.status(400).json({
+      status: "fail",
+      message: err,
+    });
+  }
+};
+
+// ------------------------------------------------------------------------------------------------------------------
+
+// Handler to get info about currently logged in user
+exports.myProfile = async (req, res, next) => {
+  req.params.id = req.user.id;
+  next();
+};
+
+// Function to decide which feilds that the user is going to be able to update
+const filterObj = (obj, ...legalFields) => {
+  const newObject = {};
+  Object.keys(obj).forEach((el) => {
+    if (legalFields.includes(el)) newObject[el] = obj[el];
+  });
+  return newObject;
+};
+
+// Updating the current user
+exports.updateMyProfile = async (req, res) => {
+  try {
+    // Decide the fields that the user can update (firstName, lastName, and email)
+    const legalUpdates = filterObj(req.body, "firstName", "lastName", "email");
+
+    // Update the current user
+    const updatedUser = await User.findByIdAndUpdate(
+      req.user.id,
+      legalUpdates,
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
+
+    res.status(200).json({
+      status: "success",
+      data: { user: updatedUser },
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: "fail",
+      message: err,
+    });
+  }
+};
+
+// Deletes the current user
+exports.deleteMyProfile = async (req, res) => {
+  try {
+    // Find user to delete
+    await User.findByIdAndDelete(req.user.id);
+
+    res.status(204).json({
+      status: "success",
+      data: null,
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: "fail",
+      message: err,
+    });
+  }
+};
+
+// Midlleware to protect routes (checks for user authentification)
+exports.authenticate = async (req, res, next) => {
+  try {
+    // Find the token
+    let token;
+    if (
+      req.headers.authorization &&
+      req.headers.authorization.startsWith("Bearer")
+    ) {
+      token = req.headers.authorization.split(" ")[1];
+    }
+
+    if (!token) {
+      return res.status(401).json({
+        status: "fail",
+        message: "Authentication required. Log in to continue",
+      });
+    }
+
+    // Validate the token (The jwt algorithm verifies if the token signature is valid or not)
+    try {
+      const decoded = jwt.verify(token, process.env.TOKEN_SECRET);
+      req.user = decoded; // we need this for user roles and permissions
+    } catch (err) {
+      return res.status(401).send("Invalid Token");
+    }
+
+    next();
+  } catch (err) {
     res.status(400).json({
       status: "fail",
       message: err,
