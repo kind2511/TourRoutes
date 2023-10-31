@@ -13,8 +13,8 @@ const Dashboard = () => {
     const [activeReviewIndex, setActiveReviewIndex] = useState(0);
     const [activePopupReviewIndex, setActivePopupReviewIndex] = useState(0);
     const [showSlide, setShowSlide] = useState(false);
-    
-        const reviews = [
+
+    const reviews = [
         // Descriptive messages to guide users on the platform's features
         "Discover the quickest routes for your daily hikes",
         "Navigate to the shortest roads for your school or workplace commute",
@@ -32,56 +32,53 @@ const Dashboard = () => {
         "The trail was scenic and easy to follow.",
         "Needs better indications at junctions.",
         // ... (you can add more as needed)
+
     ];
 
     /*
-     * Cycles through reviews every 3 seconds.
-     * Cycles through popup reviews every 5 seconds with slide animation.
-     */
+    * Cycles through reviews every 3 seconds.
+    * Cycles through popup reviews every 5 seconds with slide animation.
+    */
     useEffect(() => {
         const reviewInterval = setInterval(() => {
             setActiveReviewIndex((prevIndex) => (prevIndex + 1) % reviews.length);
         }, 3000);
-    
+
         const popupReviewInterval = setInterval(() => {
             setActivePopupReviewIndex((prevIndex) => (prevIndex + 1) % popupReviews.length);
-            setShowSlide(true);  
+            setShowSlide(true);
             setTimeout(() => setShowSlide(false), 4900);
         }, 5000);
-    
+
         const map = new mapboxgl.Map({
-            container: mapContainerRef.current,
-            style: 'mapbox://styles/mapbox/satellite-streets-v11',
+            container: document.body,  // <-- Directly attach to the body without container
+            style: 'mapbox://styles/mapbox/streets-v11',
             center: [10.797379, 60.794533],
             zoom: 9
         });
-    
+
+
         mapRef.current = map;
-    
         // Ensuring the map fits its container once loaded
         map.on('load', () => {
             map.resize();
         });
-    
+
         // Block back arrow navigation:
         window.history.pushState(null, null, window.location.href);
         const handlePopState = () => {
             window.history.forward();
         }
         window.addEventListener('popstate', handlePopState);
-    
+
         return () => {
             map.remove();
             clearInterval(reviewInterval);
             clearInterval(popupReviewInterval);
-    
             // Cleanup: Remove the popstate event listener
             window.removeEventListener('popstate', handlePopState);
         };
     }, []);
-    
-    
-    
 
     const handleMapClick = (e) => {
         const { lng, lat } = e.lngLat;
@@ -97,7 +94,7 @@ const Dashboard = () => {
 
     const handleLogout = () => {
         // Remove the token and navigate to login
-        navigate('/login', { replace: true }); 
+        navigate('/login', { replace: true });
     };
 
     const handleLogoClick = () => {
@@ -108,7 +105,7 @@ const Dashboard = () => {
     }
 
     return (
-        <div className="dashboard-container">
+        <>
             <div className="navigation-options">
                 <div className="dashboard-logo" onClick={handleLogoClick}>TurRuter</div>
                 <span className="option-item" onClick={handleProfile}>My Profile</span>
@@ -117,24 +114,23 @@ const Dashboard = () => {
                     <div className="edit-dropdown-content">
                         <a href="#" onClick={() => navigate('/new-route')}>New Route</a>
                         <a href="#" onClick={() => navigate('/all-routes')}>All Routes</a>
-                        <a href="#" onClick={handleFindPath}>Find Path</a> {/* Newly added */}
+                        <a href="#" onClick={handleFindPath}>Find Path</a>
                     </div>
                 </div>
                 <span className="option-item" onClick={handleLogout}>Logout</span>
             </div>
-    
-            {/* Map container */}
+
             <div className="map-container" ref={mapContainerRef}></div>
-    
+
             <div className={`popup-review-panel ${showSlide ? 'slide-in' : ''}`}>
                 {popupReviews[activePopupReviewIndex]}
             </div>
             <div className="review-panel">
                 {reviews[activeReviewIndex]}
             </div>
-        </div>
+        </>
     );
-    
+
 }
 
 export default Dashboard;
