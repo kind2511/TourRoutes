@@ -8,7 +8,7 @@ import Dashboard from './components/Dashboard';
 import AboutUs from './components/AboutUs';  
 import UserProfile from './components/UserProfile';  
 import NewRoute from './components/NewRoute';
-import MyRoutes from './components/MyRoutes';
+import AllRoutes from './components/AllRoutes';
 import FindPath from './components/FindPath';
 
 // Main App component
@@ -41,7 +41,7 @@ function App() {
                     <Route path="/new-route" element={<NewRoute />} />
 
                     {/* Route to view user's saved routes */}
-                    <Route path="/my-routes" element={<MyRoutes />} />
+                    <Route path="/all-routes" element={<AllRoutes />} />
 
                     <Route path="/find-path" element={<FindPath />} />
 

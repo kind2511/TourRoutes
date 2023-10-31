@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import ReactDOMServer from 'react-dom/server';
 import { length } from '@turf/turf';  // Import specific function from Turf for calculating distance
-import './MyRoutes.css';
+import './AllRoutes.css';
 import RoutePopup from './RoutePopup';
 
 // Set the Mapbox access token
@@ -13,7 +13,7 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiY2hyaXNhMjUxMSIsImEiOiJjbGtkcjRhNnkwa3JhM2t1O
 // Define a list of colors for routes
 const colors = ['#F00', '#0F0', '#00F', '#FF0', '#0FF', '#F0F', '#888', '#123456', '#654321', '#ABCDEF'];
 
-const MyRoutes = () => {
+const AllRoutes = () => {
     const navigate = useNavigate();
     const mapContainerRef = useRef(null);
     const [routes, setRoutes] = useState([]);
@@ -112,10 +112,10 @@ const MyRoutes = () => {
         <div className="relativeContainer">
             {error && <div className="errorNotification">{error}</div>}
             <div className="mapContainer" ref={mapContainerRef}>
-                <div className="myroutes-logo" onClick={handleLogoClick}>TurRuter</div>
+                <div className="AllRoutes-logo" onClick={handleLogoClick}>TurRuter</div>
             </div>
         </div>
     );
 }
 
-export default MyRoutes;
+export default AllRoutes;
