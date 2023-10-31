@@ -23,7 +23,17 @@ router
 .route("/deleteMyProfile")
 .delete(userHandler.authenticate, userHandler.deleteMyProfile);
 
+//----------------------------------------------------------------------------------------------------------------------
+// Routes currently being worked on
+
+// Route to handle forgot password
+router.route("/forgotPassword").post(userHandler.forgotPassword);
+
+//Route to handle reset password
+router.route("/resetPassword/:token").patch(userHandler.resetPassword);
+
 // ----------------------------------------------------------------------------------------------------------------------
+// Routes for Admin
 
 // Route to get all users
 router.route("/").get(userHandler.getUsers);
@@ -35,10 +45,5 @@ router
   .patch(userHandler.updateUser)
   .delete(userHandler.deleteUser);
 
-// Route to handle forgot password
-router.route("/forgotPassword").post(userHandler.forgotPassword);
-
-//Route to handle reset password
-router.route("/resetPassword/:token").patch(userHandler.resetPassword);
 
 module.exports = router;
