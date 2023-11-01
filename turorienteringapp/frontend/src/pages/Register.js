@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import ReCAPTCHA from "react-google-recaptcha";
 import './Register.css';
 
 function Register() {
@@ -13,12 +14,14 @@ function Register() {
     confirmPassword: ''
   });
 
+  // State for reCAPTCHA value
+  const [recaptchaValue, setRecaptchaValue] = useState(null);
+
   // State for error messages
   const [errorMessage, setErrorMessage] = useState("");
 
   // React Router hook to programmatically navigate
   const navigate = useNavigate();
-
 
   // Update form data state on input change
   const handleInputChange = (event) => {
@@ -39,14 +42,17 @@ function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    //----------------------->
+    // Check if reCAPTCHA is completed
+    if (!recaptchaValue) {
+      setErrorMessage("Please confirm that you are not a robot!");
+      return;
+    }
 
     if (formData.password.length < 8) {
       setErrorMessage("Password must be at least 8 charaters long!")
       return;
     }
 
-    //------------------------------>
     if (formData.password !== formData.confirmPassword) {
       setErrorMessage("Passwords don't match!");
       return;
@@ -103,6 +109,12 @@ function Register() {
 
           <label htmlFor="confirmPassword">Confirm Password</label>
           <input type="password" name="confirmPassword" id="confirmPassword" value={formData.confirmPassword} onChange={handleInputChange} required />
+
+          {/* reCAPTCHA widget */}
+          <ReCAPTCHA
+            sitekey="6LetW-koAAAAAJsLZtyr9Lf7ShzcAhXntNqU60Ke"
+            onChange={value => setRecaptchaValue(value)}
+          />
 
           <button type="submit">Register</button>
         </form>
