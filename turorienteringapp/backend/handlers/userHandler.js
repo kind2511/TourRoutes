@@ -255,6 +255,7 @@ exports.authenticate = async (req, res, next) => {
   try {
     // Find the token
     let token;
+    // checks the authorization header for the token
     if (
       req.headers.authorization &&
       req.headers.authorization.startsWith("Bearer")
@@ -281,7 +282,7 @@ exports.authenticate = async (req, res, next) => {
   } catch (err) {
     res.status(400).json({
       status: "fail",
-      message: err,
+      message: "Something went wrong when authenticating the user.",
     });
   }
 };
