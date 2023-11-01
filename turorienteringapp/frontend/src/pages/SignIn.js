@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
+import ReCAPTCHA from "react-google-recaptcha";
 import './SignIn.css';
 
 function SignIn() {
@@ -7,6 +8,7 @@ function SignIn() {
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
     const [error, setError] = useState(''); // State to hold the error message
+    const [isVerified, setIsVerified] = useState(false); // State for reCAPTCHA verification
 
     /* Using the useNavigate hook from react-router-dom to programmatically navigate */
     const navigate = useNavigate();
@@ -31,6 +33,11 @@ function SignIn() {
     /* This function handles the form submission for sign in */
     const handleSubmit = async (e) => {
         e.preventDefault(); // Prevents default form behavior
+        
+        if (!isVerified) {
+            setError("Please confirm that you are not a robot.");
+            return;
+        }
 
         try {
             /* Sending a POST request to the backend to login */
@@ -105,6 +112,11 @@ function SignIn() {
                             Forgot your password?
                         </span>
                     </div>
+                    {/* Adding reCAPTCHA */}
+                    <ReCAPTCHA
+                        sitekey="6LetW-koAAAAAJsLZtyr9Lf7ShzcAhXntNqU60Ke"
+                        onChange={(value) => setIsVerified(Boolean(value))}
+                    />
                     {/* Submit button to log in */}
                     <button type="submit">Log In</button>
                 </form>
