@@ -9,6 +9,11 @@ router.route("/newTourRoute").post(tourRouteHandler.newTourRoute);
 // Routes to get all tour routes
 router.route("/").get(tourRouteHandler.getAllTourRoutes);
 
+// Routes to get all published tour routes
+router
+  .route("/getAllPublishedTourRoutes")
+  .get(tourRouteHandler.getAllPublishedTourRoutes);
+
 // Route to handle operations based on tour route id
 router
   .route("/:id")

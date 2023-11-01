@@ -49,6 +49,28 @@ exports.getAllTourRoutes = async (req, res) => {
   }
 };
 
+// Handler to get all published tour routes
+exports.getAllPublishedTourRoutes = async (req, res) => {
+  try {
+    // Fetch all tour routes from the database
+    const tourRoutes = await TourRoute.find({ published: true });
+
+    // Send a success response with the list of users
+    res.status(200).json({
+      status: "success",
+      data: {
+        tourRoutes: tourRoutes,
+      },
+    });
+  } catch (err) {
+    // If there's an error in fetching tour routes, send an error response
+    res.status(400).json({
+      status: "fail",
+      message: err,
+    });
+  }
+};
+
 // Handler to get details of a specific tour route based on ID of the tour route
 exports.getTourRoute = async (req, res) => {
   try {
@@ -90,4 +112,3 @@ exports.deleteTourRoute = async (req, res) => {
     });
   }
 };
-
