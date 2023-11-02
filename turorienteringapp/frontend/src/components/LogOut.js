@@ -1,17 +1,19 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AuthContext } from './AuthContext';
+import { useAuth } from './AuthContext'; // Using the useAuth hook from AuthContext
 
-const LogOut = () => {
-    const { logout } = useContext(AuthContext);
-    const navigate = useNavigate(); // Using useNavigate hook for navigation
+const Logout = () => {
+    const { signOut } = useAuth();  // Using the signOut function from the context
+    const navigate = useNavigate();
 
     useEffect(() => {
-        logout();
-        navigate('/login'); // Redirect to login page
-    }, [logout, navigate]);
+        setTimeout(() => {
+            signOut();  // Using the signOut function from the context
+            navigate('/login');  // Redirect to login page
+        }, 100); // 100ms delay for potential timing issues
+    }, [signOut, navigate]);
 
     return <div>Logging out...</div>;
 }
 
-export default LogOut;
+export default Logout;

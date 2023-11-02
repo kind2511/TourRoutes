@@ -1,20 +1,40 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, useContext } from 'react';
 
-// Create a new Context for authentication.
-// This will allow child components to access authentication-related data and methods.
-export const AuthContext = createContext();
+const AuthContext = createContext(); // Creating the authentication context
 
-// A provider component that wraps children components and provides them access
-// to the authentication context.
-export const AuthProvider = ({ children }) => {
-    // Local state to keep track of the authenticated user.
-    // 'user' will be null if no user is authenticated.
-    const [user, setUser] = useState(null);
+const AuthProvider = ({ children }) => {
+    const [user, setUser] = useState(null);  // State to hold user data
 
-    // Provide the 'user' state and 'setUser' method to children.
+    const signIn = (userData) => {
+        // Set user data after signIn
+        setUser(userData);
+    }
+
+    const signOut = () => {
+        // Remove the token from local storage
+        localStorage.removeItem('token');
+        // Reset user state
+        setUser(null);
+    }
+
+    const register = (userData) => {
+        // Set user data upon successful registration
+        setUser(userData);
+    }
+
     return (
-        <AuthContext.Provider value={{ user, setUser }}>
+        <AuthContext.Provider value={{ user, signIn, signOut, register }}>
             {children}
         </AuthContext.Provider>
     );
-};
+}
+
+const useAuth = () => {
+    const context = useContext(AuthContext);  // Using the created context
+    if (!context) {
+        throw new Error('useAuth must be used within an AuthProvider');  // Error handling for improper context usage
+    }
+    return context;
+}
+
+export { AuthProvider, useAuth }; // Exporting the provider and the hook
