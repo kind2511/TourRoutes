@@ -15,6 +15,7 @@ const UserProfile = () => {
 
   const navigate = useNavigate(); // Navigation function
 
+  // Sends a get request to the backend and retrives the users personal data
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -56,16 +57,29 @@ const UserProfile = () => {
   /**
    * Update a user's profile data and reset the edit mode for the field.
    */
-  const handleUpdateProfile = (field) => {
+  const handleUpdateProfile = async (field) => {
     setIsEditing((prevEditingState) => ({
       ...prevEditingState,
       [field]: false,
     }));
 
-    /* 
-           TODO: Send the updated data to the backend.
-           Use an API call to send the new data (from userData) to update the user profile.
-        */
+    // Sends the updated userdata to the backend via a patch request, which then persists the updated userdata.
+    try {
+      const response = await fetch(
+        "http://localhost:8000/api/v1/users/updateMyProfile",
+        {
+          method: "PATCH",
+          headers: {
+            "content-type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+          credentials: "same-origin",
+          body: JSON.stringify(userData),
+        }
+      );
+    } catch (error) {
+      console.error("Error updating user data:", error);
+    }
   };
 
   /*
