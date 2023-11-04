@@ -1,0 +1,15 @@
+/* GoodbyePage.css */
+.goodbye-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; /* Full viewport height */
+    text-align: center;
+  }
+  
+  .goodbye-container h1 {
+    font-size: 2rem;
+    color: #333;
+  }
+  

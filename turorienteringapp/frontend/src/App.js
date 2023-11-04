@@ -16,18 +16,18 @@ import NewRoute from './components/NewRoute';
 import AllRoutes from './components/AllRoutes';
 import FindPath from './components/FindPath';
 import LogOut from './components/LogOut';
+import DeleteUser from './components/DeleteUser';
+import GoodbyePage from './components/GoodbyePage';
 
 // Main App component
 function App() {
     return (
-        <AuthProvider>   {/* Wrapping the entire app with AuthProvider */}
+        <AuthProvider> {/* Wrapping the entire app with AuthProvider */}
             <div className="App">
                 {/* Initializing the router */}
                 <Router>
-
                     {/* Setting up the routes for navigation */}
                     <Routes>
-
                         {/* Home Page */}
                         <Route path="/" element={<HomePage />} />
 
@@ -49,6 +49,11 @@ function App() {
                         {/* User Profile Page */}
                         <Route path="/profile" element={<UserProfile />} />
 
+                        {/* Page to delete a user */}
+                        <Route path="/delete-user" element={<DeleteUser />} /> 
+
+                        <Route path="/goodbye" element={<GoodbyePage />} />
+                        
                         {/* Page to create a new route */}
                         <Route path="/new-route" element={<NewRoute />} />
 
@@ -57,9 +62,7 @@ function App() {
 
                         {/* Page to find a path */}
                         <Route path="/find-path" element={<FindPath />} />
-
                     </Routes>
-
                 </Router>
             </div>
         </AuthProvider>
