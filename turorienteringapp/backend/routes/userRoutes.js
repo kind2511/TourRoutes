@@ -10,27 +10,18 @@ router.route("/login").post(userHandler.login);
 
 // Route to get info about current loged in user
 router
-.route("/myProfile")
-.get(userHandler.authenticate, userHandler.myProfile, userHandler.getUser);
+  .route("/myProfile")
+  .get(userHandler.authenticate, userHandler.myProfile, userHandler.getUser);
 
 // Route to update name and email of current user
 router
-.route("/updateMyProfile")
-.patch(userHandler.authenticate, userHandler.updateMyProfile);
+  .route("/updateMyProfile")
+  .patch(userHandler.authenticate, userHandler.updateMyProfile);
 
 // Route to delete the current user
 router
-.route("/deleteMyProfile")
-.delete(userHandler.authenticate, userHandler.deleteMyProfile);
-
-//----------------------------------------------------------------------------------------------------------------------
-// Routes currently being worked on
-
-// Route to handle forgot password
-router.route("/forgotPassword").post(userHandler.forgotPassword);
-
-//Route to handle reset password
-router.route("/resetPassword/:token").patch(userHandler.resetPassword);
+  .route("/deleteMyProfile")
+  .delete(userHandler.authenticate, userHandler.deleteMyProfile);
 
 // ----------------------------------------------------------------------------------------------------------------------
 // Routes for Admin
@@ -44,6 +35,5 @@ router
   .get(userHandler.getUser)
   .patch(userHandler.updateUser)
   .delete(userHandler.deleteUser);
-
 
 module.exports = router;
