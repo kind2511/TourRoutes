@@ -9,13 +9,20 @@ router
   .route("/newTourRoute")
   .post(userHandler.authenticate, tourRouteHandler.newTourRoute);
 
-// Routes to get all tour routes
-router.route("/").get(tourRouteHandler.getAllTourRoutes);
-
-// Routes to get all published tour routes
+// Route to get all published tour routes
 router
   .route("/getAllPublishedTourRoutes")
   .get(userHandler.authenticate, tourRouteHandler.getAllPublishedTourRoutes);
+
+// Route to get all individual routes of one user
+router
+  .route("/getIndividualUsersTourRoutes")
+  .get(userHandler.authenticate, tourRouteHandler.getIndividualUsersTourRoutes);
+
+//-------------------------------------------------------------------------------------------------------------
+
+// Routes to get all tour routes
+router.route("/").get(tourRouteHandler.getAllTourRoutes);
 
 // Route to handle operations based on tour route id
 router
