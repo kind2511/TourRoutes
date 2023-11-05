@@ -22,18 +22,20 @@ const DeleteUser = () => {
         },
         credentials: 'same-origin',
       });
-
+  
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       } else {
         console.log('Account deleted successfully');
         localStorage.removeItem('token'); // Clear the token from localStorage
-        navigate('/goodbye'); // Redirect to login after account deletion
+        localStorage.removeItem('user'); // Also clear the user data from localStorage if stored
+        navigate('/goodbye'); // Redirect to a goodbye or login page after account deletion
       }
     } catch (error) {
       console.error('Error deleting account:', error);
     }
   };
+  
 
   return (
     <div className="delete-user-container">

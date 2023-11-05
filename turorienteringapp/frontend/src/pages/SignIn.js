@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import ReCAPTCHA from "react-google-recaptcha";
+import { useAuth } from '../components/AuthContext';
 import './SignIn.css';
 
 function SignIn() {
@@ -13,11 +14,15 @@ function SignIn() {
     /* Using the useNavigate hook from react-router-dom to programmatically navigate */
     const navigate = useNavigate();
 
+    /*Destructure the signIn function from the useAuth hook */
+    const { signIn } = useAuth();
+
+
     useEffect(() => {
         /* Block back arrow on the login page after logout */
         function blockBackNavigation() {
             window.history.pushState(null, "", window.location.href);
-            window.onpopstate = function() {
+            window.onpopstate = function () {
                 window.history.pushState(null, "", window.location.href);
             };
         }
@@ -30,17 +35,22 @@ function SignIn() {
 
     }, []); // Empty dependency array to run this useEffect only once
 
+
+    //--------------------------------------------------------------------->
+
     /* This function handles the form submission for sign in */
     const handleSubmit = async (e) => {
         e.preventDefault(); // Prevents default form behavior
-        
+
         if (!isVerified) {
             setError("Please confirm that you are not a robot.");
             return;
         }
 
+        setError(''); // Clear any previous errors
+
         try {
-            /* Sending a POST request to the backend to login */
+            // Sending a POST request to the backend to login
             const response = await fetch('http://localhost:8000/api/v1/users/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -48,12 +58,16 @@ function SignIn() {
                 body: JSON.stringify({ email, password: pass })
             });
 
-            /* Parsing the response from JSON to a JavaScript object */
+            // Parsing the response from JSON to a JavaScript object
             const data = await response.json();
 
             if (data.status === 'success') {
-                /* Store the JWT token in local storage */
+                // Here you would call signIn from AuthContext, passing in the relevant data
+                signIn(data.token);
+
+                // Store the JWT token in local storage
                 localStorage.setItem('token', data.token);
+
                 navigate('/dashboard');  // Navigating to dashboard if login was successful
             } else {
                 setError(data.message); // Displaying error to the user
@@ -63,7 +77,10 @@ function SignIn() {
             setError('Error during login.'); // Displaying error to the user
             console.error('Error during login:', error);
         }
-    }
+    };
+
+
+    //-------------------------------------------------------------------->
 
     /* This function handles the click event for the register link */
     const handleRegisterClick = () => {
