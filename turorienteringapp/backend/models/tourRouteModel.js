@@ -16,6 +16,7 @@ const tourRouteSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  user_id: String,
 });
 
 const TourRoute = mongoose.model("TourRoute", tourRouteSchema);
