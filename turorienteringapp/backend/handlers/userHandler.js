@@ -2,6 +2,10 @@ const User = require("../models/usersModel");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
+//------------------------------------------------------------------------------------------------------
+// Authentification
+//------------------------------------------------------------------------------------------------------
+
 // jwt token expires in 3 days
 const maxAge = 3 * 24 * 60 * 60 * 1000;
 
@@ -95,26 +99,51 @@ exports.login = async (req, res) => {
   }
 };
 
-// Handler to get all users
-exports.getUsers = async (req, res) => {
+// Midlleware to protect routes (checks for user authentification)
+exports.authenticate = async (req, res, next) => {
   try {
-    // Fetch all users from the database
-    const users = await User.find();
+    // Find the token
+    let token;
+    // checks the authorization header for the token
+    if (
+      req.headers.authorization &&
+      req.headers.authorization.startsWith("Bearer")
+    ) {
+      token = req.headers.authorization.split(" ")[1];
+    }
 
-    // Send a success response with the list of users
-    res.status(200).json({
-      status: "success",
-      data: {
-        users: users,
-      },
-    });
+    if (!token) {
+      return res.status(401).json({
+        status: "fail",
+        message: "Authentication required. Log in to continue",
+      });
+    }
+
+    // Validate the token (The jwt algorithm verifies if the token signature is valid or not)
+    try {
+      const decoded = jwt.verify(token, process.env.TOKEN_SECRET);
+      req.user = decoded; // we need this for user roles and permissions
+    } catch (err) {
+      return res.status(401).send("Invalid Token");
+    }
+
+    next();
   } catch (err) {
-    // If there's an error in fetching users, send an error response
     res.status(400).json({
       status: "fail",
-      message: err,
+      message: "Something went wrong when authenticating the user.",
     });
   }
+};
+
+//------------------------------------------------------------------------------------------------------
+// User Functionallity
+//------------------------------------------------------------------------------------------------------
+
+// Handler to get info about currently logged in user
+exports.myProfile = async (req, res, next) => {
+  req.params.id = req.user.id;
+  next();
 };
 
 // Handler to get details of a specific user based on user ID
@@ -137,59 +166,6 @@ exports.getUser = async (req, res) => {
       message: err,
     });
   }
-};
-
-/// Handler to update details of a specific user based on user ID (For Admin)
-exports.updateUser = async (req, res) => {
-  try {
-    // Update user details based on user ID and data from request body
-    const user = await User.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-      runValidators: true,
-    });
-
-    // Send a success response with the updated user details
-    res.status(200).json({
-      status: "success",
-      data: {
-        user: user,
-      },
-    });
-  } catch (err) {
-    // If there's an error in updating the user, send an error response
-    res.status(400).json({
-      status: "fail",
-      message: err,
-    });
-  }
-};
-
-// Handler to delete a user based on user ID (For Admin)
-exports.deleteUser = async (req, res) => {
-  try {
-    // Delete the user based on the provided user ID from request parameters
-    await User.findByIdAndDelete(req.params.id);
-
-    // Send a success response indicating the user has been deleted
-    res.status(200).json({
-      status: "success",
-      message: "User has been deleted successfully",
-    });
-  } catch (err) {
-    // If there's an error in deleting the user, send an error response
-    res.status(400).json({
-      status: "fail",
-      message: err,
-    });
-  }
-};
-
-// ------------------------------------------------------------------------------------------------------------------
-
-// Handler to get info about currently logged in user
-exports.myProfile = async (req, res, next) => {
-  req.params.id = req.user.id;
-  next();
 };
 
 // Function to decide which feilds that the user is going to be able to update
@@ -247,39 +223,73 @@ exports.deleteMyProfile = async (req, res) => {
   }
 };
 
-// Midlleware to protect routes (checks for user authentification)
-exports.authenticate = async (req, res, next) => {
+// -----------------------------------------------------------------------------------------------------
+// Admin Functionallity
+// -----------------------------------------------------------------------------------------------------
+
+// Handler to get all users
+exports.getUsers = async (req, res) => {
   try {
-    // Find the token
-    let token;
-    // checks the authorization header for the token
-    if (
-      req.headers.authorization &&
-      req.headers.authorization.startsWith("Bearer")
-    ) {
-      token = req.headers.authorization.split(" ")[1];
-    }
+    // Fetch all users from the database
+    const users = await User.find();
 
-    if (!token) {
-      return res.status(401).json({
-        status: "fail",
-        message: "Authentication required. Log in to continue",
-      });
-    }
-
-    // Validate the token (The jwt algorithm verifies if the token signature is valid or not)
-    try {
-      const decoded = jwt.verify(token, process.env.TOKEN_SECRET);
-      req.user = decoded; // we need this for user roles and permissions
-    } catch (err) {
-      return res.status(401).send("Invalid Token");
-    }
-
-    next();
+    // Send a success response with the list of users
+    res.status(200).json({
+      status: "success",
+      data: {
+        users: users,
+      },
+    });
   } catch (err) {
+    // If there's an error in fetching users, send an error response
     res.status(400).json({
       status: "fail",
-      message: "Something went wrong when authenticating the user.",
+      message: err,
+    });
+  }
+};
+
+/// Handler to update details of a specific user based on user ID (For Admin)
+exports.updateUser = async (req, res) => {
+  try {
+    // Update user details based on user ID and data from request body
+    const user = await User.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true,
+    });
+
+    // Send a success response with the updated user details
+    res.status(200).json({
+      status: "success",
+      data: {
+        user: user,
+      },
+    });
+  } catch (err) {
+    // If there's an error in updating the user, send an error response
+    res.status(400).json({
+      status: "fail",
+      message: err,
+    });
+  }
+};
+
+// Handler to delete a user based on user ID (For Admin)
+exports.deleteUser = async (req, res) => {
+  try {
+    // Delete the user based on the provided user ID from request parameters
+    await User.findByIdAndDelete(req.params.id);
+
+    // Send a success response indicating the user has been deleted
+    res.status(200).json({
+      status: "success",
+      message: "User has been deleted successfully",
+    });
+  } catch (err) {
+    // If there's an error in deleting the user, send an error response
+    res.status(400).json({
+      status: "fail",
+      message: err,
     });
   }
 };

@@ -48,13 +48,13 @@ exports.getIndividualUsersTourRoutes = async (req, res) => {
   }
 };
 
-// Handler to get all tour routes
-exports.getAllTourRoutes = async (req, res) => {
+// Handler to get all published tour routes
+exports.getAllPublishedTourRoutes = async (req, res) => {
   try {
     // Fetch all tour routes from the database
-    const tourRoutes = await TourRoute.find();
+    const tourRoutes = await TourRoute.find({ published: true });
 
-    // Send a success response with the list of tour routes
+    // Send a success response with the list of users
     res.status(200).json({
       status: "success",
       data: {
@@ -70,13 +70,13 @@ exports.getAllTourRoutes = async (req, res) => {
   }
 };
 
-// Handler to get all published tour routes
-exports.getAllPublishedTourRoutes = async (req, res) => {
+// Handler to get all tour routes
+exports.getAllTourRoutes = async (req, res) => {
   try {
     // Fetch all tour routes from the database
-    const tourRoutes = await TourRoute.find({ published: true });
+    const tourRoutes = await TourRoute.find();
 
-    // Send a success response with the list of users
+    // Send a success response with the list of tour routes
     res.status(200).json({
       status: "success",
       data: {

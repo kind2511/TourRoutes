@@ -9,17 +9,18 @@ router
   .route("/newTourRoute")
   .post(userHandler.authenticate, tourRouteHandler.newTourRoute);
 
-// Route to get all published tour routes
-router
-  .route("/getAllPublishedTourRoutes")
-  .get(userHandler.authenticate, tourRouteHandler.getAllPublishedTourRoutes);
-
 // Route to get all individual routes of one user
 router
   .route("/getIndividualUsersTourRoutes")
   .get(userHandler.authenticate, tourRouteHandler.getIndividualUsersTourRoutes);
 
+// Route to get all published tour routes
+router
+  .route("/getAllPublishedTourRoutes")
+  .get(userHandler.authenticate, tourRouteHandler.getAllPublishedTourRoutes);
+
 //-------------------------------------------------------------------------------------------------------------
+// Routes for Admin
 
 // Routes to get all tour routes
 router.route("/").get(tourRouteHandler.getAllTourRoutes);
