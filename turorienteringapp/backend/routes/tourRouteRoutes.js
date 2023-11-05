@@ -1,10 +1,13 @@
 const express = require("express");
 const tourRouteHandler = require("../handlers/tourRouteHandler");
+const userHandler = require("../handlers/userHandler");
 
 const router = express.Router();
 
 // Route to create a new tour route
-router.route("/newTourRoute").post(tourRouteHandler.newTourRoute);
+router
+  .route("/newTourRoute")
+  .post(userHandler.authenticate, tourRouteHandler.newTourRoute);
 
 // Routes to get all tour routes
 router.route("/").get(tourRouteHandler.getAllTourRoutes);
