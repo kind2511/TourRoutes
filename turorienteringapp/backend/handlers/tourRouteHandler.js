@@ -27,13 +27,34 @@ exports.newTourRoute = async (req, res) => {
   }
 };
 
+// Hanlder to get all individual users tour routes
+exports.getIndividualUsersTourRoutes = async (req, res) => {
+  try {
+    // Fetch all tours that have the same user_id as the current logged in user
+    const tourRoutes = await TourRoute.find({ user_id: req.user.id });
+
+    // Send a success response with the list of tour routes associated with one user
+    res.status(200).json({
+      status: "success",
+      data: {
+        tourRoutes: tourRoutes,
+      },
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: "fail",
+      message: "Could not ger tour routes",
+    });
+  }
+};
+
 // Handler to get all tour routes
 exports.getAllTourRoutes = async (req, res) => {
   try {
     // Fetch all tour routes from the database
     const tourRoutes = await TourRoute.find();
 
-    // Send a success response with the list of users
+    // Send a success response with the list of tour routes
     res.status(200).json({
       status: "success",
       data: {
