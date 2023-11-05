@@ -10,8 +10,8 @@ exports.newTourRoute = async (req, res) => {
       name,
       type: "Linestring",
       coordinates,
+      user_id: req.user.id,
     });
-
     // Stores the new tourroute document in DB.
     newTourRoute.save();
     res.status(201).json({
