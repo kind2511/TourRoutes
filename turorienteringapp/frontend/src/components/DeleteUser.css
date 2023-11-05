@@ -13,47 +13,44 @@
     align-items: center;
 }
 
-.delete-user-container h1 {
-    margin-bottom: 20px;
-    font-size: 24px;
-}
-
 .delete-user-container p {
     margin-bottom: 20px;
     font-size: 16px;
     font-weight: bold;
-    padding-left: -100px;
-    
 }
 
-.button-group {
+.delete-buttons {
     display: flex;
     justify-content: space-between;
     width: 100%;
 }
 
-.delete-user-container .delete-button,
-.delete-user-container .cancel-button {
-    padding: 10px 20px;
-    margin: 0 5px;
+.delete-user-container .delete-account-btn,
+.delete-user-container .cancel-btn {
+    padding: 10px 20px; /* Adjust padding to make buttons shorter */
+    width: 48%; /* Adjust width to make buttons wider and fill the container */
+    margin: 0 1%; /*  margin between buttons */
     border: none;
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
     color: white;
+    
 }
 
-.delete-user-container .delete-button {
-    background-color: #E53E3E;
+/* Red color for delete button */
+.delete-user-container .delete-account-btn {
+    background-color: #E53E3E;  
 }
 
-.delete-user-container .cancel-button {
-    background-color: #4CAF50;
+/* Green color for cancel button */
+.delete-user-container .cancel-btn {
+    background-color: #4CAF50;  
 }
 
-.delete-user-container button:hover {
-
+/* Hover effects for both buttons */
+.delete-user-container .delete-account-btn:hover,
+.delete-user-container .cancel-btn:hover {
     background-color: #61dafb;
     color: #333;
-    
 }
