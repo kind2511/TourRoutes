@@ -15,7 +15,7 @@ router.route("/").get(tourRouteHandler.getAllTourRoutes);
 // Routes to get all published tour routes
 router
   .route("/getAllPublishedTourRoutes")
-  .get(tourRouteHandler.getAllPublishedTourRoutes);
+  .get(userHandler.authenticate, tourRouteHandler.getAllPublishedTourRoutes);
 
 // Route to handle operations based on tour route id
 router
