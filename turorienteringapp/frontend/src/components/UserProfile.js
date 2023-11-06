@@ -82,47 +82,43 @@ const UserProfile = () => {
     }
   };
 
-  /*
-   * Render an editable field with options to save or switch to edit mode.
-   *
-   * @param {string} field - The name of the field (e.g., "firstName")
-   * @param {string} value - The current value of the field
-   * @return {JSX.Element} - A React element that represents the editable field
-   */
+  //--------------------------------------------------------------------------------------
+  const toggleEditing = (field) => {
+    setIsEditing((prev) => ({ ...prev, [field]: !prev[field] }));
+  };
+
+  const handleDeleteClick = () => {
+    navigate("/delete-user"); // Route to the DeleteUser component
+  };
+  //----------------------------------------------------------------------------------------
+
+  // /*
+  //  * Render an editable field with options to save or switch to edit mode.
+  //  *
+  //  * @param {string} field - The name of the field (e.g., "firstName")
+  //  * @param {string} value - The current value of the field
+  //  * @return {JSX.Element} - A React element that represents the editable field
+  //  */
   const renderEditableField = (field, value) => (
-    <div>
+    <div className="editable-field">
+      <span>{value}</span>
       {isEditing[field] ? (
         <>
           <input
             value={value}
             onChange={(e) =>
-              setUserData((prevData) => ({
-                ...prevData,
-                [field]: e.target.value,
-              }))
+              setUserData((prev) => ({ ...prev, [field]: e.target.value }))
             }
           />
           <button onClick={() => handleUpdateProfile(field)}>Save</button>
         </>
       ) : (
-        <>
-          <span>{value}</span>
-          <div className="edit-dropdown">
-            <span>Edit</span>
-            <div className="edit-dropdown-content">
-              <a
-                onClick={() =>
-                  setIsEditing((prevEditingState) => ({
-                    ...prevEditingState,
-                    [field]: true,
-                  }))
-                }
-              >
-                Edit
-              </a>
-            </div>
+        <div className="edit-dropdown">
+          <span>Edit</span>
+          <div className="edit-dropdown-content">
+            <a onClick={() => toggleEditing(field)}>Edit</a>
           </div>
-        </>
+        </div>
       )}
     </div>
   );
@@ -133,12 +129,9 @@ const UserProfile = () => {
   return (
     <div className="user-profile-background">
       <div className="user-profile-container">
-        {/* Replaced "User Profile" heading with the TurRuter logo */}
         <div className="userprofile-logo" onClick={handleLogoClick}>
           TurRuter
         </div>
-
-        {/*Bold Text */}
         <p>
           <strong>First Name:</strong>
           {renderEditableField("firstName", userData.firstName)}
@@ -151,6 +144,12 @@ const UserProfile = () => {
           <strong>Email:</strong>
           {renderEditableField("email", userData.email)}
         </p>
+        <div className="profile-action">
+          {/* Changed from button to clickable text */}
+          <span className="delete-user-text" onClick={handleDeleteClick}>
+            Delete User
+          </span>
+        </div>
       </div>
     </div>
   );
