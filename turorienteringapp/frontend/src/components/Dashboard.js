@@ -93,10 +93,9 @@ const Dashboard = () => {
     }
 
     const handleLogout = () => {
-        // Remove the token and navigate to login
-        navigate('/login', { replace: true });
+        navigate('/logout', { replace: true });
     };
-
+    
     const handleLogoClick = () => {
         navigate('/dashboard');
     }

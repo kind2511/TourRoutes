@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ReCAPTCHA from "react-google-recaptcha";
+import { useAuth } from '../components/AuthContext';  // Import useAuth hook
 import './Register.css';
 
 function Register() {
@@ -22,6 +23,9 @@ function Register() {
 
   // React Router hook to programmatically navigate
   const navigate = useNavigate();
+
+  // Auth context for signing in after registration
+  const { signIn } = useAuth();
 
   // Update form data state on input change
   const handleInputChange = (event) => {
@@ -60,20 +64,26 @@ function Register() {
 
     try {
       setErrorMessage(""); // Clear any previous errors
-
       const response = await fetch('http://localhost:8000/api/v1/users/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
       });
-
       const data = await response.json();
-
-      if (data.status === 'success') {
-        navigate('/dashboard');
+  
+      // Check if the registration was successful
+      if (response.ok) {
+        // Adjust these lines to match the actual structure of response
+        if (data.data && data.data.user && data.token) {
+          await signIn(data.data.user, data.token);
+          navigate('/dashboard');
+        } else {
+          // Provide more detailed feedback for debugging
+          setErrorMessage("Registration successful but missing user or token.");
+        }
       } else {
-        console.error(data.message);
-        setErrorMessage(data.message); // Display the error message from the response
+        // Display error message from server or a default message
+        setErrorMessage(data.message || "Failed to register.");
       }
     } catch (error) {
       console.error('Error during registration:', error);
@@ -81,6 +91,7 @@ function Register() {
     }
   }
 
+  //--------------------------------------------->
   // Navigate to login page
   const handleLoginClick = () => {
     navigate('/login');
