@@ -123,29 +123,28 @@ const UserProfile = () => {
     </div>
   );
 
-  {
-    /*Render*/
-  }
+
+  /*Render*/
+
   return (
     <div className="user-profile-background">
       <div className="user-profile-container">
         <div className="userprofile-logo" onClick={handleLogoClick}>
           TurRuter
         </div>
-        <p>
+        <div>
           <strong>First Name:</strong>
           {renderEditableField("firstName", userData.firstName)}
-        </p>
-        <p>
+        </div>
+        <div>
           <strong>Last Name:</strong>
           {renderEditableField("lastName", userData.lastName)}
-        </p>
-        <p>
+        </div>
+        <div>
           <strong>Email:</strong>
           {renderEditableField("email", userData.email)}
-        </p>
+        </div>
         <div className="profile-action">
-          {/* Changed from button to clickable text */}
           <span className="delete-user-text" onClick={handleDeleteClick}>
             Delete User
           </span>
@@ -153,6 +152,7 @@ const UserProfile = () => {
       </div>
     </div>
   );
+
 };
 
 export default UserProfile;

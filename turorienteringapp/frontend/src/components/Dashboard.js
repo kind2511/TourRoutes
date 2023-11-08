@@ -51,7 +51,7 @@ const Dashboard = () => {
         }, 5000);
 
         const map = new mapboxgl.Map({
-            container: document.body,  // <-- Directly attach to the body without container
+            container: mapContainerRef.current,   // <-- Directly attach to the body without container
             style: 'mapbox://styles/mapbox/streets-v11',
             center: [10.797379, 60.794533],
             zoom: 9
