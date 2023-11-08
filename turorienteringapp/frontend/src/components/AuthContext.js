@@ -43,11 +43,11 @@ export const AuthProvider = ({ children }) => {
   // Function to handle sign-out
   const signOut = () => {
     setToken(null);
-    localStorage.clear();  
+    localStorage.clear();
   };
-  
-  
-  
+
+
+
   //----------------------------------------------------->
 
   // Context value that will be provided to consumers
