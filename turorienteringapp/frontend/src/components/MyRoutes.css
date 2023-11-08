@@ -1,5 +1,7 @@
-.my-routes {
-    padding: 20px;
-
+  .mapContainer {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
   }
   
