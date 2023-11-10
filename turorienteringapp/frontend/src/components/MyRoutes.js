@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import ReactDOMServer from 'react-dom/server';
 import { length } from '@turf/turf'; // for distance calculation
 import './MyRoutes.css';
-import RoutePopup from './RoutePopup'; // Route info
+//import RoutePopup from './RoutePopup'; // Route info
 
 // Set the Mapbox access token
 mapboxgl.accessToken = 'pk.eyJ1IjoiY2hyaXNhMjUxMSIsImEiOiJjbGtkcjRhNnkwa3JhM2t1ODFtbHppd2JmIn0.9DC6eUXzdFclnzb_3LCOtg';
@@ -100,7 +100,7 @@ const MyRoutes = () => {
 
                 // Calculate distance for the route
                 const distance = length({ type: 'Feature', geometry: { type: 'LineString', coordinates: route.coordinates } }, { units: 'kilometers' });
-                const popupContent = ReactDOMServer.renderToString(<RoutePopup route={route} distance={distance.toFixed(2)} />);
+                //const popupContent = ReactDOMServer.renderToString(<RoutePopup route={route} distance={distance.toFixed(2)} />);
 
                 const startCoord = route.coordinates[0];
                 const endCoord = route.coordinates[route.coordinates.length - 1];
@@ -111,7 +111,7 @@ const MyRoutes = () => {
                         className: 'route-name-popup'
                     })
                         .setLngLat(coord)
-                        .setHTML(popupContent)
+                        //.setHTML(popupContent)
                         .addTo(map);
                 });
             });
