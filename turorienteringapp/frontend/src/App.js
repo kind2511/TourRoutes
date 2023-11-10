@@ -19,7 +19,7 @@ import LogOut from './components/LogOut';
 import DeleteUser from './components/DeleteUser';
 import GoodbyePage from './components/GoodbyePage';
 import MyRoutes from './components/MyRoutes';
-import PublishedRoutes from './components/PublishedRoutes';
+
 
 // Main App component
 function App() {
@@ -52,16 +52,15 @@ function App() {
                         <Route path="/profile" element={<UserProfile />} />
 
                         {/* Page to delete a user */}
-                        <Route path="/delete-user" element={<DeleteUser />} /> 
+                        <Route path="/delete-user" element={<DeleteUser />} />
 
                         <Route path="/goodbye" element={<GoodbyePage />} />
-                        
+
                         {/* Page to create a new route */}
                         <Route path="/new-route" element={<NewRoute />} />
 
                         <Route path="/my-routes" element={<MyRoutes />} />
- 
-                        <Route path="/published-routes" element={<PublishedRoutes />} />
+
 
                         {/* Page to view all saved routes */}
                         <Route path="/all-routes" element={<AllRoutes />} />
