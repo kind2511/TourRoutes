@@ -18,6 +18,11 @@ router
   .route("/updateMyProfile")
   .patch(userHandler.authenticate, userHandler.updateMyProfile);
 
+// Route to update the password of the current user
+router
+  .route("/updateMyPassword")
+  .patch(userHandler.authenticate, userHandler.updateMyPassword);
+
 // Route to delete the current user
 router
   .route("/deleteMyProfile")

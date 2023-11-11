@@ -205,7 +205,34 @@ exports.updateMyProfile = async (req, res) => {
   }
 };
 
-// Deletes the current user
+// Hanlder to uodate the password of the user
+exports.updateMyPassword = async (req, res) => {
+  try {
+    // Update user password based on user ID and data from request body
+    const user = await User.findById(req.user.id).select("+password");
+
+    // update users password
+    user.password = req.body.password;
+    user.confirmPassword = req.body.confirmPassword;
+
+    // save the updated password to the DB
+    await user.save();
+
+    // Send a success response indicating the users password has been updated
+    res.status(200).json({
+      status: "success",
+      message: "Password has been updated successfully",
+    });
+  } catch (err) {
+    // If there's an error updating the password, send an error response
+    res.status(400).json({
+      status: "fail",
+      message: err,
+    });
+  }
+};
+
+// Hanlder that allows the current user to delete their account
 exports.deleteMyProfile = async (req, res) => {
   try {
     // Find user to delete
