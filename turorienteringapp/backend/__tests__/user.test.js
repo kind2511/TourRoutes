@@ -12,7 +12,8 @@ describe("getUsers handler", () => {
     jest.clearAllMocks();
   });
 
-  test("should handle success case", async () => {
+  // success case
+  test("should find the users", async () => {
     const mockUsers = [{ name: "User1" }, { name: "User2" }];
     User.find.mockResolvedValue(mockUsers);
 
@@ -27,7 +28,8 @@ describe("getUsers handler", () => {
     });
   });
 
-  test("should handle error case", async () => {
+  // error case
+  test("should not find the users", async () => {
     const errorMessage = "Error fetching users";
     User.find.mockRejectedValue(errorMessage);
 
