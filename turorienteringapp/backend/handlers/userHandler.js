@@ -10,8 +10,10 @@ const bcrypt = require("bcryptjs");
 const maxAge = 3 * 24 * 60 * 60 * 1000;
 
 // Function to generate access token
-function generateAccessToken(id) {
-  return jwt.sign({ id: id }, process.env.TOKEN_SECRET, { expiresIn: maxAge });
+function generateAccessToken(id, role) {
+  return jwt.sign({ id: id, role: role }, process.env.TOKEN_SECRET, {
+    expiresIn: maxAge,
+  });
 }
 
 // Handler to sign up a user
@@ -28,7 +30,7 @@ exports.signup = async (req, res) => {
     });
 
     // Create a JWT token for the newly registered user
-    const token = generateAccessToken(user._id);
+    const token = generateAccessToken(user._id, user.role);
 
     // Send a success response with the token
     res.status(201).json({
@@ -75,7 +77,7 @@ exports.login = async (req, res) => {
     // If the user is found, compare the entered password with the stored one
     if (await bcrypt.compare(password, user.password)) {
       // If passwords match, generate a JWT token
-      const token = generateAccessToken(user._id);
+      const token = generateAccessToken(user._id, user.role);
 
       // Send a success response with the token
       return res.status(200).json({
@@ -138,8 +140,7 @@ exports.authenticate = async (req, res, next) => {
 
 // Middleware to check if user has admin role
 exports.isAdmin = (req, res, next) => {
-  // Checks if the current user's id is the same as admin's id
-  if (req.user.id === process.env.ADMIN) {
+  if (req.user.role === "admin") {
     next();
   } else {
     res.status(403).json({
