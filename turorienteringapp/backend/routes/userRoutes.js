@@ -32,13 +32,18 @@ router
 // Routes for Admin
 
 // Route to get all users
-router.route("/").get(userHandler.getUsers);
+router
+  .route("/")
+  .get(userHandler.authenticate, userHandler.isAdmin, userHandler.getUsers);
 
 // Routes to handle operations based on user id (For ADMIN)
 router
   .route("/:id")
-  .get(userHandler.getUser)
-  .patch(userHandler.updateUser)
-  .delete(userHandler.deleteUser);
+  .get(userHandler.authenticate, userHandler.isAdmin, userHandler.getUser)
+  .delete(
+    userHandler.authenticate,
+    userHandler.isAdmin,
+    userHandler.deleteUser
+  );
 
 module.exports = router;

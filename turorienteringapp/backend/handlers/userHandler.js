@@ -136,6 +136,19 @@ exports.authenticate = async (req, res, next) => {
   }
 };
 
+// Middleware to check if user has admin role
+exports.isAdmin = (req, res, next) => {
+  // Checks if the current user's id is the same as admin's id
+  if (req.user.id === process.env.ADMIN) {
+    next();
+  } else {
+    res.status(403).json({
+      status: "fail",
+      message: "You do not have required access to carry out this action",
+    });
+  }
+};
+
 //------------------------------------------------------------------------------------------------------
 // User Functionallity
 //------------------------------------------------------------------------------------------------------
@@ -269,31 +282,6 @@ exports.getUsers = async (req, res) => {
     });
   } catch (err) {
     // If there's an error in fetching users, send an error response
-    res.status(400).json({
-      status: "fail",
-      message: err,
-    });
-  }
-};
-
-/// Handler to update details of a specific user based on user ID (For Admin)
-exports.updateUser = async (req, res) => {
-  try {
-    // Update user details based on user ID and data from request body
-    const user = await User.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-      runValidators: true,
-    });
-
-    // Send a success response with the updated user details
-    res.status(200).json({
-      status: "success",
-      data: {
-        user: user,
-      },
-    });
-  } catch (err) {
-    // If there's an error in updating the user, send an error response
     res.status(400).json({
       status: "fail",
       message: err,
