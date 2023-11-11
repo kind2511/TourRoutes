@@ -16,3 +16,13 @@
     margin-top: 5px;
     font-weight: bold;
 }
+
+/*
+ * Style for the drop down 
+ */
+.my-routes-popup-container .dropdown {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color:#6ed9fa 
+}
