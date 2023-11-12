@@ -32,12 +32,21 @@ router
 // Routes for Admin
 // ----------------------------------------------------------------------------------------------------------------------
 
-// Route to get all users
+// Route to promote user to admin 
+router
+  .route("/promoteToAdmin/:id")
+  .patch(
+    userHandler.authenticate,
+    userHandler.isAdmin,
+    userHandler.promoteToAdmin
+  );
+
+// Route to get all users 
 router
   .route("/")
   .get(userHandler.authenticate, userHandler.isAdmin, userHandler.getUsers);
 
-// Routes to handle operations based on user id (For ADMIN)
+// Routes to handle operations based on user id 
 router
   .route("/:id")
   .get(userHandler.authenticate, userHandler.isAdmin, userHandler.getUser)

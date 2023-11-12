@@ -145,7 +145,7 @@ exports.isAdmin = (req, res, next) => {
   } else {
     res.status(403).json({
       status: "fail",
-      message: "You do not have required access to carry out this action",
+      message: "You do not have required authorization to carry out this action",
     });
   }
 };
@@ -303,6 +303,28 @@ exports.deleteUser = async (req, res) => {
     });
   } catch (err) {
     // If there's an error in deleting the user, send an error response
+    res.status(400).json({
+      status: "fail",
+      message: err,
+    });
+  }
+};
+
+// Handler to promote user to admin
+exports.promoteToAdmin = async (req, res) => {
+  try {
+    // Finds a user and upgrades their role to admin
+    const promotedUser = await User.findByIdAndUpdate(
+      req.params.id,
+      { role: "admin" },
+      { new: true, runValidators: true }
+    );
+
+    res.status(200).json({
+      status: "success",
+      data: { user: promotedUser },
+    });
+  } catch (err) {
     res.status(400).json({
       status: "fail",
       message: err,
