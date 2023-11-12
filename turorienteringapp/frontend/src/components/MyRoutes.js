@@ -61,7 +61,6 @@ const MyRoutes = () => {
             zoom: 9
         });
 
-
         // Plot each route on the map once it's loaded
         map.on('load', () => {
             routes.forEach((route, index) => {
@@ -103,23 +102,23 @@ const MyRoutes = () => {
                 const MyPopupContent = ReactDOMServer.renderToString(<MyRoutesPopup route={route} distance={distance.toFixed(2)} />);
 
                 const startCoord = route.coordinates[0];
-                const endCoord = route.coordinates[route.coordinates.length - 1];
-                [startCoord, endCoord].forEach((coord) => {
-                    new mapboxgl.Popup({
-                        closeOnClick: false,
-                        closeButton: false,
-                        className: 'route-name-popup'
-                    })
-                        .setLngLat(coord)
-                        .setHTML(MyPopupContent)
-                        .addTo(map);
-                });
+
+                // Create a popup only for the start coordinate of the route
+                new mapboxgl.Popup({
+                    closeOnClick: false,
+                    closeButton: false,
+                    className: 'route-name-popup'
+                })
+                    .setLngLat(startCoord)
+                    .setHTML(MyPopupContent)
+                    .addTo(map);
             });
         });
 
         // Clean up map instance on component unmount
         return () => map.remove();
     }, [routes]);
+
 
 
     const handleLogoClick = () => {
