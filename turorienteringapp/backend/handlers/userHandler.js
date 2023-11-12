@@ -322,6 +322,7 @@ exports.promoteToAdmin = async (req, res) => {
 
     res.status(200).json({
       status: "success",
+      message: "User has been promoted to admin",
       data: { user: promotedUser },
     });
   } catch (err) {
