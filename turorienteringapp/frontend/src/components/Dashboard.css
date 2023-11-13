@@ -122,14 +122,19 @@ body, html {
 /* Dashboard Logo */
 .dashboard-logo {
     font-family: 'Pacifico', cursive;
-    font-size: 30px;
+    font-size: 35px;
     font-weight: bold;
-    color: #4CAF50;
     letter-spacing: 1px;
     cursor: pointer;
     margin-top: -5px;
     margin-left: -14px;
     z-index: 1000;
+    color: #f90b0b;
+    text-shadow: 
+        1px 1px 0 #000,
+        2px 2px 0 #000,
+        3px 3px 0 #000,
+        4px 4px 0 #000;
 }
 
 .map-container {
