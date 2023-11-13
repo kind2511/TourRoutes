@@ -108,9 +108,14 @@ const AllRoutes = () => {
         navigate('/dashboard');
     }
 
+    const handleBackClick = () => {
+        navigate('/dashboard');
+    };
+
     return (
         <div className="relativeContainer">
             {error && <div className="errorNotification">{error}</div>}
+            <button onClick={handleBackClick} className="AllRoutesBackButton">Back</button>
             <div className="mapContainer" ref={mapContainerRef}>
                 <div className="AllRoutes-logo" onClick={handleLogoClick}>TurRuter</div>
             </div>
