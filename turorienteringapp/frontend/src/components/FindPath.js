@@ -122,9 +122,14 @@ const FindPath = () => {
         navigate('/dashboard');
     };
 
+    const handleBackClick = () => {
+        navigate('/dashboard');
+    };
+
     //JSX for render the component
     return (
         <div className="fullMapContainer">
+            <button onClick={handleBackClick} className="FindPathBackButton">Back</button>
             <div ref={mapContainerRef} className="fullMap">
                 <div className="findPath-logo" onClick={handleLogoClick}>
                     TurRuter

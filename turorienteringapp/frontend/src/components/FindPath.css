@@ -62,3 +62,20 @@
 .findPathButton:hover {
     background-color: #6ed9fa;
 }
+
+
+.FindPathBackButton {
+    color: white;
+    width: 100px;
+    padding: 10px 26px;
+    display: inline-block;
+    font-size: 20px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background 0.3s;
+    background-color: #4CAF50;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 10; /* Button is above other elements */
+}
