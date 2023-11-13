@@ -2,7 +2,7 @@
 button {
     border: none;
     color: white;
-    padding: 1px 9px 1px 3px;
+    padding: 10px 26px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -13,7 +13,8 @@ button {
     white-space: nowrap;
     margin-bottom: -15px;
     background-color: #4CAF50;
-    width: 100%;   
+    width: 100%;
+    margin-right: 350px;
 }
 
 button:hover {
@@ -28,7 +29,7 @@ button:hover {
     text-align: center;
     width: 10%;
     border-radius: 8px;
-    padding: 10px;   
+    padding: 10px;
 }
 
 .cancelButton {
@@ -36,20 +37,20 @@ button:hover {
     top: 60px;
     left: 660px;
     width: 10%;
-    padding: 10px ;   
+    padding: 10px;
 }
 
 .newrute-logo {
+    position: absolute;
+    top: 10px;
+    right: 10px; /* Adjusted to correct the position */
+    z-index: 10;
+    cursor: pointer;
     font-family: 'Pacifico', cursive;
     font-size: 38px;
     font-weight: bold;
-    color: #4CAF50;
-    letter-spacing: 1px;
-    text-transform: capitalize;
-    cursor: pointer;
-    margin-top: 10px;
-    margin-left: -10px;  
-    text-align: center;
+    color: #f90b0b;
+    text-shadow: 1px 1px 0 #000, 2px 2px 0 #000, 3px 3px 0 #000, 4px 4px 0 #000; /*Some 3D look */
 }
 
 .newrute-logo:hover {
@@ -67,9 +68,10 @@ button:hover {
 
 .controlContainer {
     display: flex;
+    justify-content: center; /* Keep  centered!! */
     position: absolute;
     top: 10px;
-    left: 10px;
+    right: 350px; /* Change the place of start a route button */
     z-index: 2;
 }
 
@@ -83,3 +85,18 @@ button:hover {
     border-radius: 8px;
 }
 
+.NewRouteBackButton {
+    color: white;
+    padding: 10px 26px;
+    display: inline-block;
+    font-size: 20px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background 0.3s;
+    background-color: #4CAF50;
+    width: auto;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 10; /* Button is above other elements */
+}

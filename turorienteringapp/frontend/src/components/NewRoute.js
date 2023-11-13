@@ -218,30 +218,30 @@ const NewRoute = () => {
   const handleLogoClick = () => {
     navigate("/dashboard");
   };
+
+  const handleBackClick = () => {
+    navigate('/dashboard');
+};
   /*----------------------------------------------------------------------------------> */
   /* Render the elements */
   return (
     <div className="relativeContainer">
+      <button onClick={handleBackClick} className="NewRouteBackButton">Back</button>
       <div ref={mapContainerRef} className="mapContainer">
         {isCreatingRoute ? (
           <>
-            <button className="saveButton" onClick={handleSaveRoute}>
-              Save Route
-            </button>
-            <button className="cancelButton" onClick={handleCancelRoute}>
-              Cancel
-            </button>
+            <button className="saveButton" onClick={handleSaveRoute}>Save Route</button>
+            <button className="cancelButton" onClick={handleCancelRoute}>Cancel</button>
           </>
         ) : (
-          <div className="controlContainer">
+          <>
+            <div className="controlContainer">
+              <button onClick={() => setIsCreatingRoute(true)}>Start a Route</button>
+            </div>
             <div className="newrute-logo" onClick={handleLogoClick}>
               TurRuter
             </div>
-
-            <button onClick={() => setIsCreatingRoute(true)}>
-              Start a Route
-            </button>
-          </div>
+          </>
         )}
       </div>
     </div>
