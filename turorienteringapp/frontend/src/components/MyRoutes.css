@@ -8,7 +8,7 @@
   .MyRoutes-logo {
     position: absolute;
     top: 10px;   /* distance from the top */
-    left: 10px;  /* distance from the left */
+    right: 9px;  /* distance from the left */
     z-index: 10; /* logo appears on top of other elements */
     cursor: pointer; /* to indicate it's clickable */
     font-family: 'Pacifico', cursive; 
