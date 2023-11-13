@@ -125,11 +125,16 @@ const MyRoutes = () => {
         navigate('/dashboard');
     };
 
+    const handleBackClick = () => {
+        navigate('/dashboard');
+    };
+
     return (
         <div className="relativeContainer">
             {error && <div className="errorNotification">{error}</div>}
             <div className="mapContainer" ref={mapContainerRef} />
             <div className="MyRoutes-logo" onClick={handleLogoClick}>TurRuter</div>
+            <button onClick={handleBackClick} className="MyRoutesBackButton">Back</button>
         </div>
     );
 };
