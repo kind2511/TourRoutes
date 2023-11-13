@@ -123,11 +123,15 @@ const UserProfile = () => {
     </div>
   );
 
+  const handleBackClick = () => {
+    navigate('/dashboard');
+};
 
   /*Render*/
 
   return (
     <div className="user-profile-background">
+      <button onClick={handleBackClick} className="UserProfileBackButton">Back</button>
       <div className="user-profile-container">
         <div className="userprofile-logo" onClick={handleLogoClick}>
           TurRuter
@@ -151,6 +155,7 @@ const UserProfile = () => {
         </div>
       </div>
     </div>
+    
   );
 
 };
