@@ -18,6 +18,11 @@ router
   .route("/updateMyProfile")
   .patch(userHandler.authenticate, userHandler.updateMyProfile);
 
+// Route to update the password of the current user
+router
+  .route("/updateMyPassword")
+  .patch(userHandler.authenticate, userHandler.updateMyPassword);
+
 // Route to delete the current user
 router
   .route("/deleteMyProfile")
@@ -25,15 +30,30 @@ router
 
 // ----------------------------------------------------------------------------------------------------------------------
 // Routes for Admin
+// ----------------------------------------------------------------------------------------------------------------------
 
-// Route to get all users
-router.route("/").get(userHandler.getUsers);
+// Route to promote user to admin 
+router
+  .route("/promoteToAdmin/:id")
+  .patch(
+    userHandler.authenticate,
+    userHandler.isAdmin,
+    userHandler.promoteToAdmin
+  );
 
-// Routes to handle operations based on user id (For ADMIN)
+// Route to get all users 
+router
+  .route("/")
+  .get(userHandler.authenticate, userHandler.isAdmin, userHandler.getUsers);
+
+// Routes to handle operations based on user id 
 router
   .route("/:id")
-  .get(userHandler.getUser)
-  .patch(userHandler.updateUser)
-  .delete(userHandler.deleteUser);
+  .get(userHandler.authenticate, userHandler.isAdmin, userHandler.getUser)
+  .delete(
+    userHandler.authenticate,
+    userHandler.isAdmin,
+    userHandler.deleteUser
+  );
 
 module.exports = router;

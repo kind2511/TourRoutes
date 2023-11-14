@@ -1,7 +1,6 @@
 const express = require("express");
 const cors = require("cors");
 const userRouter = require("./routes/userRoutes");
-const markerRouter = require("./routes/markerRoutes");
 const tourRouteRouter = require("./routes/tourRouteRoutes");
 
 // Load environment variables from the config.env file
@@ -17,7 +16,6 @@ app.use(express.json());
 
 // Routes
 app.use("/api/v1/users", userRouter);
-app.use("/api/v1/markers", markerRouter);
 app.use("/api/v1/tourRoutes", tourRouteRouter);
 
 // For all undefined routes

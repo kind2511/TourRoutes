@@ -10,8 +10,10 @@ const bcrypt = require("bcryptjs");
 const maxAge = 3 * 24 * 60 * 60 * 1000;
 
 // Function to generate access token
-function generateAccessToken(id) {
-  return jwt.sign({ id: id }, process.env.TOKEN_SECRET, { expiresIn: maxAge });
+function generateAccessToken(id, role) {
+  return jwt.sign({ id: id, role: role }, process.env.TOKEN_SECRET, {
+    expiresIn: maxAge,
+  });
 }
 
 // Handler to sign up a user
@@ -28,7 +30,7 @@ exports.signup = async (req, res) => {
     });
 
     // Create a JWT token for the newly registered user
-    const token = generateAccessToken(user._id);
+    const token = generateAccessToken(user._id, user.role);
 
     // Send a success response with the token
     res.status(201).json({
@@ -75,7 +77,7 @@ exports.login = async (req, res) => {
     // If the user is found, compare the entered password with the stored one
     if (await bcrypt.compare(password, user.password)) {
       // If passwords match, generate a JWT token
-      const token = generateAccessToken(user._id);
+      const token = generateAccessToken(user._id, user.role);
 
       // Send a success response with the token
       return res.status(200).json({
@@ -132,6 +134,18 @@ exports.authenticate = async (req, res, next) => {
     res.status(400).json({
       status: "fail",
       message: "Something went wrong when authenticating the user.",
+    });
+  }
+};
+
+// Middleware to check if user has admin role
+exports.isAdmin = (req, res, next) => {
+  if (req.user.role === "admin") {
+    next();
+  } else {
+    res.status(403).json({
+      status: "fail",
+      message: "You do not have required authorization to carry out this action",
     });
   }
 };
@@ -205,7 +219,34 @@ exports.updateMyProfile = async (req, res) => {
   }
 };
 
-// Deletes the current user
+// Hanlder to uodate the password of the user
+exports.updateMyPassword = async (req, res) => {
+  try {
+    // Update user password based on user ID and data from request body
+    const user = await User.findById(req.user.id).select("+password");
+
+    // update users password
+    user.password = req.body.password;
+    user.confirmPassword = req.body.confirmPassword;
+
+    // save the updated password to the DB
+    await user.save();
+
+    // Send a success response indicating the users password has been updated
+    res.status(200).json({
+      status: "success",
+      message: "Password has been updated successfully",
+    });
+  } catch (err) {
+    // If there's an error updating the password, send an error response
+    res.status(400).json({
+      status: "fail",
+      message: err,
+    });
+  }
+};
+
+// Hanlder that allows the current user to delete their account
 exports.deleteMyProfile = async (req, res) => {
   try {
     // Find user to delete
@@ -249,31 +290,6 @@ exports.getUsers = async (req, res) => {
   }
 };
 
-/// Handler to update details of a specific user based on user ID (For Admin)
-exports.updateUser = async (req, res) => {
-  try {
-    // Update user details based on user ID and data from request body
-    const user = await User.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-      runValidators: true,
-    });
-
-    // Send a success response with the updated user details
-    res.status(200).json({
-      status: "success",
-      data: {
-        user: user,
-      },
-    });
-  } catch (err) {
-    // If there's an error in updating the user, send an error response
-    res.status(400).json({
-      status: "fail",
-      message: err,
-    });
-  }
-};
-
 // Handler to delete a user based on user ID (For Admin)
 exports.deleteUser = async (req, res) => {
   try {
@@ -287,6 +303,29 @@ exports.deleteUser = async (req, res) => {
     });
   } catch (err) {
     // If there's an error in deleting the user, send an error response
+    res.status(400).json({
+      status: "fail",
+      message: err,
+    });
+  }
+};
+
+// Handler to promote user to admin
+exports.promoteToAdmin = async (req, res) => {
+  try {
+    // Finds a user and upgrades their role to admin
+    const promotedUser = await User.findByIdAndUpdate(
+      req.params.id,
+      { role: "admin" },
+      { new: true, runValidators: true }
+    );
+
+    res.status(200).json({
+      status: "success",
+      message: "User has been promoted to admin",
+      data: { user: promotedUser },
+    });
+  } catch (err) {
     res.status(400).json({
       status: "fail",
       message: err,
