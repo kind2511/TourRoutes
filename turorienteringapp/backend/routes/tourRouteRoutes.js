@@ -28,6 +28,14 @@ router
     tourRouteController.getAllPublishedTourRoutes
   );
 
+// Route to toggle between publish/unpublish field on tour route
+router
+  .route("/toggleRoute/:id")
+  .patch(
+    authentificationController.authenticate,
+    tourRouteController.toggleRoute
+  );
+
 //-------------------------------------------------------------------------------------------------------------
 // Routes for Admin
 

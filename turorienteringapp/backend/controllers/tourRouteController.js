@@ -1,6 +1,6 @@
 const TourRoute = require("../models/tourRouteModel");
 
-// Handler to create a new tour route
+// Controller to create a new tour route
 exports.newTourRoute = async (req, res) => {
   try {
     const { name, coordinates } = req.body;
@@ -27,7 +27,7 @@ exports.newTourRoute = async (req, res) => {
   }
 };
 
-// Hanlder to get all individual users tour routes
+// Controller to get all individual users tour routes
 exports.getIndividualUsersTourRoutes = async (req, res) => {
   try {
     // Fetch all tours that have the same user_id as the current logged in user
@@ -48,7 +48,7 @@ exports.getIndividualUsersTourRoutes = async (req, res) => {
   }
 };
 
-// Handler to get all published tour routes
+// Controller to get all published tour routes
 exports.getAllPublishedTourRoutes = async (req, res) => {
   try {
     // Fetch all tour routes from the database
@@ -70,7 +70,7 @@ exports.getAllPublishedTourRoutes = async (req, res) => {
   }
 };
 
-// Handler to get all tour routes
+// Controller to get all tour routes
 exports.getAllTourRoutes = async (req, res) => {
   try {
     // Fetch all tour routes from the database
@@ -92,7 +92,7 @@ exports.getAllTourRoutes = async (req, res) => {
   }
 };
 
-// Handler to get details of a specific tour route based on ID of the tour route
+// Controller to get details of a specific tour route based on ID of the tour route
 exports.getTourRoute = async (req, res) => {
   try {
     // Fetch tour routes details based on its ID from the request parameters
@@ -114,7 +114,7 @@ exports.getTourRoute = async (req, res) => {
   }
 };
 
-// Handler to delete a tour route based in tour route ID
+// Controller to delete a tour route based in tour route ID
 exports.deleteTourRoute = async (req, res) => {
   try {
     // Delete the tour route based on their user ID
@@ -129,7 +129,30 @@ exports.deleteTourRoute = async (req, res) => {
     // If there's an error in deleting the user, send an error response
     res.status(400).json({
       status: "fail",
-      message: err,
+      message: "Could not delete requested tour route",
+    });
+  }
+};
+
+// Controller to toggle between publish/unpublish field on tour route
+exports.toggleRoute = async (req, res) => {
+  try {
+    // Fetch tour routes details based on its ID from the request parameters
+    const tourRoute = await TourRoute.findById(req.params.id);
+
+    // Toggles the published field
+    tourRoute.published = !tourRoute.published;
+
+    // Saves the updated tour route
+    await tourRoute.save();
+
+    res.status(200).json({
+      status: "success",
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: "fail",
+      message: "Could alter published field",
     });
   }
 };
