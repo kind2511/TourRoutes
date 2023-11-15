@@ -19,6 +19,7 @@ import LogOut from './components/LogOut';
 import DeleteUser from './components/DeleteUser';
 import GoodbyePage from './components/GoodbyePage';
 import MyRoutes from './components/MyRoutes';
+import Admin from './components/Admin';
 
 
 // Main App component
@@ -67,6 +68,9 @@ function App() {
 
                         {/* Page to find a path */}
                         <Route path="/find-path" element={<FindPath />} />
+
+                        {/* Page to Admin*/}
+                        <Route path="/admin" element={<Admin />} />
                     </Routes>
                 </Router>
             </div>

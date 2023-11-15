@@ -102,6 +102,9 @@ const Dashboard = () => {
     const handleFindPath = () => {
         navigate('/find-path');
     }
+    const handleAdmin = () => {
+        navigate('/admin')
+    }
 
     return (
         <>
@@ -118,6 +121,7 @@ const Dashboard = () => {
                     </div>
                 </div>
                 <span className="option-item" onClick={handleLogout}>Logout</span>
+                <span className="option-item" onClick={handleAdmin}>Admin</span>
             </div>
 
             <div className="map-container" ref={mapContainerRef}></div>
