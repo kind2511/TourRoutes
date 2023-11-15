@@ -152,7 +152,7 @@ exports.toggleRoute = async (req, res) => {
   } catch (err) {
     res.status(400).json({
       status: "fail",
-      message: "Could alter published field",
+      message: "Could not alter published field",
     });
   }
 };
