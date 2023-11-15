@@ -5,6 +5,7 @@ const UpdatePassword = ({ close }) => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
 
   //------------------------------------------------------->
 
@@ -63,9 +64,19 @@ const UpdatePassword = ({ close }) => {
   //Logic to handle update the password 
 
   const handleUpdate = async () => {
-    // If there's an error, don't proceed  the API call
-    if (error) return;
-
+    setError(''); // Clear any existing errors
+    setSuccess(''); // Clear all existing success message
+  
+    // Do not proceed if there is   error or if the passwords do not match
+    if (password.length < 8) {
+      setError("Password must be at least 8 characters.");
+      return;
+    }
+    if (password !== confirmPassword) {
+      setError("Passwords do not match.");
+      return;
+    }
+  
     // Proceed with the API call if validations pass
     try {
       const response = await fetch('http://localhost:8000/api/v1/users/updateMyPassword', {
@@ -76,11 +87,18 @@ const UpdatePassword = ({ close }) => {
         },
         body: JSON.stringify({ password, confirmPassword }),
       });
-
+  
       const data = await response.json();
       if (response.ok) {
         // Password updated successfully
-        close(); // Close the update password dialog
+        setSuccess("Password updated successfully."); // show the success message on container
+        // clear the password fields
+        setPassword('');
+        setConfirmPassword('');
+        // Optionally, close the dialog after a delay
+        setTimeout(() => {
+          close();
+        }, 3000); // show the success message on container for three seconds then remove it
       } else {
         // Handle API errors_ backend requirements
         setError(data.message || "Failed to update password.");
@@ -91,6 +109,7 @@ const UpdatePassword = ({ close }) => {
     }
   };
   
+  
   //------------------------------------------------------->
 
   //Rendring
@@ -98,6 +117,7 @@ const UpdatePassword = ({ close }) => {
     <div className="update-password-container">
       <h1>Update Password</h1>
       {error && <p className="update-password-error">{error}</p>}
+      {success && <p className="update-password-success">{success}</p>}
       <input
         type="password"
         placeholder="New Password"
