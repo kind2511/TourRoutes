@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./UserProfile.css";
+import UpdatePassword from './UpdatePassword';
 
 const UserProfile = () => {
   // State to store user's profile data
   const [userData, setUserData] = useState({});
+  const [showUpdatePassword, setShowUpdatePassword] = useState(false); // State to show/hide UpdatePassword
+  
 
   // State to manage the edit mode for each individual field
   const [isEditing, setIsEditing] = useState({
@@ -82,7 +85,6 @@ const UserProfile = () => {
     }
   };
 
-  //--------------------------------------------------------------------------------------
   const toggleEditing = (field) => {
     setIsEditing((prev) => ({ ...prev, [field]: !prev[field] }));
   };
@@ -90,74 +92,75 @@ const UserProfile = () => {
   const handleDeleteClick = () => {
     navigate("/delete-user"); // Route to the DeleteUser component
   };
-  //----------------------------------------------------------------------------------------
-
-  // /*
-  //  * Render an editable field with options to save or switch to edit mode.
-  //  *
-  //  * @param {string} field - The name of the field (e.g., "firstName")
-  //  * @param {string} value - The current value of the field
-  //  * @return {JSX.Element} - A React element that represents the editable field
-  //  */
-  const renderEditableField = (field, value) => (
-    <div className="editable-field">
-      <span>{value}</span>
-      {isEditing[field] ? (
-        <>
-          <input
-            value={value}
-            onChange={(e) =>
-              setUserData((prev) => ({ ...prev, [field]: e.target.value }))
-            }
-          />
-          <button onClick={() => handleUpdateProfile(field)}>Save</button>
-        </>
-      ) : (
-        <div className="edit-dropdown">
-          <span>Edit</span>
-          <div className="edit-dropdown-content">
-            <a onClick={() => toggleEditing(field)}>Edit</a>
-          </div>
-        </div>
-      )}
-    </div>
-  );
 
   const handleBackClick = () => {
     navigate('/dashboard');
 };
 
-  /*Render*/
+const handleUpdatePasswordClick = () => {
+  setShowUpdatePassword(!showUpdatePassword);
+};
 
-  return (
-    <div className="user-profile-background">
-      <button onClick={handleBackClick} className="UserProfileBackButton">Back</button>
-      <div className="user-profile-container">
-        <div className="userprofile-logo" onClick={handleLogoClick}>
-          TurRuter
+
+const renderEditableField = (field, value) => (
+  <div className="editable-field">
+    {isEditing[field] ? (
+      <>
+        <input
+          type="text"
+          value={value}
+          onChange={(e) =>
+            setUserData((prev) => ({ ...prev, [field]: e.target.value }))
+          }
+        />
+        <div className="field-actions">
+          <button className="field-save-btn" onClick={() => handleUpdateProfile(field)}>Save</button>
+          <button className="field-cancel-btn" onClick={() => setIsEditing((prev) => ({ ...prev, [field]: false }))}>Cancel</button>
         </div>
-        <div>
-          <strong>First Name:</strong>
-          {renderEditableField("firstName", userData.firstName)}
-        </div>
-        <div>
-          <strong>Last Name:</strong>
-          {renderEditableField("lastName", userData.lastName)}
-        </div>
-        <div>
-          <strong>Email:</strong>
-          {renderEditableField("email", userData.email)}
-        </div>
-        <div className="profile-action">
-          <span className="delete-user-text" onClick={handleDeleteClick}>
-            Delete User
-          </span>
-        </div>
+      </>
+    ) : (
+      <div className="field-value-edit">
+        <span className="field-value">{value}</span>
+        <span className="edit-text" onClick={() => toggleEditing(field)}>Edit</span>
+      </div>
+    )}
+  </div>
+);
+
+
+return (
+  <div className="user-profile-background">
+    <button onClick={handleBackClick} className="UserProfileBackButton">Back</button>
+    <div className="user-profile-container">
+      <div className="userprofile-logo" onClick={handleLogoClick}>
+        TurRuter
+      </div>
+      <div>
+        <strong>First Name:</strong>
+        {renderEditableField("firstName", userData.firstName)}
+      </div>
+      <div>
+        <strong>Last Name:</strong>
+        {renderEditableField("lastName", userData.lastName)}
+      </div>
+      <div>
+        <strong>Email:</strong>
+        {renderEditableField("email", userData.email)}
+      </div>
+      <div className="profile-action">
+        <span className="change-password-text" onClick={handleUpdatePasswordClick}>
+          Change Password
+        </span>
+        <span className="delete-user-text" onClick={handleDeleteClick}>
+          Delete User
+        </span>
       </div>
     </div>
-    
-  );
+    {showUpdatePassword && <UpdatePassword close={() => setShowUpdatePassword(false)} />}
+  </div>
+);
 
+  
 };
 
 export default UserProfile;
