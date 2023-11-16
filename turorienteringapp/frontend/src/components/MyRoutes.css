@@ -1,32 +1,31 @@
-  .mapContainer {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 100%;
-  }
-  
-  .MyRoutes-logo {
-    position: absolute;
-    top: 10px;   /* distance from the top */
-    right: 9px;  /* distance from the left */
-    z-index: 10; /* logo appears on top of other elements */
-    cursor: pointer; /* to indicate it's clickable */
-    font-family: 'Pacifico', cursive; 
-    font-size: 38px;
-    font-weight: bold;
-    color: #f90b0b;
-    text-shadow: 
-        1px 1px 0 #000,
-        2px 2px 0 #000,
-        3px 3px 0 #000,
-        4px 4px 0 #000;
+/* Styles for the map container */
+.mapContainer {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
 }
 
+/* Styles for the logo */
+.MyRoutes-logo {
+  position: absolute;
+  top: 10px; /* distance from the top */
+  right: 10px;  /* distance from the left */
+  z-index: 10; /* logo appears on top of other elements */
+  cursor: pointer; /* to indicate it's clickable */
+  font-family: 'Pacifico', cursive;
+  font-size: 38px;
+  font-weight: bold;
+  color: #f90b0b;
+  text-shadow: 1px 1px 0 #000, 2px 2px 0 #000, 3px 3px 0 #000, 4px 4px 0 #000;
+}
+
+/* Styles for the back button */
 .MyRoutesBackButton {
   color: white;
-  padding: 10px 26px; 
+  padding: 10px 26px;
   display: inline-block;
-  font-size: 20px; 
+  font-size: 20px;
   cursor: pointer;
   border-radius: 8px;
   transition: background 0.3s;
@@ -36,5 +35,47 @@
   top: 10px;
   left: 10px;
   z-index: 10; /* button is above other elements */
- 
+}
+
+/* Styles for the popup container */
+.my-routes-popup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  padding: 5px;
+  border: 1px solid rgb(244, 5, 5);
+  background-color: #FFFF00;
+  box-shadow: 0px 0px 10px rgba(5, 249, 5, 0.5);
+  width: 90px;
+  font-size: 12px;
+}
+
+/* Styles for the route name within the popup */
+.my-routes-name {
+  font-weight: bold;
+  word-break: break-word;
+  color: red;
+}
+
+/* Styles for the route distance within the popup */
+.my-routes-distance {
+  margin-top: 3px;
+  font-weight: bold;
+  color: blue;
+}
+
+/* Styles for the delete button within the popup */
+.my-routes-delete-btn {
+  padding: 5px 8px; /* Adjusted padding for a smaller button */
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 10px; /*  font size for a smaller button */
+  cursor: pointer;
+  margin-top: 10px; /* Align the delete button to the bottom of the popup */
+  margin-right: 1px;
+  width: 80px;
+  
 }
