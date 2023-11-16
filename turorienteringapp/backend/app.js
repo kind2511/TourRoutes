@@ -14,7 +14,7 @@ app.use(cors());
 // Middleware
 app.use(express.json());
 
-// Routes
+// Mounted Routes
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/tourRoutes", tourRouteRouter);
 

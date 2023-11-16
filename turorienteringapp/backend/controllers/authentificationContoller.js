@@ -45,7 +45,6 @@ exports.signup = async (req, res) => {
       status: "fail",
       message: err,
     });
-    console.log(err);
   }
 };
 
@@ -145,7 +144,8 @@ exports.isAdmin = (req, res, next) => {
   } else {
     res.status(403).json({
       status: "fail",
-      message: "You do not have required authorization to carry out this action",
+      message:
+        "You do not have required authorization to carry out this action",
     });
   }
 };
