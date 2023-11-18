@@ -6,12 +6,12 @@ const DeleteUser = () => {
   const navigate = useNavigate();
 
   /**
- * Handles the account deletion process.
- * Sends a DELETE request to the server to remove the user's profile.
- * On success, logs a message and redirects to the login page.
- * Catches and logs any errors that occur during the process.
- */
-
+   * Handles the account deletion process.
+   * Sends a DELETE request to the server to remove the user's profile.
+   * On success, clears all local storage, logs a message, and redirects to the goodbye page.
+   * Catches and logs any errors that occur during the process.
+   */
+  
   const handleDelete = async () => {
     try {
       const response = await fetch('http://localhost:8000/api/v1/users/deleteMyProfile', {
@@ -22,24 +22,22 @@ const DeleteUser = () => {
         },
         credentials: 'same-origin',
       });
-  
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       } else {
         console.log('Account deleted successfully');
-        localStorage.removeItem('token'); // Clear the token from localStorage
-        localStorage.removeItem('user'); // Also clear the user data from localStorage if stored
+        localStorage.clear(); // Clear all local storage data
         navigate('/goodbye'); // Redirect to a goodbye or login page after account deletion
       }
     } catch (error) {
       console.error('Error deleting account:', error);
     }
   };
-  
 
   return (
     <div className="delete-user-container">
-      <h1>Delete Account</h1> 
+      <h1>Delete Account</h1>
       <p>Are you sure you want to delete your account?</p>
       <p>This action cannot be undone.</p>
       <div className="delete-buttons">
