@@ -31,8 +31,8 @@ const MyRoutes = () => {
             await axios.delete(`http://localhost:8000/api/v1/tourRoutes/${routeId}`, {
                 headers: { 'Authorization': `Bearer ${userToken}` }
             });
-            // Remove the route from the local state to update the UI
-            setRoutes(routes.filter(route => route.id !== routeId));
+            // Refresh routes after delete route
+            await fetchRoutes();
         } catch (err) {
             setError("Error deleting route.");
             console.error(err);
@@ -68,120 +68,123 @@ const MyRoutes = () => {
 
     // Initialize the map and plot routes
     useEffect(() => {
-        const initializeMap = () => {
-            const map = new mapboxgl.Map({
-                container: mapContainerRef.current,
-                style: 'mapbox://styles/mapbox/streets-v11',
-                center: [10.797379, 60.794533],
-                zoom: 9
-            });
+        const map = new mapboxgl.Map({
+            container: mapContainerRef.current,
+            style: 'mapbox://styles/mapbox/streets-v11',
+            center: [10.797379, 60.794533],
+            zoom: 9
+        });
 
-            // Plot each route on the map once it's loaded
-            map.on('load', () => {
-                routes.forEach((route, index) => {
-                    if (!route.coordinates || route.coordinates.length === 0) {
-                        console.warn("Route without valid coordinates:", route);
-                        return;
+        //----------------------------------------------------------->
+
+        // Function to create popups for each route
+        const createPopups = () => {
+            routes.forEach((route, index) => {
+                if (!route.coordinates || route.coordinates.length === 0) {
+                    console.warn("Route without valid coordinates:", route);
+                    return;
+                }
+
+                // Calculate the distance of each route
+                const distance = length(
+                    { type: 'Feature', geometry: { type: 'LineString', coordinates: route.coordinates } },
+                    { units: 'kilometers' }
+                );
+
+                // Create the popup div and its contents
+                const popupDiv = document.createElement('div');
+                popupDiv.className = 'my-routes-popup';
+
+                //Route name
+                const routeNameDiv = document.createElement('div');
+                routeNameDiv.className = 'my-routes-name';
+                routeNameDiv.textContent = route.name;
+                popupDiv.appendChild(routeNameDiv);
+
+                //Route distance
+                const routeDistanceDiv = document.createElement('div');
+                routeDistanceDiv.className = 'my-routes-distance';
+                routeDistanceDiv.textContent = `${distance.toFixed(2)} km`;
+                popupDiv.appendChild(routeDistanceDiv);
+
+                //Delete button
+                const deleteButton = document.createElement('button');
+                deleteButton.className = 'my-routes-delete-btn';
+                deleteButton.textContent = 'Delete Route';
+                deleteButton.onclick = () => {
+                    if (window.confirm("Are you sure you want to delete this route?")) {
+                        deleteRoute(route._id);
                     }
+                };
+                popupDiv.appendChild(deleteButton);
 
-                    const sourceName = `source-${route.name}`;
-                    if (!map.getSource(sourceName)) {
-                        map.addSource(sourceName, {
-                            type: 'geojson',
-                            data: {
-                                type: 'Feature',
-                                geometry: {
-                                    type: 'LineString',
-                                    coordinates: route.coordinates
-                                }
-                            }
-                        });
+                //------------------------------------------------------->
 
-                        map.addLayer({
-                            id: `layer-${route.name}`,
-                            type: 'line',
-                            source: sourceName,
-                            layout: {
-                                'line-join': 'round',
-                                'line-cap': 'round'
-                            },
-                            paint: {
-                                'line-color': colors[index % colors.length],
-                                'line-width': 8
-                            }
-                        });
-                    }
-                    // Calculate distance for the route
-                    const distance = length(
-                        {
-                            type: 'Feature', geometry:
-                                { type: 'LineString', coordinates: route.coordinates }
-                        }, { units: 'kilometers' });
-
-                    //----------------------------------------------->
-
-                    /*
-                     * HTML elements that will render a popup containing information about a route on the map
-                     */
-
-                    // Create popup content as container
-                    const popupDiv = document.createElement('div');
-                    popupDiv.className = 'my-routes-popup';
-
-                    // Route name
-                    const routeNameDiv = document.createElement('div');
-                    routeNameDiv.className = 'my-routes-name';
-                    routeNameDiv.textContent = route.name;
-                    popupDiv.appendChild(routeNameDiv);
-
-                    // Route distance
-                    const routeDistanceDiv = document.createElement('div');
-                    routeDistanceDiv.className = 'my-routes-distance';
-                    routeDistanceDiv.textContent = `${distance.toFixed(2)} km`;
-                    popupDiv.appendChild(routeDistanceDiv);
-
-                    // Delete button
-                    const deleteButton = document.createElement('button');
-                    deleteButton.className = 'my-routes-delete-btn';
-                    deleteButton.textContent = 'Delete Route';
-                    deleteButton.onclick = function () {
-                        if (window.confirm("Are you sure you want to delete this route?")) {
-                            deleteRoute(route._id);
-                        }
-                    };
-                    popupDiv.appendChild(deleteButton);
-
-                    //------------------------------------------------------->
-
-                    // Add popup to map
-                    new mapboxgl.Popup({
-                        closeOnClick: false,
-                        closeButton: false,
-                        className: 'route-popup'
-                    })
-                        .setLngLat(route.coordinates[0])
-                        .setDOMContent(popupDiv)
-                        .addTo(map);
-                });
+                // Add popup to map
+                new mapboxgl.Popup({
+                    closeOnClick: false,
+                    closeButton: false,
+                    className: 'route-popup'
+                })
+                    .setLngLat(route.coordinates[0])
+                    .setDOMContent(popupDiv)
+                    .addTo(map);
             });
-
-            // Clean up map instance on component unmount
-            return () => map.remove();
         };
 
-        // Initialize the map
-        initializeMap();
+        //----------------------------------------------------------->
+
+        // Plot each route on the map once it's loaded
+        map.on('load', () => {
+            routes.forEach((route, index) => {
+                const sourceName = `source-${route.name}`;
+                if (!map.getSource(sourceName)) {
+                    map.addSource(sourceName, {
+                        type: 'geojson',
+                        data: {
+                            type: 'Feature',
+                            geometry: {
+                                type: 'LineString',
+                                coordinates: route.coordinates
+                            }
+                        }
+                    });
+
+                    map.addLayer({
+                        id: `layer-${route.name}`,
+                        type: 'line',
+                        source: sourceName,
+                        layout: {
+                            'line-join': 'round',
+                            'line-cap': 'round'
+                        },
+                        paint: {
+                            'line-color': colors[index % colors.length],
+                            'line-width': 8
+                        }
+                    });
+                }
+            });
+
+            createPopups(); // Initial popup creation
+        });
+
+        //when the map is moved or zoomed to ensure correct positioning
+        map.on('moveend', createPopups); // Recreate popups on map movement
+        map.on('zoomend', createPopups); // Recreate popups on zoom
+
+        return () => map.remove(); // Clean up map on component unmount
     }, [routes]);
 
     /*
-     * Event handlers
-     */
+    * Event handlers
+    */
     const handleLogoClick = () => { navigate('/dashboard'); };
     const handleBackClick = () => { navigate('/dashboard'); };
 
     /*
-     *Rendered JSX
-     */
+    *Rendered JSX
+    */
     return (
         <div className="relativeContainer">
             {error && <div className="errorNotification">{error}</div>}
