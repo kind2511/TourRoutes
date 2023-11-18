@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ReCAPTCHA from "react-google-recaptcha";
-import { useAuth } from '../components/AuthContext';  // Import useAuth hook
 import './Register.css';
 
 function Register() {
@@ -23,9 +22,6 @@ function Register() {
 
   // React Router hook to programmatically navigate
   const navigate = useNavigate();
-
-  // Auth context for signing in after registration
-  const { signIn } = useAuth();
 
   // Update form data state on input change
   const handleInputChange = (event) => {
@@ -53,7 +49,7 @@ function Register() {
     }
 
     if (formData.password.length < 8) {
-      setErrorMessage("Password must be at least 8 charaters long!")
+      setErrorMessage("Password must be at least 8 characters long!")
       return;
     }
 
@@ -73,14 +69,8 @@ function Register() {
   
       // Check if the registration was successful
       if (response.ok) {
-        // Adjust these lines to match the actual structure of response
-        if (data.data && data.data.user && data.token) {
-          await signIn(data.data.user, data.token);
-          navigate('/dashboard');
-        } else {
-          // Provide more detailed feedback for debugging
-          setErrorMessage("Registration successful but missing user or token.");
-        }
+        // Navigate to the Welcome page after successful registration
+        navigate('/welcome');
       } else {
         // Display error message from server or a default message
         setErrorMessage(data.message || "Failed to register.");
@@ -91,7 +81,6 @@ function Register() {
     }
   }
 
-  //--------------------------------------------->
   // Navigate to login page
   const handleLoginClick = () => {
     navigate('/login');
@@ -137,4 +126,5 @@ function Register() {
     </div>
   );
 }
+
 export default Register;

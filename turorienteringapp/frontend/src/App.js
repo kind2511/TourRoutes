@@ -20,6 +20,7 @@ import DeleteUser from './components/DeleteUser';
 import GoodbyePage from './components/GoodbyePage';
 import MyRoutes from './components/MyRoutes';
 import Admin from './components/Admin';
+import Welcome from './components/Welcome';
 
 
 // Main App component
@@ -71,6 +72,10 @@ function App() {
 
                         {/* Page to Admin*/}
                         <Route path="/admin" element={<Admin />} />
+
+                        {/*Page to Welcome */}
+                        <Route path="/welcome" element={<Welcome/>} />
+
                     </Routes>
                 </Router>
             </div>
