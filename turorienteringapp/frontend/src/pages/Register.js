@@ -66,7 +66,7 @@ function Register() {
         body: JSON.stringify(formData)
       });
       const data = await response.json();
-  
+
       // Check if the registration was successful
       if (response.ok) {
         // Navigate to the Welcome page after successful registration
@@ -96,19 +96,19 @@ function Register() {
 
         <form onSubmit={handleSubmit}>
           <label htmlFor="firstName">First Name</label>
-          <input type="text" name="firstName" id="firstName" value={formData.firstName} onChange={handleInputChange} required />
+          <input type="text" name="firstName" id="firstName" value={formData.firstName} onChange={handleInputChange} required autoComplete="given-name" />
 
           <label htmlFor="lastName">Last Name</label>
-          <input type="text" name="lastName" id="lastName" value={formData.lastName} onChange={handleInputChange} required />
+          <input type="text" name="lastName" id="lastName" value={formData.lastName} onChange={handleInputChange} required autoComplete="family-name" />
 
           <label htmlFor="email">Email Address</label>
-          <input type="email" name="email" id="email" value={formData.email} onChange={handleInputChange} required />
+          <input type="email" name="email" id="email" value={formData.email} onChange={handleInputChange} required autoComplete="email" />
 
           <label htmlFor="password">Password</label>
-          <input type="password" name="password" id="password" value={formData.password} onChange={handleInputChange} required />
+          <input type="password" name="password" id="password" value={formData.password} onChange={handleInputChange} required autoComplete="new-password" />
 
           <label htmlFor="confirmPassword">Confirm Password</label>
-          <input type="password" name="confirmPassword" id="confirmPassword" value={formData.confirmPassword} onChange={handleInputChange} required />
+          <input type="password" name="confirmPassword" id="confirmPassword" value={formData.confirmPassword} onChange={handleInputChange} required autoComplete="new-password" />
 
           {/* reCAPTCHA widget */}
           <ReCAPTCHA

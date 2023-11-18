@@ -97,7 +97,7 @@ function SignIn() {
             <div className="signin-container">
                 {/* Making the logo clickable to navigate to the homepage */}
                 <div className="signin-logo" onClick={handleLogoClick}>TurRuter</div>
-
+    
                 {/* Form for user to input email and password */}
                 <form onSubmit={handleSubmit}>
                     {error && <div className="error-message">{error}</div>} {/* Displaying error message if there's any */}
@@ -109,6 +109,7 @@ function SignIn() {
                             type="email"
                             id="email"
                             name="email"
+                            autoComplete="email" // Adding autocomplete for email
                         />
                     </div>
                     <div className="input-group">
@@ -120,6 +121,7 @@ function SignIn() {
                                 type='password'
                                 id="password"
                                 name="password"
+                                autoComplete="current-password" //autocomplete for current password
                             />
                         </div>
                     </div>
@@ -137,7 +139,7 @@ function SignIn() {
                     {/* Submit button to log in */}
                     <button type="submit">Log In</button>
                 </form>
-
+    
                 {/* Providing an option to navigate to registration if user does not have an account */}
                 <div className="register-prompt">
                     Don't have an account?
