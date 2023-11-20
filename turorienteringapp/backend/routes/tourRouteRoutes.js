@@ -28,6 +28,14 @@ router
     tourRouteController.getAllPublishedTourRoutes
   );
 
+// Route to toggle between publish/unpublish field on tour route
+router
+  .route("/toggleRoute/:id")
+  .patch(
+    authentificationController.authenticate,
+    tourRouteController.toggleRoute
+  );
+
 //-------------------------------------------------------------------------------------------------------------
 // Routes for Admin
 
@@ -37,8 +45,14 @@ router.route("/").get(tourRouteController.getAllTourRoutes);
 // Route to handle operations based on tour route id
 router
   .route("/:id")
-  .get(tourRouteController.getTourRoute)
-  .delete(tourRouteController.deleteTourRoute);
+  .get(
+    authentificationController.authenticate,
+    tourRouteController.getTourRoute
+  )
+  .delete(
+    authentificationController.authenticate,
+    tourRouteController.deleteTourRoute
+  );
 
 // Exports markerRoutes into the main application
 module.exports = router;

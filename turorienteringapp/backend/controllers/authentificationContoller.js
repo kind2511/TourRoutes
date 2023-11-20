@@ -45,7 +45,6 @@ exports.signup = async (req, res) => {
       status: "fail",
       message: err,
     });
-    console.log(err);
   }
 };
 
@@ -114,6 +113,7 @@ exports.authenticate = async (req, res, next) => {
       token = req.headers.authorization.split(" ")[1];
     }
 
+    // look for the token
     if (!token) {
       return res.status(401).json({
         status: "fail",
@@ -124,7 +124,7 @@ exports.authenticate = async (req, res, next) => {
     // Validate the token (The jwt algorithm verifies if the token signature is valid or not)
     try {
       const decoded = jwt.verify(token, process.env.TOKEN_SECRET);
-      req.user = decoded; // we need this for user roles and permissions
+      req.user = decoded; // lets us access id and role of current logged in user
     } catch (err) {
       return res.status(401).send("Invalid Token");
     }
@@ -145,7 +145,8 @@ exports.isAdmin = (req, res, next) => {
   } else {
     res.status(403).json({
       status: "fail",
-      message: "You do not have required authorization to carry out this action",
+      message:
+        "You do not have required authorization to carry out this action",
     });
   }
 };
