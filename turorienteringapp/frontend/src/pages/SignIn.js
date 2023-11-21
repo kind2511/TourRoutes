@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import ReCAPTCHA from "react-google-recaptcha";
 import { useAuth } from '../components/AuthContext';
+import { decodeToken } from '../components/AuthUtils';
 import './SignIn.css';
 
 function SignIn() {
@@ -34,20 +35,19 @@ function SignIn() {
         };
 
     }, []); // Empty dependency array to run this useEffect only once
-
-
     //--------------------------------------------------------------------->
+
 
     /* This function handles the form submission for sign in */
     const handleSubmit = async (e) => {
-        e.preventDefault(); // Prevents default form behavior
+        e.preventDefault(); // Prevents the default form submission behavior
 
         if (!isVerified) {
             setError("Please confirm that you are not a robot.");
             return;
         }
 
-        setError(''); // Clear any previous errors
+        setError(''); // Clear any previous error messages
 
         try {
             // Sending a POST request to the backend to login
@@ -62,22 +62,33 @@ function SignIn() {
             const data = await response.json();
 
             if (data.status === 'success') {
-                // Here you would call signIn from AuthContext, passing in the relevant data
-                signIn(data.token);
+                signIn(data.token); // Call the signIn function from  AuthContext with token
+                localStorage.setItem('token', data.token); // Store the JWT token in local storage
+                
+                //---------------------->Decode Token
+                // Decode the token to extract user role
+                const decodedToken = decodeToken(data.token);
+                const userRole = decodedToken ? decodedToken.role : null; 
 
-                // Store the JWT token in local storage
-                localStorage.setItem('token', data.token);
+                if (userRole) {
+                    localStorage.setItem('userRole', userRole); //Save userRole in local storage
+                } else {
+                    // Handle the case where the role  not included in the token
+                    setError('User role not found in token');
+                    return;
+                }
 
-                navigate('/dashboard');  // Navigating to dashboard if login was successful
+                navigate('/dashboard'); // Navigate to the dashboard if login was successful
             } else {
-                setError(data.message); // Displaying error to the user
-                console.error(data.message);
+                setError(data.message); // Displaying error to the user if login wasn't successful
+                console.error(data.message); 
             }
         } catch (error) {
-            setError('Error during login.'); // Displaying error to the user
-            console.error('Error during login:', error);
+            setError('Error during login.'); // Displayin error to the user if there was an error during login
+            console.error('Error during login:', error); 
         }
     };
+
 
 
     //-------------------------------------------------------------------->
@@ -97,7 +108,7 @@ function SignIn() {
             <div className="signin-container">
                 {/* Making the logo clickable to navigate to the homepage */}
                 <div className="signin-logo" onClick={handleLogoClick}>TurRuter</div>
-    
+
                 {/* Form for user to input email and password */}
                 <form onSubmit={handleSubmit}>
                     {error && <div className="error-message">{error}</div>} {/* Displaying error message if there's any */}
@@ -139,7 +150,7 @@ function SignIn() {
                     {/* Submit button to log in */}
                     <button type="submit">Log In</button>
                 </form>
-    
+
                 {/* Providing an option to navigate to registration if user does not have an account */}
                 <div className="register-prompt">
                     Don't have an account?
