@@ -91,7 +91,7 @@ exports.login = async (req, res) => {
     // If there's an error in the process, send an error response
     res.status(400).json({
       status: "fail",
-      message: err,
+      message: "Could not log in user",
     });
   }
 };
