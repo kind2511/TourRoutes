@@ -44,7 +44,7 @@ exports.signup = async (req, res) => {
   }
 };
 
-// Handler to log in a user
+// Controller to log in a user
 exports.login = async (req, res) => {
   try {
     // Extract email and password from request body
