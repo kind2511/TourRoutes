@@ -145,3 +145,14 @@ body, html {
     height: 100%;
     z-index: 0;  
 }
+
+.admin-button {
+    background-color: #af4cac; 
+    color: rgb(245, 245, 230);
+    
+}
+
+.admin-button:hover{
+    background-color: #0cedf1;
+    color:#000;
+}

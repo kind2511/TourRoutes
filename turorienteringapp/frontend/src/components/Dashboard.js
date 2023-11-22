@@ -126,7 +126,7 @@ const Dashboard = () => {
                 </div>
                 <span className="option-item" onClick={handleLogout}>Logout</span>
                 {/* Conditional rendering of Admin link based on userRole */}
-                {userRole === 'admin' && <span className="option-item" onClick={handleAdmin}>Admin</span>}
+                {userRole === 'admin' && <span className="option-item admin-button" onClick={handleAdmin}>Admin</span>}
             </div>
     
             <div className="map-container" ref={mapContainerRef}></div>
