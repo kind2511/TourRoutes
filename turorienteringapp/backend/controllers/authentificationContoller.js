@@ -16,7 +16,7 @@ function generateAccessToken(id, role) {
   });
 }
 
-// Handler to sign up a user
+// Controller to sign up a user
 exports.signup = async (req, res) => {
   try {
     // Create a new user with the data provided in the request body
@@ -29,13 +29,9 @@ exports.signup = async (req, res) => {
       role: req.body.role,
     });
 
-    // Create a JWT token for the newly registered user
-    const token = generateAccessToken(user._id, user.role);
-
     // Send a success response with the token
     res.status(201).json({
       status: "success",
-      token,
       data: {
         user: user,
       },
@@ -43,7 +39,7 @@ exports.signup = async (req, res) => {
   } catch (err) {
     res.status(400).json({
       status: "fail",
-      message: err,
+      message: "Error registering new user",
     });
   }
 };
