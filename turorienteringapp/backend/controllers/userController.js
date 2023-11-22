@@ -4,13 +4,13 @@ const User = require("../models/usersModel");
 // User Functionallity
 //------------------------------------------------------------------------------------------------------
 
-// Handler to get info about currently logged in user
+// Controller to get info about currently logged in user
 exports.myProfile = async (req, res, next) => {
   req.params.id = req.user.id;
   next();
 };
 
-// Handler to get details of a specific user based on user ID
+// Controller to get details of a specific user based on user ID
 exports.getUser = async (req, res) => {
   try {
     // Fetch user details based on user ID from the request parameters
@@ -27,7 +27,7 @@ exports.getUser = async (req, res) => {
     // If there's an error in fetching the user, send an error response
     res.status(400).json({
       status: "fail",
-      message: err,
+      message: "Could not find user",
     });
   }
 };
@@ -41,7 +41,7 @@ const filterObj = (obj, ...legalFields) => {
   return newObject;
 };
 
-// Updating the current user
+// Controller to update the current user
 exports.updateMyProfile = async (req, res) => {
   try {
     // Decide the fields that the user can update (firstName, lastName, and email)
@@ -69,7 +69,7 @@ exports.updateMyProfile = async (req, res) => {
   }
 };
 
-// Hanlder to uodate the password of the user
+// Controller to uodate the password of the user
 exports.updateMyPassword = async (req, res) => {
   try {
     // Update user password based on user ID and data from request body
@@ -96,7 +96,7 @@ exports.updateMyPassword = async (req, res) => {
   }
 };
 
-// Hanlder that allows the current user to delete their account
+// Controller that allows the current user to delete their account
 exports.deleteMyProfile = async (req, res) => {
   try {
     // Find user to delete
@@ -118,7 +118,7 @@ exports.deleteMyProfile = async (req, res) => {
 // Admin Functionallity
 // -----------------------------------------------------------------------------------------------------
 
-// Handler to get all users
+// Controller to get all users
 exports.getUsers = async (req, res) => {
   try {
     // Fetch all users from the database
@@ -135,12 +135,12 @@ exports.getUsers = async (req, res) => {
     // If there's an error in fetching users, send an error response
     res.status(400).json({
       status: "fail",
-      message: err,
+      message: "Could retrive all users",
     });
   }
 };
 
-// Handler to delete a user based on user ID (For Admin)
+// Controller to delete a user based on user ID (For Admin)
 exports.deleteUser = async (req, res) => {
   try {
     // Delete the user based on the provided user ID from request parameters
@@ -160,7 +160,7 @@ exports.deleteUser = async (req, res) => {
   }
 };
 
-// Handler to promote user to admin
+// Controller to promote user to admin
 exports.promoteToAdmin = async (req, res) => {
   try {
     // Finds a user and upgrades their role to admin
