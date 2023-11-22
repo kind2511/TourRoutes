@@ -19,7 +19,7 @@ app.use("/api/v1/users", userRouter);
 app.use("/api/v1/tourRoutes", tourRouteRouter);
 
 // Enpoint for the frontend to check if server is currently up
-app.get("/api/v1/status", (req, res) => {
+app.get("/api/v1/serverStatus", (req, res) => {
   res.status(200).json({ message: "Server is up!." });
 });
 
