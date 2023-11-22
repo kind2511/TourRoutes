@@ -94,7 +94,7 @@ describe("signup controller", () => {
     expect(res.status).toHaveBeenCalledWith(400);
     expect(mockJson).toHaveBeenCalledWith({
       status: "fail",
-      message: errorMessage,
+      message: "Error registering new user",
     });
   });
 });
