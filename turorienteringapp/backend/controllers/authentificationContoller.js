@@ -122,7 +122,7 @@ exports.authenticate = async (req, res, next) => {
       const decoded = jwt.verify(token, process.env.TOKEN_SECRET);
       req.user = decoded; // lets us access id and role of current logged in user
     } catch (err) {
-      return res.status(401).send("Invalid Token");
+      return res.status(401).json("Invalid Token");
     }
 
     next();

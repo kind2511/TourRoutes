@@ -1,13 +1,18 @@
-const { signup, isAdmin } = require("../controllers/authentificationContoller");
+const {
+  signup,
+  isAdmin,
+  authenticate,
+} = require("../controllers/authentificationContoller");
 const User = require("../models/usersModel");
+const jwt = require("jsonwebtoken");
+
+// //-----------------------------------------------------------------------------------------------
 
 // Mocks the User Model and the request object
 jest.mock("../models/usersModel");
 const mockJson = jest.fn();
 const mockStatus = jest.fn().mockImplementation(() => ({ json: mockJson }));
 const res = { status: mockStatus };
-
-//-----------------------------------------------------------------------------------------------
 
 // Testing of the signUp controller
 describe("signup controller", () => {
@@ -94,14 +99,14 @@ describe("signup controller", () => {
   });
 });
 
-//-----------------------------------------------------------------------------------------------
+// //-----------------------------------------------------------------------------------------------
 
-// Mock the req, res, and next objects
+// // Mock the req, res, and next objects
 const mockReq = { user: { role: "admin" } };
 const mockRes = { status: jest.fn(() => ({ json: mockJson })), json: mockJson };
 const mockNext = jest.fn();
 
-// Testing of the isAdmin middleware
+// // Testing of the isAdmin middleware
 describe("isAdmin middleware", () => {
   // Success Case
   test("should allow access for admin user", () => {
@@ -128,3 +133,66 @@ describe("isAdmin middleware", () => {
 });
 
 //-----------------------------------------------------------------------------------------------
+
+// Mock the req, res, and next objects
+const mockReqAuth = {
+  headers: { authorization: "Bearer validToken" },
+};
+
+// Mock the jwt.verify function
+jest.mock("jsonwebtoken");
+jwt.verify.mockReturnValue({ id: "userId123", role: "user" });
+
+describe("authenticate middleware", () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  // Sucess Case
+  test("should authenticate user with valid token", () => {
+    authenticate(mockReqAuth, mockRes, mockNext);
+
+    expect(jwt.verify).toHaveBeenCalledWith(
+      "validToken",
+      process.env.TOKEN_SECRET
+    );
+    expect(mockReqAuth.user).toEqual({ id: "userId123", role: "user" });
+    expect(mockNext).toHaveBeenCalledTimes(1);
+    expect(mockRes.status).not.toHaveBeenCalled();
+    expect(mockJson).not.toHaveBeenCalled();
+  });
+
+  // Error case 1
+  test("should handle missing token", () => {
+    const reqWithoutToken = { headers: {} };
+    authenticate(reqWithoutToken, mockRes, mockNext);
+
+    expect(jwt.verify).not.toHaveBeenCalled();
+    expect(mockNext).not.toHaveBeenCalled();
+    expect(mockRes.status).toHaveBeenCalledWith(401);
+    expect(mockJson).toHaveBeenCalledWith({
+      status: "fail",
+      message: "Authentication required. Log in to continue",
+    });
+  });
+
+  // Error case 2
+  test("should handle invalid token", () => {
+    jwt.verify.mockImplementation(() => {
+      throw new Error("Invalid Token");
+    });
+
+    authenticate(mockReqAuth, mockRes, mockNext);
+
+    expect(jwt.verify).toHaveBeenCalledWith(
+      "validToken",
+      process.env.TOKEN_SECRET
+    );
+    expect(mockNext).not.toHaveBeenCalled();
+    expect(mockRes.status).toHaveBeenCalledWith(401);
+    expect(mockJson).toHaveBeenCalledWith("Invalid Token");
+  });
+});
+
+//-----------------------------------------------------------------------------------------------
+
