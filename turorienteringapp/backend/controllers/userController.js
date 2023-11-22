@@ -178,7 +178,7 @@ exports.promoteToAdmin = async (req, res) => {
   } catch (err) {
     res.status(400).json({
       status: "fail",
-      message: err,
+      message: "Could not promote user to admin",
     });
   }
 };

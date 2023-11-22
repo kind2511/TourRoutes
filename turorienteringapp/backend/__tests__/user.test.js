@@ -3,6 +3,7 @@ const {
   getUser,
   deleteMyProfile,
   deleteUser,
+  promoteToAdmin,
 } = require("../controllers/userController");
 const User = require("../models/usersModel");
 
@@ -176,6 +177,55 @@ describe("deleteUser controller", () => {
     expect(mockJson).toHaveBeenCalledWith({
       status: "fail",
       message: "Could not delete user",
+    });
+    expect(mockStatus).toHaveBeenCalledWith(400);
+  });
+});
+
+//-----------------------------------------------------------------------------------------------
+
+// Mocking findByIdAndUpdate mongoose function
+User.findByIdAndUpdate.mockResolvedValue({ _id: "userId123", role: "admin" });
+
+// Testing of the promote to admin controller
+
+describe("promoteToAdmin controller", () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  // Sucess case
+  test("should promote a user to admin", async () => {
+    await promoteToAdmin(mockReq, mockRes);
+
+    expect(User.findByIdAndUpdate).toHaveBeenCalledWith(
+      "userId123",
+      { role: "admin" },
+      { new: true, runValidators: true }
+    );
+    expect(mockJson).toHaveBeenCalledWith({
+      status: "success",
+      message: "User has been promoted to admin",
+      data: { user: { _id: "userId123", role: "admin" } },
+    });
+    expect(mockStatus).toHaveBeenCalledWith(200);
+  });
+
+  // Error case
+  test("should handle error case", async () => {
+    const errorMessage = "Error promoting user to admin";
+    User.findByIdAndUpdate.mockRejectedValueOnce(errorMessage);
+
+    await promoteToAdmin(mockReq, mockRes);
+
+    expect(User.findByIdAndUpdate).toHaveBeenCalledWith(
+      "userId123",
+      { role: "admin" },
+      { new: true, runValidators: true }
+    );
+    expect(mockJson).toHaveBeenCalledWith({
+      status: "fail",
+      message: "Could not promote user to admin",
     });
     expect(mockStatus).toHaveBeenCalledWith(400);
   });
