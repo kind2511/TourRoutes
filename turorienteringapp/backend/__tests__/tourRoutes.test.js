@@ -1,4 +1,6 @@
-const { getIndividualUsersTourRoutes } = require("../controllers/tourRouteController"); 
+const {
+  getIndividualUsersTourRoutes,
+} = require("../controllers/tourRouteController");
 const TourRoute = require("../models/tourRouteModel");
 
 // Mock the req, res, and next objects
@@ -19,6 +21,7 @@ describe("getIndividualUsersTourRoutes controller", () => {
     jest.clearAllMocks();
   });
 
+  // Success case
   test("should fetch tour routes for the logged-in user", async () => {
     await getIndividualUsersTourRoutes(mockReq, mockRes);
 
@@ -35,6 +38,7 @@ describe("getIndividualUsersTourRoutes controller", () => {
     expect(mockStatus).toHaveBeenCalledWith(200);
   });
 
+  // Error case
   test("should handle error case", async () => {
     const errorMessage = "Could not get tour routes";
     TourRoute.find.mockRejectedValueOnce(errorMessage);
