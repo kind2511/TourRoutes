@@ -1,4 +1,8 @@
-const { getUsers, getUser, deleteMyProfile } = require("../controllers/userController");
+const {
+  getUsers,
+  getUser,
+  deleteMyProfile,
+} = require("../controllers/userController");
 const User = require("../models/usersModel");
 
 // Mocks the User Model and the request object
@@ -94,46 +98,48 @@ describe("getUser controller", () => {
 //-----------------------------------------------------------------------------------------------
 
 // Testing of the deleteMyProfile controller
-describe('deleteMyProfile controller', () => {
+describe("deleteMyProfile controller", () => {
   afterEach(() => {
     jest.clearAllMocks();
   });
 
   // Success Case
-  test('should handle success case', async () => {
+  test("should handle success case", async () => {
     // Mock the User.findByIdAndDelete function to resolve successfully
-    User.findByIdAndDelete.mockResolvedValueOnce({ _id: 'user123' });
+    User.findByIdAndDelete.mockResolvedValueOnce({ _id: "user123" });
 
     // Mock the request object with the necessary parameters
-    const req = { user: { id: 'user123' } };
+    const req = { user: { id: "user123" } };
 
     await deleteMyProfile(req, res);
 
-    expect(User.findByIdAndDelete).toHaveBeenCalledWith('user123');
+    expect(User.findByIdAndDelete).toHaveBeenCalledWith("user123");
     expect(res.status).toHaveBeenCalledWith(204);
     expect(mockJson).toHaveBeenCalledWith({
-      status: 'success',
+      status: "success",
       data: null,
     });
   });
 
   // Error case
-  test('should handle error case', async () => {
+  test("should handle error case", async () => {
     // Mock the User.findByIdAndDelete function to reject with an error message
-    const errorMessage = 'Error deleting account';
+    const errorMessage = "Error deleting account";
     User.findByIdAndDelete.mockRejectedValueOnce(errorMessage);
 
     // Mock the request object with the necessary parameters
-    const req = { user: { id: 'user123' } };
+    const req = { user: { id: "user123" } };
 
     await deleteMyProfile(req, res);
 
-    expect(User.findByIdAndDelete).toHaveBeenCalledWith('user123');
+    expect(User.findByIdAndDelete).toHaveBeenCalledWith("user123");
     expect(res.status).toHaveBeenCalledWith(400);
     expect(mockJson).toHaveBeenCalledWith({
-      status: 'fail',
-      message: 'Could not delete account',
+      status: "fail",
+      message: "Could not delete account",
     });
   });
 });
+
+//-----------------------------------------------------------------------------------------------
 
