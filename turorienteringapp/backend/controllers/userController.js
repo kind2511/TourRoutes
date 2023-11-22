@@ -155,7 +155,7 @@ exports.deleteUser = async (req, res) => {
     // If there's an error in deleting the user, send an error response
     res.status(400).json({
       status: "fail",
-      message: err,
+      message: "Could not delete user",
     });
   }
 };

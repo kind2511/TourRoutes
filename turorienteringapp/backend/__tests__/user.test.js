@@ -2,6 +2,7 @@ const {
   getUsers,
   getUser,
   deleteMyProfile,
+  deleteUser,
 } = require("../controllers/userController");
 const User = require("../models/usersModel");
 
@@ -143,3 +144,39 @@ describe("deleteMyProfile controller", () => {
 
 //-----------------------------------------------------------------------------------------------
 
+const mockReq = { params: { id: "userId123" } };
+const mockRes = { status: mockStatus, json: mockJson };
+
+// Testing of the  delete user controller
+describe("deleteUser controller", () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  // Success case
+  test("should delete a user based on user ID", async () => {
+    await deleteUser(mockReq, mockRes);
+
+    expect(User.findByIdAndDelete).toHaveBeenCalledWith("userId123");
+    expect(mockJson).toHaveBeenCalledWith({
+      status: "success",
+      message: "User has been deleted successfully",
+    });
+    expect(mockStatus).toHaveBeenCalledWith(200);
+  });
+
+  // Error case
+  test("should handle error case", async () => {
+    const errorMessage = "Error deleting user";
+    User.findByIdAndDelete.mockRejectedValueOnce(errorMessage);
+
+    await deleteUser(mockReq, mockRes);
+
+    expect(User.findByIdAndDelete).toHaveBeenCalledWith("userId123");
+    expect(mockJson).toHaveBeenCalledWith({
+      status: "fail",
+      message: "Could not delete user",
+    });
+    expect(mockStatus).toHaveBeenCalledWith(400);
+  });
+});
