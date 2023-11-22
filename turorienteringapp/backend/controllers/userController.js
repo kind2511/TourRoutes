@@ -91,7 +91,7 @@ exports.updateMyPassword = async (req, res) => {
     // If there's an error updating the password, send an error response
     res.status(400).json({
       status: "fail",
-      message: err,
+      message: "Could not update password",
     });
   }
 };
