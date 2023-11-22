@@ -1,4 +1,4 @@
-const { getUsers } = require("../handlers/userHandler");
+const { getUsers } = require("../controllers/userController");
 const User = require("../models/usersModel");
 
 // Mocks the User Model and the request object
@@ -7,7 +7,7 @@ const mockJson = jest.fn();
 const mockStatus = jest.fn().mockImplementation(() => ({ json: mockJson }));
 const res = { status: mockStatus };
 
-describe("getUsers handler", () => {
+describe("getUsers controller", () => {
   afterEach(() => {
     jest.clearAllMocks();
   });
