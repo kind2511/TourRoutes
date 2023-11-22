@@ -43,7 +43,7 @@ exports.getIndividualUsersTourRoutes = async (req, res) => {
   } catch (err) {
     res.status(400).json({
       status: "fail",
-      message: "Could not ger tour routes",
+      message: "Could not get tour routes",
     });
   }
 };
