@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Dashboard.css';
 import mapboxgl from 'mapbox-gl';
+import { decodeToken } from './AuthUtils';
 
 // Our access tokens
 mapboxgl.accessToken = 'Ypk.eyJ1IjoiY2hyaXNhMjUxMSIsImEiOiJjbGtkcjRhNnkwa3JhM2t1ODFtbHppd2JmIn0.9DC6eUXzdFclnzb_3LCOtg';
@@ -13,6 +14,9 @@ const Dashboard = () => {
     const [activeReviewIndex, setActiveReviewIndex] = useState(0);
     const [activePopupReviewIndex, setActivePopupReviewIndex] = useState(0);
     const [showSlide, setShowSlide] = useState(false);
+    const token = localStorage.getItem('token'); //Retrive token from local storge
+    const userRole = token ? decodeToken(token).role : null;//decode the token to get user role
+    
 
     const reviews = [
         // Descriptive messages to guide users on the platform's features
@@ -121,11 +125,12 @@ const Dashboard = () => {
                     </div>
                 </div>
                 <span className="option-item" onClick={handleLogout}>Logout</span>
-                <span className="option-item" onClick={handleAdmin}>Admin</span>
+                {/* Conditional rendering of Admin link based on userRole */}
+                {userRole === 'admin' && <span className="option-item" onClick={handleAdmin}>Admin</span>}
             </div>
-
+    
             <div className="map-container" ref={mapContainerRef}></div>
-
+    
             <div className={`popup-review-panel ${showSlide ? 'slide-in' : ''}`}>
                 {popupReviews[activePopupReviewIndex]}
             </div>
@@ -134,6 +139,7 @@ const Dashboard = () => {
             </div>
         </>
     );
+    
 
 }
 
