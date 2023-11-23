@@ -74,8 +74,12 @@ const Admin = () => {
                 <h2>Users:</h2>
                 <ul>
                     {users.map((user, index) => (
-                        <li key={user._id}>{index + 1}. {user.firstName} {user.lastName}
-                        <button className="admin-users-delete-button">Delete</button>
+                        <li key={user._id}>
+                            {index + 1}. {user.firstName} {user.lastName}
+                            <div className="admin-button-container"> {/*Added div for each user list item*/}
+                                <button className="admin-users-delete-button">Delete</button>
+                                <button className="admin-users-promote-button">Promote</button>
+                            </div>
                         </li> //render users as list
                     ))}
                 </ul>
@@ -87,8 +91,9 @@ const Admin = () => {
                 <h2>Routes:</h2>
                 <ul>
                     {routes.map((route, index) => (
-                        <li key={route._id}>{index + 1}. {route.name}, ID: {route._id}
-                        <button className="admin-routes-delete-button">Delete</button>
+                        <li key={route._id}>
+                            {index + 1}. {route.name}, ID: {route._id}
+                            <button className="admin-routes-delete-button">Delete</button>
                         </li> //render routes as list
                     ))}
                 </ul>
