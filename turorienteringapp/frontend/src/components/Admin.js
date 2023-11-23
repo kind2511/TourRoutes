@@ -74,7 +74,9 @@ const Admin = () => {
                 <h2>Users:</h2>
                 <ul>
                     {users.map((user, index) => (
-                        <li key={user._id}>{index + 1}. {user.firstName} {user.lastName}</li> //render users as list
+                        <li key={user._id}>{index + 1}. {user.firstName} {user.lastName}
+                        <button className="admin-users-delete-button">Delete</button>
+                        </li> //render users as list
                     ))}
                 </ul>
             </div>
