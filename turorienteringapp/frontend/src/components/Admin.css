@@ -25,9 +25,12 @@
 }
 
 .admin-column ul li {
-    padding: 5px 0; /*space between elements vertically*/
-    border-bottom: 1px solid  #4CAF50;;
-}
+    border-bottom: 1px solid  #4CAF50;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 13px 0; /* space between elements vertically */
+    }
 
 .admin-column ul li:last-child {
     border-bottom: none;
@@ -47,3 +50,11 @@
     font-style: italic;
     color:rgb(255, 0, 149);
 }
+
+.admin-routes-delete-button {
+    color:white;
+    background-color:red;
+    width:100px;
+    margin-right:200px;
+    padding: 1px 0px 0px; /*This will make the button smaller*/
+    }

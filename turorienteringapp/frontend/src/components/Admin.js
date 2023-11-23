@@ -86,7 +86,7 @@ const Admin = () => {
                 <ul>
                     {routes.map((route, index) => (
                         <li key={route._id}>{index + 1}. {route.name}, ID: {route._id}
-                        <button className="routes-button">Delete</button>
+                        <button className="admin-routes-delete-button">Delete</button>
                         </li> //render routes as list
                     ))}
                 </ul>
