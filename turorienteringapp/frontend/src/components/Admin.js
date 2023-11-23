@@ -3,10 +3,10 @@ import './Admin.css';
 
 const Admin = () => {
     const [users, setUsers] = useState([]);
-
+    const [routes, setRoutes] = useState([]);
 
     //------------------------------------------->
-    
+
     // Fetch Users from the backend  and set them in colom lista 
     const fetchUsers = async () => {
         try {
@@ -38,17 +38,43 @@ const Admin = () => {
 
     //------------------------------------------------->
 
+    // Fetch Routes from the backend
+    const fetchRoutes = async () => {
+        try {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                throw new Error('Authentication token not found');
+            }
+            const response = await fetch('http://localhost:8000/api/v1/tourRoutes', {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            const data = await response.json();
+            if (response.ok) {
+                setRoutes(data.data.tourRoutes);
+            }
+        } catch (error) {
+            console.error('Error fetching routes:', error);
+        }
+    };
+
+    // Call both functions once the when the component first mounted 
     useEffect(() => {
         fetchUsers();
+        fetchRoutes();
     }, []);
+
+    //------------------------------------------------------------>
+
 
     return (
         <div className="admin-container">
             <div className="admin-column">
-                <h2>Users</h2>
+                <h2>Users:</h2>
                 <ul>
                     {users.map((user, index) => (
-                        <li key={user._id}>{index + 1}. {user.firstName} {user.lastName}</li>
+                        <li key={user._id}>{index + 1}. {user.firstName} {user.lastName}</li> //render users as list
                     ))}
                 </ul>
             </div>
@@ -56,8 +82,12 @@ const Admin = () => {
             <div className="admin-column-divider"></div>
 
             <div className="admin-column">
-                <h2>Routes</h2>
-                {/* Routes implementation will be added here later............... */}
+                <h2>Routes:</h2>
+                <ul>
+                    {routes.map((route, index) => (
+                        <li key={route._id}>{index + 0}. {route.name} : {route._id}</li> //render routes as list
+                    ))}
+                </ul>
             </div>
         </div>
     );
