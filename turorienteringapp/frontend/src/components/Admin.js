@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './Admin.css';
+import AdminDeleteUser from './AdminDeleteUser';
+
 
 const Admin = () => {
     const [users, setUsers] = useState([]);
@@ -67,6 +69,12 @@ const Admin = () => {
 
     //------------------------------------------------------------>
 
+    const handleDeleteUser = (userId) => {
+        console.log("Deleting user with ID:", userId);
+        // API call will be added here
+    };
+
+
 
     return (
         <div className="admin-container">
@@ -76,11 +84,11 @@ const Admin = () => {
                     {users.map((user, index) => (
                         <li key={user._id}>
                             {index + 1}. {user.firstName} {user.lastName}
-                            <div className="admin-button-container"> {/*Added div for each user list item*/}
-                                <button className="admin-users-delete-button">Delete</button>
+                            <div className="admin-button-container">{/*Added div for each user list item*/}
+                                <AdminDeleteUser userId={user._id} onDelete={handleDeleteUser} />
                                 <button className="admin-users-promote-button">Promote</button>
                             </div>
-                        </li> //render users as list
+                        </li> // Render users as a list
                     ))}
                 </ul>
             </div>
@@ -94,7 +102,7 @@ const Admin = () => {
                         <li key={route._id}>
                             {index + 1}. {route.name}, ID: {route._id}
                             <button className="admin-routes-delete-button">Delete</button>
-                        </li> //render routes as list
+                        </li> // Render routes as a list
                     ))}
                 </ul>
             </div>

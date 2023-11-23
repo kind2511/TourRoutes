@@ -1,7 +1,6 @@
 import React from 'react';
-import AdminDeleteUser from './AdminDeleteUser';
 
-const AdminDeleteUser = ({ userId, onDelete }) => {
+const DeleteUserButton = ({ userId, onDelete }) => {
   return (
     <button onClick={() => onDelete(userId)} className="admin-users-delete-button">
       Delete
@@ -9,4 +8,4 @@ const AdminDeleteUser = ({ userId, onDelete }) => {
   );
 };
 
-export default AdminDeleteUser;
+export default DeleteUserButton;
