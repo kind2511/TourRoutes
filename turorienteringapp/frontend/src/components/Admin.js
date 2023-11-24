@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './Admin.css';
 import AdminDeleteUser from './AdminDeleteUser';
+import AdminDeleteRoute from './AdminDeleteRoute';
 
 
 const Admin = () => {
@@ -69,6 +70,12 @@ const Admin = () => {
 
     //------------------------------------------------------------>
 
+    const habdleDeleteRoute = async (routeId) => {
+
+    };
+
+    //------------------------------------------------------------>
+
     /* 
      * Function to delete user by the Admin 
      */
@@ -115,6 +122,7 @@ const Admin = () => {
                             {index + 1}. {user.firstName} {user.lastName}
                             <div className="admin-button-container">{/*Added div for each user list item*/}
                                 <AdminDeleteUser userId={user._id} onDelete={handleDeleteUser} />
+
                                 <button className="admin-users-promote-button">Promote</button>
                             </div>
                         </li> // Render users as a list
@@ -130,7 +138,7 @@ const Admin = () => {
                     {routes.map((route, index) => (
                         <li key={route._id}>
                             {index + 1}. {route.name}, ID: {route._id}
-                            <button className="admin-routes-delete-button">Delete</button>
+                            <AdminDeleteRoute routeId={route._id} onDelete={habdleDeleteRoute} />
                         </li> // Render routes as a list
                     ))}
                 </ul>
