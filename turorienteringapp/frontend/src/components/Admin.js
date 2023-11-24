@@ -70,8 +70,37 @@ const Admin = () => {
 
     //------------------------------------------------------------>
 
-    const habdleDeleteRoute = async (routeId) => {
+    /* 
+     * Function to delete route by the Admin 
+     */
 
+    const handleDeleteRoute = async (routeId) => {
+        try {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                console.error('No authentication token found');
+                return;
+            }
+
+            const response = await fetch(`http://localhost:8000/api/v1/tourRoutes/${routeId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            const data = await response.json();
+            if (response.ok) {
+                console.log("Route deleted successfully:", data);
+
+
+                setRoutes(routes.filter(route => route._id !== routeId)); // UI filter to remove the route directly from screen
+            } else {
+                console.error('Failed to delete route:', data.message);
+            }
+        } catch (error) {
+            console.error('Error deleting route:', error);
+        }
     };
 
     //------------------------------------------------------------>
@@ -138,7 +167,7 @@ const Admin = () => {
                     {routes.map((route, index) => (
                         <li key={route._id}>
                             {index + 1}. {route.name}, ID: {route._id}
-                            <AdminDeleteRoute routeId={route._id} onDelete={habdleDeleteRoute} />
+                            <AdminDeleteRoute routeId={route._id} onDelete={handleDeleteRoute} />
                         </li> // Render routes as a list
                     ))}
                 </ul>
