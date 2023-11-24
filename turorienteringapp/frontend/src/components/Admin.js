@@ -69,10 +69,39 @@ const Admin = () => {
 
     //------------------------------------------------------------>
 
-    const handleDeleteUser = (userId) => {
-        console.log("Deleting user with ID:", userId);
-        // API call will be added here
+    /* 
+     * Function to delete user by the Admin 
+     */
+
+    const handleDeleteUser = async (userId) => {
+        try {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                console.error('No authentication token found');
+                return;
+            }
+
+            const response = await fetch(`http://localhost:8000/api/v1/users/${userId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            const data = await response.json();
+            if (response.ok) {
+                console.log("User deleted successfully:", data);
+
+                setUsers(users.filter(user => user._id !== userId)); // UI filter to remove the user directly from screen
+            } else {
+                console.error('Failed to delete user:', data.message);
+            }
+        } catch (error) {
+            console.error('Error deleting user:', error);
+        }
     };
+
+    //------------------------------------------------------------>
 
 
 
