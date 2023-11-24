@@ -109,6 +109,12 @@ const Admin = () => {
 
     const handleDeleteRoute = async (routeId) => {
         try {
+            // Confirmation dialog
+            const isConfirmed = window.confirm("Are you sure you want to delete this route?");
+            if (!isConfirmed) {
+                return;
+            }
+
             const token = localStorage.getItem('token');
             if (!token) {
                 console.error('No authentication token found');
@@ -125,9 +131,9 @@ const Admin = () => {
             const data = await response.json();
             if (response.ok) {
                 console.log("Route deleted successfully:", data);
-
-
                 setRoutes(routes.filter(route => route._id !== routeId)); // UI filter to remove the route directly from screen
+                // Success message
+                window.alert("Route deleted successfully");
             } else {
                 console.error('Failed to delete route:', data.message);
             }
