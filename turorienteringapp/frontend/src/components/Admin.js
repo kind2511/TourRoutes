@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './Admin.css';
 import AdminDeleteUser from './AdminDeleteUser';
 import AdminDeleteRoute from './AdminDeleteRoute';
-
+import AdminPromoteUser from './AdminPromoteUser';
 
 const Admin = () => {
     const [users, setUsers] = useState([]);
@@ -67,6 +67,16 @@ const Admin = () => {
         fetchUsers();
         fetchRoutes();
     }, []);
+
+    //------------------------------------------------------------>
+
+    /* 
+     * Function to promote user by the Admin 
+     */
+
+    const handlePromoteUser = async (userId) => {
+        console.log("Promoting user with ID:", userId);
+    };
 
     //------------------------------------------------------------>
 
@@ -151,8 +161,7 @@ const Admin = () => {
                             {index + 1}. {user.firstName} {user.lastName}
                             <div className="admin-button-container">{/*Added div for each user list item*/}
                                 <AdminDeleteUser userId={user._id} onDelete={handleDeleteUser} />
-
-                                <button className="admin-users-promote-button">Promote</button>
+                                <AdminPromoteUser userId={user._id} onPromote={handlePromoteUser} />
                             </div>
                         </li> // Render users as a list
                     ))}
