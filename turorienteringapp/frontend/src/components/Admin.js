@@ -150,6 +150,13 @@ const Admin = () => {
 
     const handleDeleteUser = async (userId) => {
         try {
+
+            // Confirmation dialog
+            const isConfirmed = window.confirm("Are you sure you want to delete this user?");
+            if (!isConfirmed) {
+                return;
+            }
+
             const token = localStorage.getItem('token');
             if (!token) {
                 console.error('No authentication token found');
@@ -166,8 +173,9 @@ const Admin = () => {
             const data = await response.json();
             if (response.ok) {
                 console.log("User deleted successfully:", data);
-
                 setUsers(users.filter(user => user._id !== userId)); // UI filter to remove the user directly from screen
+                // Success message
+                window.alert("User deleted successfully");
             } else {
                 console.error('Failed to delete user:', data.message);
             }
