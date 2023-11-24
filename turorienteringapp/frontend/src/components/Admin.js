@@ -75,7 +75,30 @@ const Admin = () => {
      */
 
     const handlePromoteUser = async (userId) => {
-        console.log("Promoting user with ID:", userId);
+        try {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                console.error('No authentication token found');
+                return;
+            }
+
+            const response = await fetch(`http://localhost:8000/api/v1/users/promoteToAdmin/${userId}`, {
+                method: 'PATCH',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            const data = await response.json();
+            if (response.ok) {
+                console.log("User promoted successfully:", data);
+
+            } else {
+                console.error('Failed to promote user:', data.message);
+            }
+        } catch (error) {
+            console.error('Error promoting user:', error);
+        }
     };
 
     //------------------------------------------------------------>
