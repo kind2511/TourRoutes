@@ -76,6 +76,13 @@ const Admin = () => {
 
     const handlePromoteUser = async (userId) => {
         try {
+
+            // Confirmation dialog
+            const isConfirmed = window.confirm("Are you sure you want to promote this user to admin?");
+            if (!isConfirmed) {
+                return;
+            }
+
             const token = localStorage.getItem('token');
             if (!token) {
                 console.error('No authentication token found');
@@ -92,7 +99,8 @@ const Admin = () => {
             const data = await response.json();
             if (response.ok) {
                 console.log("User promoted successfully:", data);
-
+                // Success message
+                window.alert("User Promoted to admin successfully");
             } else {
                 console.error('Failed to promote user:', data.message);
             }
