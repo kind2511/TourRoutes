@@ -90,8 +90,12 @@ function App() {
                         {/* Page to find a path */}
                         <Route path="/find-path" element={<FindPath />} />
 
-                        {/* Page to Admin*/}
-                        <Route path="/admin" element={<Admin />} />
+                        {/* Page to Admin - Protected */}
+                        <Route path="/admin" element={
+                            <ProtectedRoute>
+                                <Admin />
+                            </ProtectedRoute>
+                        } />
 
                         {/*Page to Welcome */}
                         <Route path="/welcome" element={<Welcome />} />
