@@ -54,8 +54,12 @@ function App() {
                         {/* About Us Page */}
                         <Route path="/about" element={<AboutUs />} />
 
-                        {/* User Profile Page */}
-                        <Route path="/profile" element={<UserProfile />} />
+                        {/* User Profile Page - Protected */}
+                        <Route path="/profile" element={
+                            <ProtectedRoute>
+                                <UserProfile />
+                            </ProtectedRoute>
+                        } />
 
                         {/* Page to delete a user */}
                         <Route path="/delete-user" element={<DeleteUser />} />
@@ -77,7 +81,7 @@ function App() {
                         <Route path="/admin" element={<Admin />} />
 
                         {/*Page to Welcome */}
-                        <Route path="/welcome" element={<Welcome/>} />
+                        <Route path="/welcome" element={<Welcome />} />
                     </Routes>
                 </Router>
             </div>
