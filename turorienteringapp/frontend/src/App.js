@@ -2,6 +2,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './components/AuthContext';  // Importing the AuthProvider
+import ProtectedRoute from './components/ProtectedRoute'; // Importing the ProtectedRoute
 
 // Pages
 import SignIn from './pages/SignIn';
@@ -22,7 +23,6 @@ import MyRoutes from './components/MyRoutes';
 import Admin from './components/Admin';
 import Welcome from './components/Welcome';
 
-
 // Main App component
 function App() {
     return (
@@ -41,8 +41,12 @@ function App() {
                         {/* Registration Page */}
                         <Route path="/register" element={<Register />} />
 
-                        {/* User Dashboard */}
-                        <Route path="/dashboard" element={<Dashboard />} />
+                        {/* User Dashboard - Protected */}
+                        <Route path="/dashboard" element={
+                            <ProtectedRoute>
+                                <Dashboard />
+                            </ProtectedRoute>
+                        } />
 
                         {/* LogOut Route */}
                         <Route path="/logout" element={<LogOut />} />
@@ -63,7 +67,6 @@ function App() {
 
                         <Route path="/my-routes" element={<MyRoutes />} />
 
-
                         {/* Page to view all saved routes */}
                         <Route path="/all-routes" element={<AllRoutes />} />
 
@@ -75,7 +78,6 @@ function App() {
 
                         {/*Page to Welcome */}
                         <Route path="/welcome" element={<Welcome/>} />
-
                     </Routes>
                 </Router>
             </div>

@@ -4,7 +4,7 @@ import React, { createContext, useState, useContext, useEffect } from 'react';
 const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
-  
+
   // State to keep track of the authentication token
   const [token, setToken] = useState(null);
 
@@ -65,3 +65,5 @@ export const useAuth = () => {
 };
 
 export default AuthProvider;
+
+
