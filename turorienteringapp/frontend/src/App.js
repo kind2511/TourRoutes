@@ -77,7 +77,12 @@ function App() {
                             </ProtectedRoute>
                         } />
 
-                        <Route path="/my-routes" element={<MyRoutes />} />
+                        {/* My Routes Page - Protected */}
+                        <Route path="/my-routes" element={
+                            <ProtectedRoute>
+                                <MyRoutes />
+                            </ProtectedRoute>
+                        } />
 
                         {/* Page to view all saved routes */}
                         <Route path="/all-routes" element={<AllRoutes />} />
