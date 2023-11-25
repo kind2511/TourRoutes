@@ -61,8 +61,12 @@ function App() {
                             </ProtectedRoute>
                         } />
 
-                        {/* Page to delete a user */}
-                        <Route path="/delete-user" element={<DeleteUser />} />
+                        {/* Page to Delete a User - Protected */}
+                        <Route path="/delete-user" element={
+                            <ProtectedRoute>
+                                <DeleteUser />
+                            </ProtectedRoute>
+                        } />
 
                         <Route path="/goodbye" element={<GoodbyePage />} />
 
