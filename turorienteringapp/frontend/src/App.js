@@ -70,8 +70,12 @@ function App() {
 
                         <Route path="/goodbye" element={<GoodbyePage />} />
 
-                        {/* Page to create a new route */}
-                        <Route path="/new-route" element={<NewRoute />} />
+                        {/* Page to Create a New Route - Protected */}
+                        <Route path="/new-route" element={
+                            <ProtectedRoute>
+                                <NewRoute />
+                            </ProtectedRoute>
+                        } />
 
                         <Route path="/my-routes" element={<MyRoutes />} />
 
