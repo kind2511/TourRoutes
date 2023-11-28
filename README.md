@@ -1,78 +1,87 @@
-# TurOrienteringApp
+# TurRuter
 
-Welcome to the TurOrienteringApp! This project is developed by Group5 for PROG2052 at NTNU.
+Welcome to TurRuter! This project is developed by group5 for PROG2052 at NTNU.
 
 ## Table of Contents
 
 1. [Project Structure](#project-structure)
 2. [Getting Started](#getting-started)
-    - [Prerequisites](#prerequisites)
-    - [Local Setup](#local-setup)
-3. [Contributing](#contributing)
-
+   - [Prerequisites](#prerequisites)
+   - [Local Setup](#local-setup)
+3. [Running the Application](#running-the-application)
+4. [Credits](#credits)
+5. [Support](#support)
 
 ## Project Structure
 
-Our project is divided into frontend and backend components:
+The TurRuter project is organized into frontend and backend components:
 
-- **frontend/**: Contains our React frontend code. This is the user-facing part of our application.
-  
-- **backend/**: Manages the back end of the application including the API, database connections, and other server-side tasks.
+- **frontend/**: Contains the React frontend code, which is the user interface.
+- **backend/**: Manages the backend, including API, database connections, and server-side tasks.
 
 Root directory files:
-- `.gitignore`: Lists files and folders we don't want Git to track.
-- `README.md`: This very document!
+- `.gitignore`: For untracked files and folders.
+- `README.md`: This document, explaining the project setup and guidelines.
 
 ## Getting Started
 
 ### Prerequisites
 
-Before you start, make sure you have:
+Before beginning, make sure you have installed:
 - Node.js
 - npm (Node Package Manager)
+- Visual Studio Code (or any other preferred IDE)
 
 ### Local Setup
 
 1. **Clone the Repository**:
     ```
     git clone https://gitlab.stud.idi.ntnu.no/omotayol/group5-prog2052.git
-    cd group5-prog2052/turorienteringapp
+    ```
+    Navigate to the project directory:
+    ```
+    cd group5-prog2052/turorienteringapp 
     ```
 
 2. **Frontend Setup**:
-    - Go to the frontend directory:
+    - Open Visual Studio Code and open the cloned project directory group5-prog2052.
+    - Open a terminal in Visual Studio Code.
+    - Navigate to the frontend directory:
       ```
-      cd frontend
+      cd turorienteringapp/frontend 
       ```
-    - Install the dependencies:
+    - Install the required dependencies:
       ```
       npm install
       ```
-    - Start the React server:
+    - Start the frontend server:
       ```
       npm start
       ```
 
 3. **Backend Setup**:
-    - Switch to the backend directory:
+    - Open a new terminal tab in Visual Studio Code.
+    - Navigate to the backend directory:
       ```
-      cd ../backend
+      cd turorienteringapp/backend
       ```
-    - Get the required dependencies:
+    - Install necessary dependencies:
       ```
       npm install
       ```
+    - Create a `config.env` file in the backend directory and fill in the necessary configurations.
     - Start the backend server:
       ```
       npm start
       ```
 
-## Contributing
+## Credits
 
-Here's our collaborative workflow:
+Developed by:
+1. [Christopher Andreas Kindlien] - [Email]
+2. [Ahmad Masoud Mzafar] - [Email]
+3. [Omotayo Farouk Lawal] - [Email]
 
-- Each developer will have their own branch for development.
-- When adding a new feature or fixing something, make sure to work within your designated branch.
-- Regularly pull the latest updates from the `main` branch to stay synced.
-- Once frontend and backend integrations are complete and have been discussed by the group members, they can be merged into the respective branches.
-- After thorough discussion and review of all changes, we can then push the consolidated updates to the `main` branch. 
+## Support
+
+In case of any issues, especially with the map or other components, please feel free to contact the developers directly at their respective emails provided above.
