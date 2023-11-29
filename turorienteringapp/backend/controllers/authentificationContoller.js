@@ -16,7 +16,7 @@ function generateAccessToken(id, role) {
   });
 }
 
-// Handler to sign up a user
+// Controller to sign up a user
 exports.signup = async (req, res) => {
   try {
     // Create a new user with the data provided in the request body
@@ -29,13 +29,9 @@ exports.signup = async (req, res) => {
       role: req.body.role,
     });
 
-    // Create a JWT token for the newly registered user
-    const token = generateAccessToken(user._id, user.role);
-
     // Send a success response with the token
     res.status(201).json({
       status: "success",
-      token,
       data: {
         user: user,
       },
@@ -43,12 +39,12 @@ exports.signup = async (req, res) => {
   } catch (err) {
     res.status(400).json({
       status: "fail",
-      message: err,
+      message: "Error registering new user",
     });
   }
 };
 
-// Handler to log in a user
+// Controller to log in a user
 exports.login = async (req, res) => {
   try {
     // Extract email and password from request body
@@ -95,7 +91,7 @@ exports.login = async (req, res) => {
     // If there's an error in the process, send an error response
     res.status(400).json({
       status: "fail",
-      message: err,
+      message: "Could not log in user",
     });
   }
 };
@@ -126,7 +122,7 @@ exports.authenticate = async (req, res, next) => {
       const decoded = jwt.verify(token, process.env.TOKEN_SECRET);
       req.user = decoded; // lets us access id and role of current logged in user
     } catch (err) {
-      return res.status(401).send("Invalid Token");
+      return res.status(401).json("Invalid Token");
     }
 
     next();
