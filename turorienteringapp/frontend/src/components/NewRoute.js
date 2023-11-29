@@ -152,11 +152,15 @@ const NewRoute = () => {
     // Format the points data as an array of arrays of numbers
     const coordinates = points.map((point) => [point.lng, point.lat]);
 
+    // Ask the user if they would like their route to be published
+    const publishConfirmation = window.confirm("Would you like your route to be published?");
+    const published = publishConfirmation ? true : false; //publish status based on user choice
+
     // Send a POST request to the backend to save the route
     try {
       const response = await axios.post(
         "http://localhost:8000/api/v1/tourRoutes/newTourRoute",
-        { name, coordinates },
+        { name, coordinates, published },
         {
           headers: { Authorization: "Bearer " + localStorage.getItem("token") },
         }
@@ -164,7 +168,7 @@ const NewRoute = () => {
 
       // Check the response status from the backend
       if (response.data && response.data.status === "success") {
-        alert("Route successfully saved to the backend!");
+        alert(`Route "${name}" saved successfully as ${published ? "published" : "not published"}.`);
       } else {
         alert("There was an issue saving the route to the backend.");
       }
