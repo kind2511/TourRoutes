@@ -174,11 +174,6 @@ const NewRoute = () => {
       return;
     }
 
-    // Store the route locally
-    // const existingRoutes = JSON.parse(localStorage.getItem('routes') || '[]');
-    // existingRoutes.push({ name, points });
-    // localStorage.setItem('routes', JSON.stringify(existingRoutes));
-
     // Reset points and markers
     setPoints([]);
     setIsCreatingRoute(false);
@@ -192,9 +187,6 @@ const NewRoute = () => {
     // Remove markers
     markers.forEach((marker) => marker.remove());
     setMarkers([]);
-
-    // Display a success message
-    alert("Route saved locally!");
   };
 
   //------------------------------------------------------------------->
@@ -221,7 +213,7 @@ const NewRoute = () => {
 
   const handleBackClick = () => {
     navigate('/dashboard');
-};
+  };
   /*----------------------------------------------------------------------------------> */
   /* Render the elements */
   return (
