@@ -12,10 +12,7 @@ const tourRouteSchema = new mongoose.Schema({
     type: [[Number]], // Array of array containing numbers
     required: true,
   },
-  published: {
-    type: Boolean,
-    default: false,
-  },
+  published: Boolean,
   user_id: String,
 });
 

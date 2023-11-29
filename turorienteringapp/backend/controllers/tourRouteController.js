@@ -3,12 +3,13 @@ const TourRoute = require("../models/tourRouteModel");
 // Controller to create a new tour route
 exports.newTourRoute = async (req, res) => {
   try {
-    const { name, coordinates } = req.body;
+    const { name, published ,coordinates } = req.body;
 
     // Creates a new tourroute document
     const newTourRoute = new TourRoute({
       name,
       type: "Linestring",
+      published,
       coordinates,
       user_id: req.user.id,
     });
