@@ -14,7 +14,7 @@ import Dashboard from './components/Dashboard';
 import AboutUs from './components/AboutUs';
 import UserProfile from './components/UserProfile';
 import NewRoute from './components/NewRoute';
-import AllRoutes from './components/AllRoutes';
+import PublishedRoutes from './components/PublishedRoutes';
 import FindPath from './components/FindPath';
 import LogOut from './components/LogOut';
 import DeleteUser from './components/DeleteUser';
@@ -85,7 +85,7 @@ function App() {
                         } />
 
                         {/* Page to view all saved routes */}
-                        <Route path="/all-routes" element={<AllRoutes />} />
+                        <Route path="/published-routes" element={<PublishedRoutes />} />
 
                         {/* Page to find a path */}
                         <Route path="/find-path" element={<FindPath />} />

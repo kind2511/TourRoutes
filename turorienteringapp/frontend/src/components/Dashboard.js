@@ -120,7 +120,7 @@ const Dashboard = () => {
                     <div className="edit-dropdown-content">
                         <a href="#" onClick={() => navigate('/new-route')}>New Route</a>
                         <a href="#" onClick={() => navigate('/my-routes')}>My Routes</a>
-                        <a href="#" onClick={() => navigate('/all-routes')}>All Routes</a>
+                        <a href="#" onClick={() => navigate('/published-routes')}>Published Routes</a>
                         <a href="#" onClick={handleFindPath}>Find Path</a>
                     </div>
                 </div>
