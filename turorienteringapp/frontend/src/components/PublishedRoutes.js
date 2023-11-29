@@ -19,14 +19,17 @@ const PublishedRoutes = () => {
     const [routes, setRoutes] = useState([]);
     const [error, setError] = useState(null);
 
-    // Fetch routes from the backend
+    // Fetch published routes from the backend with authorization
     const fetchRoutes = async () => {
         try {
-            const response = await axios.get('http://localhost:8000/api/v1/tourRoutes/');
-            const backendRoutes = response.data.data.tourRoutes || [];
-            setRoutes(backendRoutes);
+            const token = localStorage.getItem('token');// token from local storge
+            const response = await axios.get('http://localhost:8000/api/v1/tourRoutes/getAllPublishedTourRoutes', {
+                headers: { Authorization: `Bearer ${token}` } //----->added the token to to authorization header
+            });
+            const publishedRoutes = response.data.data.tourRoutes || [];
+            setRoutes(publishedRoutes);
         } catch (err) {
-            setError("There was a problem fetching the routes. Please try again.");
+            setError("There was a problem fetching the published routes. Please try again.");
         }
     };
 
