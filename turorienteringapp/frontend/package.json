@@ -14,10 +14,15 @@
     "react-scripts": "^5.0.1"
   },
   "scripts": {
-    "start": "react-scripts start"
+    "start": "react-scripts start",
+    "test": "react-scripts test --watchAll"
   },
   "browserslist": "defaults",
   "devDependencies": {
-    "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^13.4.0",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.0.3"
   }
 }
