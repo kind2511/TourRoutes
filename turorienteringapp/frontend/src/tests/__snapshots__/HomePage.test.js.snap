@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HomePage  component snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="home-page"
+  >
+    <div
+      class="left"
+    >
+      <div
+        class="sentence-section"
+      >
+        <p />
+      </div>
+    </div>
+    <div
+      class="right"
+    >
+      <a
+        class="nav-logo"
+        href="/"
+      >
+        TurRuter
+      </a>
+      <div
+        style="display: flex; justify-content: center; margin-top: 20px;"
+      >
+        <button>
+          Login
+        </button>
+        <button>
+          Register
+        </button>
+      </div>
+      <div
+        class="footer-about"
+      >
+        <a
+          href="/about"
+        >
+          About Us
+        </a>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
