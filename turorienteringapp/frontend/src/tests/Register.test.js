@@ -11,4 +11,17 @@ test('Register renders without crashing', () => {
     );
 });
 
+//---------------------------------------->
+
+// Snapshot test for the Regsiter component
+test('Regiser component snapshot', () => {
+    const { asFragment } = render(
+      <BrowserRouter>
+        <Register />
+      </BrowserRouter>
+    );
+    expect(asFragment()).toMatchSnapshot();
+  });
+  
+
 

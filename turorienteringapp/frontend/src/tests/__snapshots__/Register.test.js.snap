@@ -1,0 +1,103 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Regiser component snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="register-background"
+  >
+    <div
+      class="register-container"
+    >
+      <span
+        class="nav-logo"
+      >
+        TurRuter
+      </span>
+       
+      <form>
+        <label
+          for="firstName"
+        >
+          First Name
+        </label>
+        <input
+          autocomplete="given-name"
+          id="firstName"
+          name="firstName"
+          required=""
+          type="text"
+          value=""
+        />
+        <label
+          for="lastName"
+        >
+          Last Name
+        </label>
+        <input
+          autocomplete="family-name"
+          id="lastName"
+          name="lastName"
+          required=""
+          type="text"
+          value=""
+        />
+        <label
+          for="email"
+        >
+          Email Address
+        </label>
+        <input
+          autocomplete="email"
+          id="email"
+          name="email"
+          required=""
+          type="email"
+          value=""
+        />
+        <label
+          for="password"
+        >
+          Password
+        </label>
+        <input
+          autocomplete="new-password"
+          id="password"
+          name="password"
+          required=""
+          type="password"
+          value=""
+        />
+        <label
+          for="confirmPassword"
+        >
+          Confirm Password
+        </label>
+        <input
+          autocomplete="new-password"
+          id="confirmPassword"
+          name="confirmPassword"
+          required=""
+          type="password"
+          value=""
+        />
+        <div />
+        <button
+          type="submit"
+        >
+          Register
+        </button>
+      </form>
+      <div
+        class="login-prompt"
+      >
+        Already a member? 
+        <span
+          class="login-link"
+        >
+          Log In
+        </span>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
