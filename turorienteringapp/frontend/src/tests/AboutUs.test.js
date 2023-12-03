@@ -10,3 +10,16 @@ test('AboutUs component renders without crashing', () => {
     </BrowserRouter>
   );
 });
+
+//----------------------------------------------->
+
+// Snapshot test for the about us component
+test('AboutUs component snapshot', () => {
+  const { asFragment } = render(
+    <BrowserRouter>
+      <AboutUs />
+    </BrowserRouter>
+  );
+  expect(asFragment()).toMatchSnapshot();
+});
+

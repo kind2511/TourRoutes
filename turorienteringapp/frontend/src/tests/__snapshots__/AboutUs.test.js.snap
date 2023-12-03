@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AboutUs component snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="container"
+  >
+    <div
+      class="title"
+    >
+      About Us
+    </div>
+    <div
+      class="segment"
+    >
+      TurRuter provides accurate navigation solutions for urban explorers. We integrate the latest technology to ensure you always find your way, whether in familiar terrains or new cities.
+    </div>
+    <div
+      class="segment"
+    >
+      Our system is designed to personalize your experience. TurRuter records and recalls places you've visited, making it easy to return to spots you enjoyed or to plan new routes based on your preferences.
+    </div>
+    <div
+      class="segment"
+    >
+      TurRuter offers real-time updates to ensure users are informed about any unexpected changes in their routes. Whether there's a sudden roadblock or an event, our app ensures you’re provided with the most efficient detours.
+    </div>
+    <div
+      class="segment"
+    >
+      TurRuter encourages a sense of community among its users. Discover something interesting? Share it on the platform. Likewise, benefit from the experiences and discoveries of others.
+    </div>
+    <div
+      class="segment"
+    >
+      User feedback is a cornerstone of TurRuter's development. We are constantly seeking to improve and update our services based on the needs and preferences of our users.
+    </div>
+    <div
+      class="segment"
+    >
+      With growing concerns about the environment, TurRuter provides eco-friendly route options. This feature supports users in making sustainable travel choices.
+    </div>
+    <div
+      class="conclusion"
+    >
+      TurRuter is not just a navigation tool; it's a comprehensive platform aiming to enhance the overall travel experience. Our commitment is to ensure convenience, reliability, and innovation in every journey you undertake.
+    </div>
+    <div
+      class="aboutus-logo"
+    >
+      TurRuter
+    </div>
+  </div>
+</DocumentFragment>
+`;
