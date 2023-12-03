@@ -10,3 +10,17 @@ test('renders DeleteUser component without crashing', () => {
     </BrowserRouter>
   );
 });
+
+//------------------------------------------------------>
+
+test('DeleteUser component snapshot', () => {
+  const { asFragment } = render(
+    <BrowserRouter>
+      <DeleteUser />
+    </BrowserRouter>
+  );
+  expect(asFragment()).toMatchSnapshot();
+});
+
+
+

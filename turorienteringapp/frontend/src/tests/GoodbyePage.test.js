@@ -13,8 +13,8 @@ test('GoodbyePage component renders without crashing', () => {
 
 //------------------------------------------>
 
-// Snapshot test for the GoodBye  component
-test('HomePage  component snapshot', () => {
+// Snapshot test for the GoodbyePage  component
+test('GoodbyePage  component snapshot', () => {
   const { asFragment } = render(
     <BrowserRouter>
       <GoodbyePage  />

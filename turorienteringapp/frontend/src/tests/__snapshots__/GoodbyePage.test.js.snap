@@ -1,5 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`GoodbyePage  component snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="goodbye-container"
+  >
+    <h1>
+      Sorry to see you go :(
+    </h1>
+    <p>
+      Hope we see you again :)
+    </p>
+  </div>
+</DocumentFragment>
+`;
+
 exports[`HomePage  component snapshot 1`] = `
 <DocumentFragment>
   <div
