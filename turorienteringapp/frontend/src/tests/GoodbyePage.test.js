@@ -10,3 +10,15 @@ test('GoodbyePage component renders without crashing', () => {
     </BrowserRouter>
   );
 });
+
+//------------------------------------------>
+
+// Snapshot test for the GoodBye  component
+test('HomePage  component snapshot', () => {
+  const { asFragment } = render(
+    <BrowserRouter>
+      <GoodbyePage  />
+    </BrowserRouter>
+  );
+  expect(asFragment()).toMatchSnapshot();
+});
