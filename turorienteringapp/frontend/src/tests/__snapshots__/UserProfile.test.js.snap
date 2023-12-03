@@ -1,0 +1,101 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UserProfile component snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="user-profile-background"
+  >
+    <button
+      class="UserProfileBackButton"
+    >
+      Back
+    </button>
+    <div
+      class="user-profile-container"
+    >
+      <div
+        class="userprofile-logo"
+      >
+        TurRuter
+      </div>
+      <div>
+        <strong>
+          First Name:
+        </strong>
+        <div
+          class="editable-field"
+        >
+          <div
+            class="field-value-edit"
+          >
+            <span
+              class="field-value"
+            />
+            <span
+              class="edit-text"
+            >
+              Edit
+            </span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <strong>
+          Last Name:
+        </strong>
+        <div
+          class="editable-field"
+        >
+          <div
+            class="field-value-edit"
+          >
+            <span
+              class="field-value"
+            />
+            <span
+              class="edit-text"
+            >
+              Edit
+            </span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <strong>
+          Email:
+        </strong>
+        <div
+          class="editable-field"
+        >
+          <div
+            class="field-value-edit"
+          >
+            <span
+              class="field-value"
+            />
+            <span
+              class="edit-text"
+            >
+              Edit
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        class="profile-action"
+      >
+        <span
+          class="change-password-text"
+        >
+          Change Password
+        </span>
+        <span
+          class="delete-user-text"
+        >
+          Delete User
+        </span>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

@@ -10,3 +10,15 @@ test('UserProfile component renders without crashing', () => {
     </BrowserRouter>
   );
 });
+
+//---------------------------------------------->
+
+// Snapshot test for the UserProfile component
+test('UserProfile component snapshot', () => {
+  const { asFragment } = render(
+    <BrowserRouter>
+      <UserProfile />
+    </BrowserRouter>
+  );
+  expect(asFragment()).toMatchSnapshot();
+});
