@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DeleteRouteButton component snapshot 1`] = `
+<DocumentFragment>
+  <button
+    class="admin-routes-delete-button"
+  >
+    Delete
+  </button>
+</DocumentFragment>
+`;
