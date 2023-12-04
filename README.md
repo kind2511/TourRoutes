@@ -68,7 +68,14 @@ Before beginning, make sure you have installed:
       ```
       npm install
       ```
-    - Create a `config.env` file in the backend directory and fill in the necessary configurations.
+    - Create a `config.env` file in the backend directory and fill in the necessary configurations with this form:
+
+      ```env
+      # NODE_ENV =
+      # PORT=
+      # DATABASE=
+      # TOKEN_SECRET= 
+      ```
 
       <!-- Placeholder for future configuration details -->
 
@@ -88,4 +95,3 @@ Developed by:
 1. Christopher Andreas Kindlien
 2. Ahmad Masoud Mzafar
 3. Omotayo Farouk Lawal
-
