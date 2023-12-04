@@ -10,7 +10,6 @@ Welcome to TurRuter! This project is developed by group5 for PROG2052 at NTNU.
    - [Local Setup](#local-setup)
 3. [Running the Application](#running-the-application)
 4. [Credits](#credits)
-5. [Support](#support)
 
 ## Project Structure
 
@@ -70,18 +69,23 @@ Before beginning, make sure you have installed:
       npm install
       ```
     - Create a `config.env` file in the backend directory and fill in the necessary configurations.
+
+      <!-- Placeholder for future configuration details -->
+
     - Start the backend server:
       ```
       npm start
       ```
 
+4. **Admin Test Credentials**:
+    - To test our application as an Admin, use these credentials:
+      - Email: ahmad@gmail.com
+      - Password: password
+
 ## Credits
 
 Developed by:
-1. [Christopher Andreas Kindlien] - [Email]
-2. [Ahmad Masoud Mzafar] - [Email]
-3. [Omotayo Farouk Lawal] - [Email]
+1. Christopher Andreas Kindlien
+2. Ahmad Masoud Mzafar
+3. Omotayo Farouk Lawal
 
-## Support
-
-In case of any issues, especially with the map or other components, please feel free to contact the developers directly at their respective emails provided above.
