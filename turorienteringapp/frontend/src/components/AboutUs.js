@@ -1,39 +1,31 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';  // Importing the useNavigate hook
+import { useNavigate } from 'react-router-dom';
 import './AboutUs.css';
 
-
-/* function to create segments*/
 function AboutUs() {
-    const text = {
-        welcome: `About Us`,
-        precision: `Our platform has a big map of the whole world. You can see names, places, and addresses everywhere.`,
-        tailored: `You can draw lines on the map to make routes from one place to another. Our tool figures out how far it is and keeps the info safe for you.`,
-        updates: `You can keep your routes private if you don't want others to see them. We care about your privacy.`,
-        share: `Our tool helps you find the quickest way between two places. Just tell it where to go, and it shows you the way.`,
-        voice: `Our app is easy to use and looks nice. It's made for everyone to enjoy using.`,
-        sustainable: `We keep all your data safe. You can trust us with your routes and information.`,
-        conclusion: `Our platform is more than just maps. It's a tool for exploring the world easily to make your travel easy, efficient, and enjoyable.`
-    };
+    // Text for the about us section
+    const aboutText = `
+        TurRuter has a big map of the whole world. You can see names, places, and addresses everywhere. 
+        You can draw lines on the map to make routes from one place to another. Our tool figures out how far it is and 
+        keeps the info safe for you. You can keep your routes private if you don't want others to see them. We care about 
+        your privacy. Our tool helps you find the quickest way between two places. Just tell it where to go, and it shows 
+        you the way. Our app is easy to use and looks nice. It's made for everyone to enjoy using. We keep all your data 
+        safe. You can trust us with your routes and information. Our application is more than just maps. It's a tool for 
+        exploring the world easily to make your travel easy, efficient, and enjoyable.
+    `;
 
-    //Navigate Function
+    // Navigate function from react-router-dom
     const navigate = useNavigate();
 
-    // Function to handle the logo click
+    // Handle logo click to navigate to the homepage
     const handleLogoClick = () => {
-        navigate('/');  // Navigates to the homepage
+        navigate('/');
     };
 
     return (
         <div className="aboutus-container">
-            <div className="aboutus-title">{text.welcome}</div>
-            <div className="aboutus-segment">{text.precision}</div>
-            <div className="aboutus-segment">{text.tailored}</div>
-            <div className="aboutus-segment">{text.updates}</div>
-            <div className="aboutus-segment">{text.share}</div>
-            <div className="aboutus-segment">{text.voice}</div>
-            <div className="aboutus-segment">{text.sustainable}</div>
-            <div className="aboutus-conclusion">{text.conclusion}</div>
+            <div className="aboutus-title">About Us</div>
+            <div className="aboutus-text">{aboutText}</div>
             <div className="aboutus-logo" onClick={handleLogoClick}>TurRuter</div>
         </div>
     );
