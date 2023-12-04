@@ -6,13 +6,13 @@ import './AboutUs.css';
 function AboutUs() {
     const text = {
         welcome: `About Us`,
-        interactiveMapping: `Our platform has a big map of the whole world. You can see names, places, and addresses everywhere.`,
-        routeCreation: `You can draw lines on the map to make routes from one place to another. Our tool figures out how far it is and keeps the info safe for you.`,
-        privacyOptions: `You can keep your routes private if you don't want others to see them. We care about your privacy.`,
-        efficientNavigation: `Our tool helps you find the quickest way between two places. Just tell it where to go, and it shows you the way.`,
-        userFriendlyDesign: `Our app is easy to use and looks nice. It's made for everyone to enjoy using.`,
-        secureDataStorage: `We keep all your data safe. You can trust us with your routes and information.`,
-        conclusion: `Our application is more than just maps. It's a tool for exploring the world easily to make your travel easy, efficient, and enjoyable.`
+        precision: `Our platform has a big map of the whole world. You can see names, places, and addresses everywhere.`,
+        tailored: `You can draw lines on the map to make routes from one place to another. Our tool figures out how far it is and keeps the info safe for you.`,
+        updates: `You can keep your routes private if you don't want others to see them. We care about your privacy.`,
+        share: `Our tool helps you find the quickest way between two places. Just tell it where to go, and it shows you the way.`,
+        voice: `Our app is easy to use and looks nice. It's made for everyone to enjoy using.`,
+        sustainable: `We keep all your data safe. You can trust us with your routes and information.`,
+        conclusion: `Our platfo is more than just maps. It's a tool for exploring the world easily to make your travel easy, efficient, and enjoyable.`
     };
     
     //Navigate Function
