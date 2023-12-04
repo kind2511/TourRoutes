@@ -1,4 +1,4 @@
-.container {
+.aboutus-container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -8,18 +8,23 @@
     position: relative;  /* position the logo relative to the container */
 }
 
-.title {
+.aboutus-title {
     font-size: 2rem;
     margin-bottom: 30px;  
     text-align: center;
-    text-shadow: #2aeb0c;
+    text-shadow: 1px 1px #2aeb0c;
     font-weight: bold; /* Bold font */
 }
 
-.segment {
+.aboutus-segment {
     margin-bottom: 20px; /*create space outside the element segment, space between texts*/
     border-bottom: 1px solid #2aeb0c;  
     padding-bottom: 20px;  /* create space inside the element segment, space beteen texts*/ 
+}
+
+.aboutus-conclusion {
+    font-weight: bold;
+    margin-top: 20px;
 }
 
 .aboutus-logo {
@@ -28,8 +33,6 @@
     font-weight: bold;
     color: #4CAF50;
     text-align: center;
-    position: absolute; /* Absolute positioning within the container */
-    bottom: 1px; /* move logo up-down */
-    right: -200px; /* move the logo to right */
+    margin-top: 40px;
     cursor: pointer; /*When hover on the logo change to hand*/
 }
