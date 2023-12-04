@@ -6,13 +6,13 @@ import './AboutUs.css';
 function AboutUs() {
     const text = {
         welcome: `About Us`,
-        precision: `TurRuter provides accurate navigation solutions for urban explorers. We integrate the latest technology to ensure you always find your way, whether in familiar terrains or new cities.`,
-        tailored: `Our system is designed to personalize your experience. TurRuter records and recalls places you've visited, making it easy to return to spots you enjoyed or to plan new routes based on your preferences.`,
-        updates: `TurRuter offers real-time updates to ensure users are informed about any unexpected changes in their routes. Whether there's a sudden roadblock or an event, our app ensures you’re provided with the most efficient detours.`,
-        share: `TurRuter encourages a sense of community among its users. Discover something interesting? Share it on the platform. Likewise, benefit from the experiences and discoveries of others.`,
-        voice: `User feedback is a cornerstone of TurRuter's development. We are constantly seeking to improve and update our services based on the needs and preferences of our users.`,
-        sustainable: `With growing concerns about the environment, TurRuter provides eco-friendly route options. This feature supports users in making sustainable travel choices.`,
-        conclusion: `TurRuter is not just a navigation tool; it's a comprehensive platform aiming to enhance the overall travel experience. Our commitment is to ensure convenience, reliability, and innovation in every journey you undertake.`
+        interactiveMapping: `Our platform has a big map of the whole world. You can see names, places, and addresses everywhere.`,
+        routeCreation: `You can draw lines on the map to make routes from one place to another. Our tool figures out how far it is and keeps the info safe for you.`,
+        privacyOptions: `You can keep your routes private if you don't want others to see them. We care about your privacy.`,
+        efficientNavigation: `Our tool helps you find the quickest way between two places. Just tell it where to go, and it shows you the way.`,
+        userFriendlyDesign: `Our app is easy to use and looks nice. It's made for everyone to enjoy using.`,
+        secureDataStorage: `We keep all your data safe. You can trust us with your routes and information.`,
+        conclusion: `Our application is more than just maps. It's a tool for exploring the world easily to make your travel easy, efficient, and enjoyable.`
     };
     
     //Navigate Function
