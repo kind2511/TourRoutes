@@ -64,12 +64,12 @@ exports.updateMyProfile = async (req, res) => {
   } catch (err) {
     res.status(400).json({
       status: "fail",
-      message: err,
+      message: "Something went wrong when trying to update your data",
     });
   }
 };
 
-// Controller to uodate the password of the user
+// Controller to update the password of the user
 exports.updateMyPassword = async (req, res) => {
   try {
     // Update user password based on user ID and data from request body
