@@ -1,5 +1,37 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`AboutUs component content verification 1`] = `
+<DocumentFragment>
+  <div
+    class="aboutus-container"
+  >
+    <div
+      class="aboutus-title"
+    >
+      About Us
+    </div>
+    <div
+      class="aboutus-text"
+    >
+      
+        TurRuter has a big map of the whole world. You can see names, places, and addresses everywhere. 
+        You can draw lines on the map to make routes from one place to another. Our tool figures out how far it is and 
+        keeps the info safe for you. You can keep your routes private if you don't want others to see them. We care about 
+        your privacy. Our tool helps you find the quickest way between two places. Just tell it where to go, and it shows 
+        you the way. Our app is easy to use and looks nice. It's made for everyone to enjoy using. We keep all your data 
+        safe. You can trust us with your routes and information. Our application is more than just maps. It's a tool for 
+        exploring the world easily to make your travel easy, efficient, and enjoyable.
+    
+    </div>
+    <div
+      class="aboutus-logo"
+    >
+      TurRuter
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
 exports[`AboutUs component snapshot 1`] = `
 <DocumentFragment>
   <div

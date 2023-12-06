@@ -13,13 +13,13 @@ test('AboutUs component renders without crashing', () => {
 
 //----------------------------------------------->
 
-// Snapshot test for the about us component
-test('AboutUs component snapshot', () => {
+//  Modify Snapshot test for the about us component
+test('AboutUs component content verification', () => {
   const { asFragment } = render(
     <BrowserRouter>
       <AboutUs />
     </BrowserRouter>
   );
   expect(asFragment()).toMatchSnapshot();
-});
 
+});
