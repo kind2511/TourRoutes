@@ -3,7 +3,8 @@ const TourRoute = require("../models/tourRouteModel");
 // Controller to create a new tour route
 exports.newTourRoute = async (req, res) => {
   try {
-    const { name, published ,coordinates } = req.body;
+    // recieves data from client
+    const { name, published, coordinates } = req.body;
 
     // Creates a new tourroute document
     const newTourRoute = new TourRoute({
@@ -66,7 +67,7 @@ exports.getAllPublishedTourRoutes = async (req, res) => {
     // If there's an error in fetching tour routes, send an error response
     res.status(400).json({
       status: "fail",
-      message: err,
+      message: "Could not get all published tour routes",
     });
   }
 };
@@ -88,7 +89,7 @@ exports.getAllTourRoutes = async (req, res) => {
     // If there's an error in fetching tour routes, send an error response
     res.status(400).json({
       status: "fail",
-      message: err,
+      message: "Could not get all tour routes",
     });
   }
 };
@@ -110,7 +111,7 @@ exports.getTourRoute = async (req, res) => {
     // If there's an error in fetching the tour route, send an error response
     res.status(400).json({
       status: "fail",
-      message: err,
+      message: "Could not get tour route",
     });
   }
 };
@@ -135,6 +136,10 @@ exports.deleteTourRoute = async (req, res) => {
   }
 };
 
+//-----------------------------------------------------------------------------------------------------------------
+
+// Not implemented in Application
+
 // Controller to toggle between publish/unpublish field on tour route
 exports.toggleRoute = async (req, res) => {
   try {
@@ -157,3 +162,4 @@ exports.toggleRoute = async (req, res) => {
     });
   }
 };
+

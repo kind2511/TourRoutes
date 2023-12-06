@@ -16,7 +16,7 @@ function generateAccessToken(id, role) {
   });
 }
 
-// Controller to sign up a user
+// Controller to sign up a new user
 exports.signup = async (req, res) => {
   try {
     // Create a new user with the data provided in the request body

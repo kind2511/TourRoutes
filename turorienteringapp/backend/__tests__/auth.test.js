@@ -143,6 +143,7 @@ const mockReqAuth = {
 jest.mock("jsonwebtoken");
 jwt.verify.mockReturnValue({ id: "userId123", role: "user" });
 
+// Testing of the authenticate middleware
 describe("authenticate middleware", () => {
   afterEach(() => {
     jest.clearAllMocks();

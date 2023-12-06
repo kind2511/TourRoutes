@@ -14,7 +14,6 @@ const mockRes = { status: mockStatus, json: mockJson };
 jest.mock("../models/tourRouteModel");
 
 //-----------------------------------------------------------------------------------------------------------
-
 // Mock the TourRoute.find function
 TourRoute.find.mockResolvedValue([
   { routeName: "Route 1" },

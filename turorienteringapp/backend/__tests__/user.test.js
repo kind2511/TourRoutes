@@ -188,7 +188,6 @@ describe("deleteUser controller", () => {
 User.findByIdAndUpdate.mockResolvedValue({ _id: "userId123", role: "admin" });
 
 // Testing of the promote to admin controller
-
 describe("promoteToAdmin controller", () => {
   afterEach(() => {
     jest.clearAllMocks();

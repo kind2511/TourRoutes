@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
-const crypto = require("crypto");
 
 //Creating userSchema
 const userSchema = new mongoose.Schema({
@@ -30,7 +29,7 @@ const userSchema = new mongoose.Schema({
   },
   confirmPassword: {
     type: String,
-    required: [true, "Confirm your password"], // Corrected typo from "passeord" to "password"
+    required: [true, "Confirm your password"], 
     validate: {
       validator: function (password) {
         // check if password and password confirm are equal

@@ -1,6 +1,5 @@
 const express = require("express");
 const authentificationController = require("../controllers/authentificationContoller");
-const userController = require("../controllers/userController");
 const tourRouteController = require("../controllers/tourRouteController");
 const router = express.Router();
 
@@ -28,14 +27,6 @@ router
     tourRouteController.getAllPublishedTourRoutes
   );
 
-// Route to toggle between publish/unpublish field on tour route
-router
-  .route("/toggleRoute/:id")
-  .patch(
-    authentificationController.authenticate,
-    tourRouteController.toggleRoute
-  );
-
 //-------------------------------------------------------------------------------------------------------------
 // Routes for Admin
 
@@ -56,3 +47,16 @@ router
 
 // Exports markerRoutes into the main application
 module.exports = router;
+
+
+//----------------------------------------------------------------------------------------------
+
+// Functionality not implemented
+
+// Route to toggle between publish/unpublish field on tour route
+router
+  .route("/toggleRoute/:id")
+  .patch(
+    authentificationController.authenticate,
+    tourRouteController.toggleRoute
+  );
