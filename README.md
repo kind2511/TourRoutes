@@ -84,10 +84,7 @@ Before beginning, make sure you have installed:
       npm start
       ```
 
-4. **Admin Test Credentials**:
-    - To test our application as an Admin, use these credentials:
-      - Email: ahmad@gmail.com
-      - Password: password
+
 
 ## Credits
 
