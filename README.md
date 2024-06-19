@@ -57,7 +57,7 @@ Before beginning, make sure you have installed:
       ```
       npm install
       ```
-    - Get your mapBoxtoken from mapbox.com
+    - Get your MapBox token from mapbox.com
       
     - Start the frontend server:
       ```
