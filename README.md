@@ -1,6 +1,10 @@
-# TurRuter
+# TourRoutes
 
-Welcome to TurRuter! This project is developed by group5 for PROG2052 at NTNU.
+Welcome to TourRoutes! This project is developed by group5 for PROG2052 at NTNU.
+
+This application lets the user create their own tour routes.
+The users of the application can then decide wheter or not to publish their routes so that other users can use them as well. 
+
 
 ## Table of Contents
 
@@ -13,7 +17,7 @@ Welcome to TurRuter! This project is developed by group5 for PROG2052 at NTNU.
 
 ## Project Structure
 
-The TurRuter project is organized into frontend and backend components:
+The TourRoutes project is organized into frontend and backend components:
 
 - **frontend/**: Contains the React frontend code, which is the user interface.
 - **backend/**: Manages the backend, including API, database connections, and server-side tasks.
@@ -35,7 +39,7 @@ Before beginning, make sure you have installed:
 
 1. **Clone the Repository**:
     ```
-    git clone https://gitlab.stud.idi.ntnu.no/omotayol/group5-prog2052.git
+    git clone https://github.com/kind2511/TourRoutes.git
     ```
     Navigate to the project directory:
     ```
@@ -53,6 +57,8 @@ Before beginning, make sure you have installed:
       ```
       npm install
       ```
+    - Get your mapBoxtoken from mapbox.com
+      
     - Start the frontend server:
       ```
       npm start
@@ -69,9 +75,10 @@ Before beginning, make sure you have installed:
       npm install
       ```
     - Create a `config.env` file in the backend directory and fill in the necessary configurations with this form 
-    - After talking with the professor we were advised not to include this file in the git repo.
-
-      <!-- Placeholder for future configuration details -->
+      * Node_ENV=development
+      * PORT=8000
+      * DATABASE={yourMongoDBConnectionString}
+      * TOKEN_SECRET={yourSecret}
 
     - Start the backend server:
       ```
