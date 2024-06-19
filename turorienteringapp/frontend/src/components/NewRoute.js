@@ -5,7 +5,7 @@ import axios from "axios"; // Used to make HTTP requests
 import "./NewRoute.css";
 
 mapboxgl.accessToken =
-  "pk.eyJ1IjoiY2hyaXNhMjUxMSIsImEiOiJjbGtkcjRhNnkwa3JhM2t1ODFtbHppd2JmIn0.9DC6eUXzdFclnzb_3LCOtg";
+  "pk.eyJ1IjoiY2hyaXNhMjUxMSIsImEiOiJjbHhtMm0wOW4wNTA1MnFxeDV3d2MxcHViIn0.RSaohtL6Itt6WQGAsPqalg";
 
 //New Rute function
 const NewRoute = () => {
